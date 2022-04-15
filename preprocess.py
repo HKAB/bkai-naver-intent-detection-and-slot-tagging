@@ -2,9 +2,7 @@ import string
 import re
 
 def remove_dup(text):
-    """
-      currently not work for 'aaaaâ' -> 'a' 
-    """
+
     def replace(match):
         m = match.group(0)
         try:
@@ -21,7 +19,7 @@ def remove_dup(text):
     unsignChars += string.ascii_letters
 
     d = {k: v for (k, v) in zip(uniChars, unsignChars)}
-    return re.sub(fr'\S([{uniChars}])\1+', replace, text)
+    return re.sub(fr'\S([{uniChars}])\1+\S*', replace, text)
 
 
 def preprocess(text):
@@ -29,5 +27,5 @@ def preprocess(text):
     return text
    
 if __name__ == '__main__':
-    text = 'mình cần bạn tăng nhiệt tvs thứ 1 lên 5 phần trăm ở phòng ăn tối 4 nháaaaaaa'
+    text = 'mình cần bạn tăng nhiệt tvs thứ 1 lên 5 phần trăm ở phòng ăn tối 4 nháaaaaaâ'
     print(preprocess(text))
