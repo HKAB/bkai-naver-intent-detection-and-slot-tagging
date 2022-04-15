@@ -5,12 +5,9 @@ def remove_dup(text):
 
     def replace(match):
         m = match.group(0)
-        try:
-            if d[m[0]] == d[m[1]]:
-                return m[0]
-            else:
-                return m[0] + m[1]
-        except:
+        if d[m[0]] == d[m[1]]:
+            return m[0]
+        else:
             return m[0] + m[1]
     
     uniChars = "àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆĐÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴÂĂĐÔƠƯ"
@@ -19,7 +16,7 @@ def remove_dup(text):
     unsignChars += string.ascii_letters
 
     d = {k: v for (k, v) in zip(uniChars, unsignChars)}
-    return re.sub(fr'\S([{uniChars}])\1+\S*', replace, text)
+    return re.sub(fr'\S([{uniChars}])\1+', replace, text)
 
 
 def preprocess(text):
