@@ -50,6 +50,12 @@ $ python3 main.py --task snips \
                   --model_type bert \
                   --model_dir snips_model \
                   --do_train --do_eval
+
+# For Bkai
+$ python3 main.py --task bkai \
+                  --model_type bert \
+                  --model_dir snips_model \
+                  --do_train --do_eval
 ```
 
 ## Prediction

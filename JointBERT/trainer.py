@@ -74,6 +74,7 @@ class Trainer(object):
 
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
+            epoch_loss = -100
             for step, batch in enumerate(epoch_iterator):
                 self.model.train()
                 batch = tuple(t.to(self.device) for t in batch)  # GPU or CPU
@@ -101,15 +102,20 @@ class Trainer(object):
                     self.model.zero_grad()
                     global_step += 1
 
-                    if self.args.logging_steps > 0 and global_step % self.args.logging_steps == 0:
-                        self.evaluate("dev")
+                    # if self.args.logging_steps > 0 and global_step % self.args.logging_steps == 0:
+                    #     self.evaluate("dev")
 
-                    if self.args.save_steps > 0 and global_step % self.args.save_steps == 0:
-                        self.save_model()
+                    # if self.args.save_steps > 0 and global_step % self.args.save_steps == 0:
+                    #     self.save_model()
 
                 if 0 < self.args.max_steps < global_step:
                     epoch_iterator.close()
                     break
+            # save the best epoch
+            epoch_result = self.evaluate("dev")
+            if (epoch_result['loss'] < epoch_loss):
+                self.save_model()
+                epoch_loss = epoch_result['loss']
 
             if 0 < self.args.max_steps < global_step:
                 train_iterator.close()

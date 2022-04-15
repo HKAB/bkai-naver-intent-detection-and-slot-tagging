@@ -194,32 +194,32 @@ def predict(pred_config):
             if all_slot_label_mask[i, j] != pad_token_label_id:
                 slot_preds_list[i].append(slot_label_map[slot_preds[i][j]])
 
-    with open(pred_config.intent_output_file, "w", encoding="utf-8") as f:
-        content = ""
-        for intent_pred in intent_preds:
-            content = content + intent_label_lst[intent_pred] + "\n"
-        f.write(content)
+    # with open(pred_config.intent_output_file, "w", encoding="utf-8") as f:
+    #     content = ""
+    #     for intent_pred in intent_preds:
+    #         content = content + intent_label_lst[intent_pred] + "\n"
+    #     f.write(content)
 
-    with open(pred_config.slot_output_file, "w", encoding="utf-8") as f:
-        content = ""
-        for sent in slot_preds_list:
-            line = ""
-            for slot_pred in sent:
-                line = line + slot_pred + " "
-            content = content + line.strip() + "\n"
-        f.write(content)
+    # with open(pred_config.slot_output_file, "w", encoding="utf-8") as f:
+    #     content = ""
+    #     for sent in slot_preds_list:
+    #         line = ""
+    #         for slot_pred in sent:
+    #             line = line + slot_pred + " "
+    #         content = content + line.strip() + "\n"
+    #     f.write(content)
 
 
     # Write to output file
-    # with open(pred_config.output_file, "w", encoding="utf-8") as f:
-    #     for words, slot_preds, intent_pred in zip(lines, slot_preds_list, intent_preds):
-    #         line = ""
-    #         for word, pred in zip(words, slot_preds):
-    #             if pred == 'O':
-    #                 line = line + word + " "
-    #             else:
-    #                 line = line + "[{}:{}] ".format(word, pred)
-    #         f.write("<{}> -> {}\n".format(intent_label_lst[intent_pred], line.strip()))
+    with open(pred_config.output_file, "w", encoding="utf-8") as f:
+        for words, slot_preds, intent_pred in zip(lines, slot_preds_list, intent_preds):
+            line = ""
+            for word, pred in zip(words, slot_preds):
+                # if pred == 'O':
+                line = line + pred + " "
+                # else:
+                #     line = line + "[{}:{}] ".format(word, pred)
+            f.write("{}, {}\n".format(intent_label_lst[intent_pred], line.strip()))
 
     logger.info("Prediction Done!")
 
@@ -229,8 +229,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--input_file", default="sample_pred_in.txt", type=str, help="Input file for prediction")
-    parser.add_argument("--intent_output_file", default="label", type=str, help="Output file for intent prediction")
-    parser.add_argument("--slot_output_file", default="seq.out", type=str, help="Output file for slot prediction")
+    parser.add_argument("--output_file", default="results.csv", type=str, help="Output file for prediction")
     parser.add_argument("--model_dir", default="./atis_model", type=str, help="Path to save, load model")
 
     parser.add_argument("--batch_size", default=32, type=int, help="Batch size for prediction")
