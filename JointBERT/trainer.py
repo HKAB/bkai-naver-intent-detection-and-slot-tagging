@@ -74,7 +74,7 @@ class Trainer(object):
 
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
-            epoch_loss = -100
+            best_sementic_frame_acc = -100
             for step, batch in enumerate(epoch_iterator):
                 self.model.train()
                 batch = tuple(t.to(self.device) for t in batch)  # GPU or CPU
@@ -113,9 +113,9 @@ class Trainer(object):
                     break
             # save the best epoch
             epoch_result = self.evaluate("dev")
-            if (epoch_result['loss'] < epoch_loss):
+            if (epoch_result['sementic_frame_acc'] < best_sementic_frame_acc):
                 self.save_model()
-                epoch_loss = epoch_result['loss']
+                best_sementic_frame_acc = epoch_result['sementic_frame_acc']
 
             if 0 < self.args.max_steps < global_step:
                 train_iterator.close()

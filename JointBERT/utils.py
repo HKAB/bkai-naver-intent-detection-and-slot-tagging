@@ -15,14 +15,16 @@ MODEL_CLASSES = {
     'bert': (BertConfig, JointBERT, BertTokenizer),
     'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
-    'phobert': (BertConfig, JointPhoBERT, AutoTokenizer),
+    'phobert-base': (BertConfig, JointPhoBERT, AutoTokenizer),
+    'phobert-large': (BertConfig, JointPhoBERT, AutoTokenizer),
 }
 
 MODEL_PATH_MAP = {
     'bert': 'bert-base-uncased',
     'distilbert': 'distilbert-base-uncased',
     'albert': 'albert-xxlarge-v1',
-    'phobert': 'vinai/phobert-base'
+    'phobert-base': 'vinai/phobert-base',
+    'phobert-large': 'vinai/phobert-large',
 }
 
 
