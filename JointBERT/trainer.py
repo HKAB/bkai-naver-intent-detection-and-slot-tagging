@@ -71,7 +71,7 @@ class Trainer(object):
         self.model.zero_grad()
 
         train_iterator = trange(int(self.args.num_train_epochs), desc="Epoch")
-
+        is_saved = False
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
             best_sementic_frame_acc = -100
@@ -115,11 +115,14 @@ class Trainer(object):
             epoch_result = self.evaluate("dev")
             if (epoch_result['sementic_frame_acc'] < best_sementic_frame_acc):
                 self.save_model()
+                is_saved = True
                 best_sementic_frame_acc = epoch_result['sementic_frame_acc']
 
             if 0 < self.args.max_steps < global_step:
                 train_iterator.close()
                 break
+        if (not is_saved):
+            self.save_model()
 
         return global_step, tr_loss / global_step
 
