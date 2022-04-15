@@ -24,5 +24,5 @@ def preprocess(text):
     return text
    
 if __name__ == '__main__':
-    text = 'mình cần bạn tăng nhiệt tvs thứ 1 lên 5 phần trăm ở phòng ăn tối 4 nháaaaaaâ'
+    text = 'mình cần bạn tăng nhiệt tvs thứ 1 lên 5 phần trăm ở phòng ăn tối 4 nháaaaaa'
     print(preprocess(text))
