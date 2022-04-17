@@ -80,16 +80,19 @@ def convert_input_file_to_tensor_dataset(lines,
     all_attention_mask = []
     all_token_type_ids = []
     all_slot_label_mask = []
+    all_slot_offset = []
 
     for words in lines:
         tokens = []
         slot_label_mask = []
+        slot_offset = []
         for word in words:
             word_tokens = tokenizer.tokenize(word)
             if not word_tokens:
                 word_tokens = [unk_token]  # For handling the bad-encoded word
             tokens.extend(word_tokens)
             # Use the real label id for the first token of the word, and padding ids for the remaining tokens
+            slot_offset.append(len(word.split("_")))
             slot_label_mask.extend([pad_token_label_id + 1] + [pad_token_label_id] * (len(word_tokens) - 1))
 
         # Account for [CLS] and [SEP]
@@ -124,6 +127,7 @@ def convert_input_file_to_tensor_dataset(lines,
         all_attention_mask.append(attention_mask)
         all_token_type_ids.append(token_type_ids)
         all_slot_label_mask.append(slot_label_mask)
+        all_slot_offset.append(slot_offset)
 
     # Change to Tensor
     all_input_ids = torch.tensor(all_input_ids, dtype=torch.long)
@@ -133,7 +137,7 @@ def convert_input_file_to_tensor_dataset(lines,
 
     dataset = TensorDataset(all_input_ids, all_attention_mask, all_token_type_ids, all_slot_label_mask)
 
-    return dataset
+    return dataset, all_slot_offset
 
 
 def predict(pred_config):
@@ -152,7 +156,7 @@ def predict(pred_config):
     pad_token_label_id = intent_args.ignore_index
     tokenizer = load_tokenizer(intent_args)
     lines = read_input_file(pred_config)
-    dataset = convert_input_file_to_tensor_dataset(lines, pred_config, intent_args, tokenizer, pad_token_label_id)
+    dataset, all_slot_offset = convert_input_file_to_tensor_dataset(lines, pred_config, intent_args, tokenizer, pad_token_label_id)
 
     # Predict
     sampler = SequentialSampler(dataset)
@@ -203,12 +207,14 @@ def predict(pred_config):
                 else:
                     slot_preds = slot_logits.detach().cpu().numpy()
                 all_slot_label_mask = batch[3].detach().cpu().numpy()
+                # all_slot_offset = batch[4]
             else:
                 if slot_filling_args.use_crf:
                     slot_preds = np.append(slot_preds, np.array(model.crf.decode(slot_logits)), axis=0)
                 else:
                     slot_preds = np.append(slot_preds, slot_logits.detach().cpu().numpy(), axis=0)
                 all_slot_label_mask = np.append(all_slot_label_mask, batch[3].detach().cpu().numpy(), axis=0)
+                # all_slot_offset = all_slot_offset.append(batch[4])
                 
     intent_preds = np.argmax(intent_preds, axis=1)
 
@@ -222,6 +228,22 @@ def predict(pred_config):
         for j in range(slot_preds.shape[1]):
             if all_slot_label_mask[i, j] != pad_token_label_id:
                 slot_preds_list[i].append(slot_label_map[slot_preds[i][j]])
+
+    # handle offset
+    post_process_slot_preds_list = []
+    for i, line in enumerate(slot_preds_list):
+        post_process_slot_preds = []
+        for j, slot in enumerate(line):
+            # Follow by B is I
+            if ("B-" in slot_preds_list[i][j]):
+                for _ in range(all_slot_offset[i][j]):
+                    post_process_slot_preds.append(slot_preds_list[i][j].replace("B-", "I-"))
+            else:
+                # Follow by I is I, O is O
+                for _ in range(all_slot_offset[i][j]):
+                    post_process_slot_preds.append(slot_preds_list[i][j])
+        post_process_slot_preds_list.append(post_process_slot_preds)
+
 
     # with open(pred_config.intent_output_file, "w", encoding="utf-8") as f:
     #     content = ""
@@ -241,9 +263,9 @@ def predict(pred_config):
 
     # Write to output file
     with open(pred_config.output_file, "w", encoding="utf-8") as f:
-        for words, slot_preds, intent_pred in zip(lines, slot_preds_list, intent_preds):
+        for slot_preds, intent_pred in zip(post_process_slot_preds_list, intent_preds):
             line = ""
-            for word, pred in zip(words, slot_preds):
+            for pred in slot_preds:
                 # if pred == 'O':
                 line = line + pred + " "
                 # else:

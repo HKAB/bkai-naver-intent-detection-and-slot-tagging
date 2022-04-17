@@ -72,7 +72,7 @@ class JointProcessor(object):
         self.intent_labels = get_intent_labels(args)
         self.slot_labels = get_slot_labels(args)
 
-        self.input_text_file = 'seq.in'
+        self.input_text_file = 'seq_segment.in'
         self.intent_label_file = 'label'
         self.slot_labels_file = 'seq.out'
 
@@ -83,7 +83,6 @@ class JointProcessor(object):
             lines = []
             for line in f:
                 lines.append(line.strip())
-                break
             return lines
 
     def _create_examples(self, texts, intents, slots, set_type):
@@ -97,8 +96,23 @@ class JointProcessor(object):
             intent_label = self.intent_labels.index(intent) if intent in self.intent_labels else self.intent_labels.index("UNK")
             # 3. slot
             slot_labels = []
-            for s in slot.split():
-                slot_labels.append(self.slot_labels.index(s) if s in self.slot_labels else self.slot_labels.index("UNK"))
+
+            # handle segmentation
+            raw_slot = slot.split()
+
+            for i in range(len(words)):
+                if ("_" not in words[i]):
+                    slot_labels.append(self.slot_labels.index(raw_slot[i]) \
+                                            if raw_slot[i] in self.slot_labels \
+                                            else self.slot_labels.index("UNK"))
+                else:
+                    # if the word is segmented, use the label of the first segment
+                    s = raw_slot[i].split("_")[0]
+                    slot_labels.append(self.slot_labels.index(s) \
+                                            if s in self.slot_labels \
+                                            else self.slot_labels.index("UNK"))
+                    for _ in range(len(raw_slot[i].split("_")) - 1):
+                        i = i + 1
 
             assert len(words) == len(slot_labels)
             examples.append(InputExample(guid=guid, words=words, intent_label=intent_label, slot_labels=slot_labels))
