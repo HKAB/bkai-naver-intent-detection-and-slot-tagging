@@ -48,7 +48,7 @@ class SlotFillingPhoBERT(RobertaPreTrainedModel):
                 slot_loss_fct = nn.CrossEntropyLoss(ignore_index=self.args.ignore_index)
                 # Only keep active parts of the loss
                 if attention_mask is not None:
-                    W = attention_mask.view(-1) == 1
+                    active_loss = attention_mask.view(-1) == 1
                     active_logits = slot_logits.view(-1, self.num_slot_labels)[active_loss]
                     active_labels = slot_labels_ids.view(-1)[active_loss]
                     slot_loss = slot_loss_fct(active_logits, active_labels)

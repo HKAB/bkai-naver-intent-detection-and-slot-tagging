@@ -107,7 +107,7 @@ class JointProcessor(object):
                                             else self.slot_labels.index("UNK"))
                 else:
                     # if the word is segmented, use the label of the first segment
-                    s = raw_slot[i].split("_")[0]
+                    s = raw_slot[i]
                     slot_labels.append(self.slot_labels.index(s) \
                                             if s in self.slot_labels \
                                             else self.slot_labels.index("UNK"))

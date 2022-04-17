@@ -236,7 +236,8 @@ def predict(pred_config):
         for j, slot in enumerate(line):
             # Follow by B is I
             if ("B-" in slot_preds_list[i][j]):
-                for _ in range(all_slot_offset[i][j]):
+                post_process_slot_preds.append(slot_preds_list[i][j])
+                for _ in range(all_slot_offset[i][j] - 1):
                     post_process_slot_preds.append(slot_preds_list[i][j].replace("B-", "I-"))
             else:
                 # Follow by I is I, O is O
