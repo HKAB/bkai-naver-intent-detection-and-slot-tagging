@@ -32,10 +32,15 @@ def get_span_and_ent(text, label):
         span_list.append(curr_span)
     return span_list
 
+def expand_tag(label, length):
+    return [f'B-{label}'] + [f'I-{label}'] * (length - 1)
+
 def slotsub(sent, label, num_samples = 1):
     text_list = sent.split()
     label_list = label.split()
     span = get_span_and_ent(text_list, label_list)
+    if len(span) == 0:
+        return None
 
     ent_dict = get_ent_dict()
 
@@ -43,13 +48,15 @@ def slotsub(sent, label, num_samples = 1):
     selected_span = span[selected_span_id]
     substitute = random.sample(ent_dict[selected_span['label']], k = num_samples)
     new_sent = [text_list[:selected_span['start']] + s.split() + text_list[selected_span['end'] + 1:] for s in substitute]
-    new_span = []
-    for s in substitute:
-        selected_span['entity'] = s
-        selected_span['end'] = selected_span['start'] + len(s.split())
-        new_span.append(selected_span)
+    raw_label = [expand_tag(selected_span['label'], len(s.split())) for s in substitute]
+    new_label = [label_list[:selected_span['start']] + l + label_list[selected_span['end'] + 1:] for l in raw_label]
+    # new_span = []
+    # for s in substitute:
+    #     selected_span['entity'] = s
+    #     selected_span['end'] = selected_span['start'] + len(s.split())
+    #     new_span.append(selected_span)
 
-    return new_sent, new_span
+    return new_sent, new_label
 
 if __name__ == '__main__':
     text = 'bạn có thể tăng giúp mình bóng chùm thứ 3 lên mức 21 phần trăm được không'
