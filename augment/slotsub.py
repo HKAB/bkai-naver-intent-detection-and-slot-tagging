@@ -61,10 +61,10 @@ def expand_tag(label, length):
     return [f'B-{label}'] + [f'I-{label}'] * (length - 1)
 
 def change_numbers(text):
-    numbers = re.findall(r'\d+', a)
-    new_nums = [random.randint(1, 9) for _ in range(len(numbers))]
-    for old_num, new_num in zip(numbers, new_nums):
-        text = re.sub(fr'\b{old_num}\b', fr'{new_num}', a)
+    # numbers = re.findall(r'\d+', a)
+    # new_nums = [random.randint(1, 9) for _ in range(len(numbers))]
+    # for old_num, new_num in zip(numbers, new_nums):
+    #     text = re.sub(fr'\b{old_num}\b', fr'{new_num}', a)
     percent = random.randint(1, 99)
     text = re.sub(r'[0-9]* phần trăm', fr'{percent} phần trăm', text)
     return text
@@ -96,7 +96,7 @@ def slotsub(sent, label, num_samples = 1):
     #     selected_span['end'] = selected_span['start'] + len(s.split())
     #     new_span.append(selected_span)
     new_sent = [' '.join(s) for s in new_sent]
-    # new_sent = [change_numbers(s) for s in new_sent]
+    new_sent = [change_numbers(s) for s in new_sent]
     new_label = [' '.join(l) for l in new_label]
     return new_sent, new_label
 
