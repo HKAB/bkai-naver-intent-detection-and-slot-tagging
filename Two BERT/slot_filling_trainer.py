@@ -7,7 +7,7 @@ import torch
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import BertConfig, AdamW, get_linear_schedule_with_warmup
 
-from utils import MODEL_CLASSES, compute_metrics, get_intent_labels, get_slot_labels, get_slot_metrics
+from utils import MODEL_CLASSES, CACHE_DIR, compute_metrics, get_intent_labels, get_slot_labels, get_slot_metrics
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +29,8 @@ class SlotFillingTrainer(object):
         self.model = self.model_class.from_pretrained(args.model_name_or_path,
                                                       config=self.config,
                                                       args=args,
-                                                      slot_label_lst=self.slot_label_lst)
+                                                      slot_label_lst=self.slot_label_lst,
+                                                      cache_dir=CACHE_DIR)
 
         # GPU or CPU
         self.device = "cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu"

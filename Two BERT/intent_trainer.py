@@ -7,7 +7,7 @@ import torch
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import BertConfig, AdamW, get_linear_schedule_with_warmup
 
-from utils import MODEL_CLASSES, compute_metrics, get_intent_labels, get_slot_labels, get_intent_acc
+from utils import MODEL_CLASSES, CACHE_DIR, compute_metrics, get_intent_labels, get_slot_labels, get_intent_acc
 
 logger = logging.getLogger(__name__)
 
@@ -25,11 +25,13 @@ class IntentTrainer(object):
         self.pad_token_label_id = args.ignore_index
 
         self.config_class, self.model_class, _ = MODEL_CLASSES[args.model_type]
-        self.config = self.config_class.from_pretrained(args.model_name_or_path, finetuning_task=args.task)
-        self.model = self.model_class.from_pretrained(args.model_name_or_path,
-                                                      config=self.config,
-                                                      args=args,
-                                                      intent_label_lst=self.intent_label_lst)
+        self.config = self.config_class.from_pretrained(    args.model_name_or_path, \
+                                                            finetuning_task=args.task)
+        self.model = self.model_class.from_pretrained(  args.model_name_or_path,
+                                                        config=self.config,
+                                                        args=args,
+                                                        intent_label_lst=self.intent_label_lst,
+                                                        cache_dir=CACHE_DIR)
 
         # GPU or CPU
         self.device = "cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu"

@@ -9,27 +9,38 @@ from seqeval.metrics import precision_score, recall_score, f1_score
 from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
 from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
 
-from model import JointBERT, JointDistilBERT, JointAlbert, JointPhoBERT, IntentPhoBERT, SlotFillingPhoBERT
+from model import   JointBERT, JointDistilBERT, JointAlbert, \
+                    JointPhoBERT, IntentEnviBERT, SlotFillingEnviBERT
+
+from importlib.machinery import SourceFileLoader
+from transformers.file_utils import cached_path, hf_bucket_url
 
 MODEL_CLASSES = {
     'bert': (BertConfig, JointBERT, BertTokenizer),
     'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
-    'intent-phobert-base': (RobertaConfig, IntentPhoBERT, AutoTokenizer),
-    'intent-phobert-large': (RobertaConfig, IntentPhoBERT, AutoTokenizer),
-    'slot-filling-phobert-base': (RobertaConfig, SlotFillingPhoBERT, AutoTokenizer),
-    'slot-filling-phobert-large': (RobertaConfig, SlotFillingPhoBERT, AutoTokenizer),
+    'intent-envibert': (RobertaConfig, IntentEnviBERT, AutoTokenizer),
+    'slot-filling-envibert': (RobertaConfig, SlotFillingEnviBERT, AutoTokenizer),
 }
 
 MODEL_PATH_MAP = {
     'bert': 'bert-base-uncased',
     'distilbert': 'distilbert-base-uncased',
     'albert': 'albert-xxlarge-v1',
-    'intent-phobert-base': 'vinai/phobert-base',
-    'intent-phobert-large': 'vinai/phobert-large',
-    'slot-filling-phobert-base': 'vinai/phobert-base',
-    'slot-filling-phobert-large': 'vinai/phobert-large',
+    'intent-envibert': 'nguyenvulebinh/envibert',
+    'slot-filling-envibert': 'nguyenvulebinh/envibert',
 }
+
+CACHE_DIR = "./model/cache"
+
+# Source: https://github.com/nguyenvulebinh/vietnamese-roberta
+def download_tokenizer_files(model_type):
+  resources = ['envibert_tokenizer.py', 'dict.txt', 'sentencepiece.bpe.model']
+  for item in resources:
+    if not os.path.exists(os.path.join(CACHE_DIR, item)):
+      tmp_file = hf_bucket_url(MODEL_PATH_MAP[model_type], filename=item)
+      tmp_file = cached_path(tmp_file, cache_dir=CACHE_DIR)
+      os.rename(tmp_file, os.path.join(CACHE_DIR, item))
 
 
 def get_intent_labels(args):
@@ -41,6 +52,11 @@ def get_slot_labels(args):
 
 
 def load_tokenizer(args):
+    if ("envibert" in args.model_type):
+        download_tokenizer_files(args.model_type)
+        return SourceFileLoader(    "envibert.tokenizer", \
+                                    os.path.join(CACHE_DIR,'envibert_tokenizer.py')) \
+                                .load_module().RobertaTokenizer(CACHE_DIR)
     return MODEL_CLASSES[args.model_type][2].from_pretrained(args.model_name_or_path)
 
 

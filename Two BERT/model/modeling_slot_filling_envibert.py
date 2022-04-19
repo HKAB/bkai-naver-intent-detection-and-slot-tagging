@@ -5,9 +5,9 @@ from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
 
-class SlotFillingPhoBERT(RobertaPreTrainedModel):
+class SlotFillingEnviBERT(RobertaPreTrainedModel):
     def __init__(self, config, args, slot_label_lst):
-        super(SlotFillingPhoBERT, self).__init__(config)
+        super(SlotFillingEnviBERT, self).__init__(config)
         self.args = args
         # self.num_intent_labels = len(intent_label_lst)
         self.num_slot_labels = len(slot_label_lst)

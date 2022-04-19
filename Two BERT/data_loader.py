@@ -96,23 +96,8 @@ class JointProcessor(object):
             intent_label = self.intent_labels.index(intent) if intent in self.intent_labels else self.intent_labels.index("UNK")
             # 3. slot
             slot_labels = []
-
-            # handle segmentation
-            raw_slot = slot.split()
-
-            for i in range(len(words)):
-                if ("_" not in words[i]):
-                    slot_labels.append(self.slot_labels.index(raw_slot[i]) \
-                                            if raw_slot[i] in self.slot_labels \
-                                            else self.slot_labels.index("UNK"))
-                else:
-                    # if the word is segmented, use the label of the first segment
-                    s = raw_slot[i]
-                    slot_labels.append(self.slot_labels.index(s) \
-                                            if s in self.slot_labels \
-                                            else self.slot_labels.index("UNK"))
-                    for _ in range(len(raw_slot[i].split("_")) - 1):
-                        i = i + 1
+            for s in slot.split():
+                slot_labels.append(self.slot_labels.index(s) if s in self.slot_labels else self.slot_labels.index("UNK"))
 
             assert len(words) == len(slot_labels)
             examples.append(InputExample(guid=guid, words=words, intent_label=intent_label, slot_labels=slot_labels))

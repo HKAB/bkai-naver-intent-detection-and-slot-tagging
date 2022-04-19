@@ -5,9 +5,9 @@ from torchcrf import CRF
 from .module import IntentClassifier
 
 
-class IntentPhoBERT(RobertaPreTrainedModel):
+class IntentEnviBERT(RobertaPreTrainedModel):
     def __init__(self, config, args, intent_label_lst):
-        super(IntentPhoBERT, self).__init__(config)
+        super(IntentEnviBERT, self).__init__(config)
         self.args = args
         self.num_intent_labels = len(intent_label_lst)
         self.bert = RobertaModel(config=config)  # Load pretrained bert

@@ -114,4 +114,5 @@ VnCoreNLP-master/
 
 .DS_Store
 cached*
+cache/
 sample_pred_out.txt
