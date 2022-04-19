@@ -31,7 +31,7 @@ MODEL_PATH_MAP = {
     'slot-filling-envibert': 'nguyenvulebinh/envibert',
 }
 
-CACHE_DIR = "./model/cache"
+CACHE_DIR = "./cache"
 
 # Source: https://github.com/nguyenvulebinh/vietnamese-roberta
 def download_tokenizer_files(model_type):

@@ -73,9 +73,9 @@ class IntentTrainer(object):
 
         train_iterator = trange(int(self.args.num_train_epochs), desc="Epoch")
         is_saved = False
+        best_intent_acc = -100
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
-            best_intent_acc = -100
             for step, batch in enumerate(epoch_iterator):
                 self.model.train()
                 batch = tuple(t.to(self.device) for t in batch)  # GPU or CPU
@@ -114,7 +114,7 @@ class IntentTrainer(object):
                     break
             # save the best epoch
             epoch_result = self.evaluate("dev")
-            if (epoch_result['intent_acc'] < best_intent_acc):
+            if (epoch_result['intent_acc'] > best_intent_acc):
                 self.save_model()
                 is_saved = True
                 best_intent_acc = epoch_result['intent_acc']

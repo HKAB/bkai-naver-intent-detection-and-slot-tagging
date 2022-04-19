@@ -72,9 +72,9 @@ class SlotFillingTrainer(object):
 
         train_iterator = trange(int(self.args.num_train_epochs), desc="Epoch")
         is_saved = False
+        best_slot_precision= -100
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
-            best_slot_precision= -100
             for step, batch in enumerate(epoch_iterator):
                 self.model.train()
                 batch = tuple(t.to(self.device) for t in batch)  # GPU or CPU
@@ -112,7 +112,7 @@ class SlotFillingTrainer(object):
                     break
             # save the best epoch
             epoch_result = self.evaluate("dev")
-            if (epoch_result['slot_precision'] < best_slot_precision):
+            if (epoch_result['slot_precision'] > best_slot_precision):
                 self.save_model()
                 is_saved = True
                 best_slot_precision = epoch_result['slot_precision']
