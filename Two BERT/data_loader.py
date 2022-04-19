@@ -72,7 +72,7 @@ class JointProcessor(object):
         self.intent_labels = get_intent_labels(args)
         self.slot_labels = get_slot_labels(args)
 
-        self.input_text_file = 'seq_segment.in'
+        self.input_text_file = 'seq.in'
         self.intent_label_file = 'label'
         self.slot_labels_file = 'seq.out'
 
