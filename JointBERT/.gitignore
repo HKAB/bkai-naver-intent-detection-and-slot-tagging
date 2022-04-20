@@ -107,7 +107,12 @@ venv.bak/
 .vscode/
 .idea/
 bkai_model/
+bkai_intent_model/
+bkai_slot_filling_model/
+*.csv
+VnCoreNLP-master/
 
 .DS_Store
 cached*
+cache/
 sample_pred_out.txt

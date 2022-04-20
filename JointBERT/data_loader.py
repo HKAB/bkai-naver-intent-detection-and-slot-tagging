@@ -117,7 +117,8 @@ class JointProcessor(object):
 
 
 processors = {
-    "bkai": JointProcessor
+    "bkai": JointProcessor,
+    "bkai-augment": JointProcessor
 }
 
 
