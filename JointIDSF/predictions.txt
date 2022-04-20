@@ -1,0 +1,392 @@
+<smart.home.check.status> -> anh ơi thiết bị là [đầy:B-commandcommand] [đủ:I-commandcommand] [rgb:B-devicedevice] [4:I-devicedevice]
+<smart.home.decrease.percentage> -> chào giảm giúp tôi [đèn:B-devicedevice] [hoa:I-devicedevice] trong [phòng:B-roomroom] [con:I-roomroom]
+<smart.home.set.percentage> -> làm ơn [hạ:B-commandcommand] [xuống:I-commandcommand] đỡ [đèn:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] [1:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] giúp tôi
+<smart.home.decrease.level> -> tôi muốn giảm độ sáng của [đèn:B-devicedevice] [ngủ:I-devicedevice] [2:I-devicedevice]
+<smart.home.decrease.percentage> -> [nút:B-devicedevice] [ấn:I-devicedevice] [3:I-devicedevice] to quá giảm còn [18:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] giúp tôi
+<smart.home.decrease.level> -> tôi muốn giảm độ sáng của [bóng:B-devicedevice] [hoa:I-devicedevice] [2:I-devicedevice]
+<smart.home.check.status> -> chào bạn kiểm soát được [điện:B-devicedevice] ở [vườn:B-roomroom] [sau:I-roomroom] [2:I-roomroom] trong [nhà:B-roomroom] không
+<smart.home.decrease.level> -> tôi muốn giảm độ sáng của [kịch:B-devicedevice] [bản:I-devicedevice] [3:I-devicedevice]
+<smart.home.check.status> -> chào bạn kiểm soát được [bóng:B-devicedevice] [compact:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [ông:I-roomroom] [bà:I-roomroom] [4:I-roomroom] trong [nhà:B-roomroom] không
+<smart.home.decrease.percentage> -> bạn cho cái [đèn:B-devicedevice] [vách:I-devicedevice] [4:I-devicedevice] xuống [7:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] hộ tôi với
+<smart.home.check.status> -> chào bạn kiểm soát được [đèn:B-devicedevice] [sân:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [ăn:I-roomroom] [3:I-roomroom] trong [nhà:B-roomroom] không
+<smart.home.decrease.level> -> giúp tui giảm thiết bị [đèn:B-devicedevice] [bàn:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.decrease.percentage> -> bạn cho cái [cảnh:B-devicedevice] xuống [2:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] hộ tôi với
+<smart.home.decrease.percentage> -> chào giảm giúp tôi [đèn:B-devicedevice] trong [phòng:B-roomroom] [nữ:I-roomroom]
+<smart.home.decrease.level> -> giúp tui giảm thiết bị [rèm:B-devicedevice] [ngang:I-devicedevice]
+<smart.home.set.percentage> -> làm ơn [hạ:B-commandcommand] [thấp:I-commandcommand] đỡ [bóng:B-devicedevice] [đứng:I-devicedevice] [2:I-devicedevice] [7:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] giúp tôi
+<smart.home.decrease.percentage> -> giảm giúp mình [màn:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [thu:I-roomroom] [âm:I-roomroom] xuống mức [24:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] với
+<smart.home.decrease.percentage> -> giảm giúp mình [bình:B-devicedevice] [nóng:I-devicedevice] [lạnh:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [thí:I-roomroom] [nghiệm:I-roomroom] [1:I-roomroom] xuống mức [22:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] với
+<smart.home.decrease.percentage> -> [chiết:B-devicedevice] [áp:I-devicedevice] [2:I-devicedevice] to quá giảm còn [19:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] giúp tôi
+<smart.home.check.status> -> anh ơi thiết bị là [đầy:B-commandcommand] [đủ:I-commandcommand] [màn:B-devicedevice] [cửa:I-devicedevice] [đơn:I-devicedevice]
+<smart.home.check.status> -> chào bạn kiểm soát được [bóng:B-devicedevice] [downlight:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [trai:I-roomroom] [5:I-roomroom] trong [nhà:B-roomroom] không
+<smart.home.decrease.percentage> -> giảm giúp mình [bóng:B-devicedevice] [để:I-devicedevice] [bàn:I-devicedevice] ở [cầu:B-roomroom] [thang:I-roomroom] xuống mức [30:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] với
+<smart.home.decrease.percentage> -> giảm giúp mình [tv:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [sân:B-roomroom] [trước:I-roomroom] xuống mức [1:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] với
+<smart.home.set.percentage> -> làm ơn [giảm:B-commandcommand] [đi:I-commandcommand] đỡ [đèn:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [30:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] giúp tôi
+<smart.home.check.status> -> anh ơi thiết bị là [đầy:B-commandcommand] [đủ:I-commandcommand] [quạt:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] [3:I-devicedevice]
+<smart.home.decrease.percentage> -> [ti:B-devicedevice] [vi:I-devicedevice] [to:I-devicedevice] quá giảm còn [30:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] giúp tôi
+<smart.home.set.percentage> -> làm ơn [hạ:B-commandcommand] [xuống:I-commandcommand] đỡ [đèn:B-devicedevice] [bếp:I-devicedevice] [3:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] giúp tôi
+<smart.home.decrease.level> -> giúp tui giảm thiết bị [downlight:B-devicedevice] [1:I-devicedevice]
+<smart.home.decrease.level> -> giúp tui giảm thiết bị [cột:B-devicedevice] [đèn:I-devicedevice] [3:I-devicedevice]
+<smart.home.decrease.percentage> -> giảm giúp mình [vô:B-devicedevice] [tuyến:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [hội:I-roomroom] [thảo:I-roomroom] [4:I-roomroom] xuống mức [10:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] với
+<smart.home.decrease.percentage> -> chào giảm giúp tôi [bòng:B-devicedevice] [hắt:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] trong [phòng:B-roomroom] [nghỉ:I-roomroom] [4:I-roomroom]
+<smart.home.decrease.percentage> -> bạn cho cái [đèn:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] xuống [2:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] hộ tôi với
+<smart.home.set.percentage> -> làm ơn [giảm:B-commandcommand] [đỡ:I-commandcommand] [đèn:B-devicedevice] [rọi:I-devicedevice] [16:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] giúp tôi
+<smart.home.decrease.percentage> -> chào giảm giúp tôi [màn:B-devicedevice] [cửa:I-devicedevice] [đơn:I-devicedevice] [4:I-devicedevice] trong [tủ:B-roomroom] [giữ:I-roomroom] [đồ:I-roomroom] [3:I-roomroom]
+<smart.home.check.status> -> chào bạn kiểm soát được [quạt:B-devicedevice] [hút:I-devicedevice] [mùi:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [garage:B-roomroom] trong [nhà:B-roomroom] không
+<smart.home.decrease.percentage> -> bạn cho cái [quạt:B-devicedevice] [thông:I-devicedevice] [gió:I-devicedevice] xuống [29:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] hộ tôi với
+<smart.home.decrease.level> -> giúp tui giảm thiết bị [máy:B-devicedevice] [lạnh:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.check.status> -> anh ơi thiết bị là [đầy:B-commandcommand] [đủ:I-commandcommand] [đèn:B-devicedevice] [tranh:I-devicedevice] [1:I-devicedevice]
+<smart.home.check.status> -> anh ơi thiết bị là [đầy:B-commandcommand] [đủ:I-commandcommand] [bóng:B-devicedevice] [sân:I-devicedevice] [3:I-devicedevice]
+<smart.home.decrease.percentage> -> bạn cho cái [bóng:B-devicedevice] [rọi:I-devicedevice] [3:I-devicedevice] xuống [10:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] hộ tôi với
+<smart.home.decrease.level> -> tôi muốn giảm độ sáng của [bóng:B-devicedevice] [sưởi:I-devicedevice]
+<smart.home.decrease.level> -> tôi muốn giảm độ sáng của [bóng:B-devicedevice] [tuýp:I-devicedevice]
+<smart.home.decrease.percentage> -> chào giảm giúp tôi [đèn:B-devicedevice] [nhiều:I-devicedevice] [màu:I-devicedevice] [1:I-devicedevice] trong [phòng:B-roomroom] [ông:I-roomroom] [chủ:I-roomroom] [5:I-roomroom]
+<smart.home.decrease.percentage> -> [bóng:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] to quá giảm còn [3:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] giúp tôi
+<smart.home.decrease.percentage> -> [điện:B-devicedevice] [2:I-devicedevice] to quá giảm còn [4:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] giúp tôi
+<smart.home.check.status> -> à biết r kiểm tra cho tôi [quạt:B-devicedevice] [thông:I-devicedevice] [gió:I-devicedevice] ở [phòng:B-roomroom] [ngủ:I-roomroom] [các:I-roomroom] [con:I-roomroom] nhé v
+<smart.home.device.onoff> -> bạn [chỉnh:B-commandcommand] giúp kiểm tra [màn:B-devicedevice] [cuốn:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [họp:I-roomroom] [gia:I-roomroom] [đình:I-roomroom] xem bật không nhé
+<smart.home.check.status> -> à biết r kiểm tra cho tôi [rèm:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [thực:I-roomroom] [hành:I-roomroom] nhé v
+<smart.home.check.status> -> kiểm tra giúp em cái [bóng:B-devicedevice] [thả:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [chung:I-roomroom] nhé
+<smart.home.check.status> -> à biết r kiểm tra cho tôi [đèn:B-devicedevice] [downlight:I-devicedevice] [4:I-devicedevice] ở [nhà:B-roomroom] [vệ:I-roomroom] [sinh:I-roomroom] nhé v
+<smart.home.check.status> -> kiểm tra trạng thái của [nút:B-devicedevice] [nhấn:I-devicedevice] giúp mình với nhé
+<smart.home.check.status> -> kiểm tra cho mình [đèn:B-devicedevice] [lồng:I-devicedevice] ở [phòng:B-roomroom] [dành:I-roomroom] [cho:I-roomroom] [nam:I-roomroom] nhé
+<smart.home.device.onoff> -> bạn [chỉnh:B-commandcommand] giúp kiểm tra [đèn:B-devicedevice] [sân:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [hè:B-roomroom] [sau:I-roomroom] [5:I-roomroom] xem bật không nhé
+<smart.home.check.status> -> hệ thống gì vậy kiểm tra [ốp:B-devicedevice] [trần:I-devicedevice] [3:I-devicedevice] nhé
+<smart.home.check.status> -> kiểm tra cho mình [ốp:B-devicedevice] [tường:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [thay:I-roomroom] [đồ:I-roomroom] [1:I-roomroom] nhé
+<smart.home.check.status> -> à biết r kiểm tra cho tôi [quạt:B-devicedevice] [hút:I-devicedevice] [mùi:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [đợi:I-roomroom] [4:I-roomroom] nhé v
+<smart.home.check.status> -> bạn giúp mình kiểm tra [nút:B-devicedevice] [ấn:I-devicedevice] ở [văn:B-roomroom] [phòng:I-roomroom] giúp với
+<smart.home.check.status> -> đưa mình trạng thái của [đèn:B-devicedevice] [thờ:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [đọc:I-roomroom] [1:I-roomroom]
+<smart.home.check.status> -> bạn giúp mình kiểm tra [đèn:B-devicedevice] [đứng:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [công:B-roomroom] [ty:I-roomroom] giúp với
+<smart.home.check.status> -> kiểm tra cho mình [rèm:B-devicedevice] [đôi:I-devicedevice] ở [nhà:B-roomroom] [tắm:I-roomroom] nhé
+<smart.home.check.status> -> [bóng:B-devicedevice] [hắt:I-devicedevice] [tường:I-devicedevice] [phòng:B-roomroom] [ngủ:I-roomroom] [các:I-roomroom] [con:I-roomroom] [4:I-roomroom] [còn:B-statusstatus] [bật:I-statusstatus] [cập:I-statusstatus] [nhật:I-commandcommand]
+<smart.home.check.status> -> kiểm tra giúp em cái [bóng:B-devicedevice] [thả:I-devicedevice] ở [phòng:B-roomroom] [giặt:I-roomroom] nhé
+<smart.home.check.status> -> kiểm tra giúp em cái [nút:B-devicedevice] [ấn:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [nghiên:I-roomroom] [cứu:I-roomroom] nhé
+<smart.home.set.level> -> bạn [chỉnh:B-commandcommand] giúp kiểm tra [loa:B-devicedevice] [còi:I-devicedevice] ở [phòng:B-roomroom] [sách:I-roomroom] [1:I-roomroom] xem bật không nhé
+<smart.home.check.status> -> kiểm tra trạng thái của [rèm:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] giúp mình với nhé
+<smart.home.check.status> -> kiểm tra giúp mình [đèn:B-devicedevice] [ốp:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [ăn:I-roomroom] [sáng:I-roomroom] [5:I-roomroom] nhé
+<smart.home.check.status> -> kiểm tra cho mình [bóng:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] ở [phòng:B-roomroom] [chính:I-roomroom] nhé
+<smart.home.check.status> -> mình cần kiểm tra [đèn:B-devicedevice] [màu:I-devicedevice] [sắc:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.check.status> -> bạn giúp mình kiểm tra [đèn:B-devicedevice] [ngủ:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [dành:I-roomroom] [cho:I-roomroom] [nam:I-roomroom] [5:I-roomroom] giúp với
+<smart.home.check.status> -> [bóng:B-devicedevice] [2:I-devicedevice] [phòng:B-roomroom] [ngủ:I-roomroom] [5:I-roomroom] [đang:B-statusstatus] [tắt:I-statusstatus] [kiểm:I-commandcommand] [tra:I-commandcommand]
+<smart.home.check.status> -> bạn giúp mình kiểm tra [bóng:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] ở [cơ:B-roomroom] [quan:I-roomroom] giúp với
+<smart.home.check.status> -> kiểm tra trạng thái của [bóng:B-devicedevice] [tròn:I-devicedevice] giúp mình với nhé
+<smart.home.check.status> -> đưa mình trạng thái của [bóng:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] ở [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom]
+<smart.home.check.status> -> mình cần kiểm tra [đèn:B-devicedevice] [led:I-devicedevice]
+<smart.home.check.status> -> mình cần kiểm tra [tvs:B-devicedevice] [3:I-devicedevice]
+<smart.home.check.status> -> mình cần kiểm tra [hắt:B-devicedevice] [tường:I-devicedevice]
+<smart.home.device.onoff> -> bạn [chỉnh:B-commandcommand] giúp kiểm tra [bóng:B-devicedevice] [trang:I-devicedevice] [trí:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [quầy:B-roomroom] [lễ:I-roomroom] [tân:I-roomroom] xem bật không nhé
+<smart.home.check.status> -> mình cần kiểm tra [đèn:B-devicedevice] [vách:I-devicedevice]
+<smart.home.check.status> -> kiểm tra giúp em cái [đèn:B-devicedevice] [lồng:I-devicedevice] [3:I-devicedevice] ở [quầy:B-roomroom] [lễ:I-roomroom] [tân:I-roomroom] [4:I-roomroom] nhé
+<smart.home.check.status> -> đưa mình trạng thái của [quạt:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [chờ:I-roomroom]
+<smart.home.check.status> -> [bóng:B-devicedevice] [vách:I-devicedevice] [1:I-devicedevice] [nhà:B-roomroom] [giữ:I-roomroom] [đồ:I-roomroom] [còn:I-statusstatus] [tắt:I-statusstatus] [đúng:I-statusstatus] [không:I-commandcommand]
+<smart.home.set.level> -> bạn [chỉnh:B-commandcommand] giúp kiểm tra [đèn:B-devicedevice] [nhiều:I-devicedevice] [màu:I-devicedevice] [3:I-devicedevice] ở [gara:B-roomroom] xem bật không nhé
+<smart.home.check.status> -> kiểm tra giúp mình [bóng:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [cổng:B-roomroom] [chính:I-roomroom] nhé
+<smart.home.check.status> -> hệ thống gì vậy kiểm tra [đèn:B-devicedevice] [sắc:I-devicedevice] [màu:I-devicedevice] [4:I-devicedevice] nhé
+<smart.home.check.status> -> kiểm tra giúp mình [đèn:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [lễ:B-roomroom] [tân:I-roomroom] [5:I-roomroom] nhé
+<smart.home.check.status> -> hệ thống gì vậy kiểm tra [hắt:B-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] nhé
+<smart.home.check.status> -> hệ thống gì vậy kiểm tra [rgb:B-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] nhé
+<smart.home.decrease.level> -> [bóng:B-devicedevice] [ốp:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] [phòng:B-roomroom] [ăn:I-roomroom] [sáng:I-roomroom] [đang:I-statusstatus] [mở:I-statusstatus] [hay:I-statusstatus] [đóng:I-statusstatus] bao nhiêu
+<smart.home.check.status> -> hệ thống gì vậy kiểm tra [cửa:B-devicedevice] [cuốn:I-devicedevice] [1:I-devicedevice] nhé
+<smart.home.check.status> -> đưa mình trạng thái của [ốp:B-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [tắm:I-roomroom] [4:I-roomroom]
+<smart.home.check.status> -> đưa mình trạng thái của [đèn:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [4:I-devicedevice] ở [sảnh:B-roomroom] [5:I-roomroom]
+<smart.home.check.status> -> [đèn:B-devicedevice] [sân:I-devicedevice] [phòng:B-roomroom] [dành:I-roomroom] [cho:I-roomroom] [nữ:I-roomroom] [chưa:I-statusstatus] [đóng:I-statusstatus] [quét:I-statusstatus]
+<smart.home.check.status> -> kiểm tra cho mình [bóng:B-devicedevice] [đứng:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [họp:I-roomroom] [2:I-roomroom] nhé
+<smart.home.check.status> -> à biết r kiểm tra cho tôi [rgb:B-devicedevice] [1:I-devicedevice] ở [ga:B-roomroom] [ra:I-roomroom] [3:I-roomroom] nhé v
+<smart.home.check.status> -> kiểm tra giúp mình [bóng:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [sân:B-roomroom] [vườn:I-roomroom] nhé
+<smart.home.check.status> -> kiểm tra trạng thái của [đèn:B-devicedevice] [hoa:I-devicedevice] [2:I-devicedevice] giúp mình với nhé
+<smart.home.check.status> -> kiểm tra trạng thái của [kịch:B-devicedevice] [bản:I-devicedevice] giúp mình với nhé
+<smart.home.check.status> -> bạn giúp mình kiểm tra [bóng:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [gia:I-roomroom] [đình:I-roomroom] [4:I-roomroom] giúp với
+<smart.home.check.status> -> kiểm tra giúp em cái [cột:B-devicedevice] [đèn:I-devicedevice] [1:I-devicedevice] ở [sân:B-roomroom] [trước:I-roomroom] [1:I-roomroom] nhé
+<smart.home.check.status> -> kiểm tra giúp mình [đèn:B-devicedevice] [hoa:I-devicedevice] ở [hội:B-roomroom] [trường:I-roomroom] [5:I-roomroom] nhé
+<smart.home.increase.level> -> xin chào tôi muốn tăng cấp độ [đèn:B-devicedevice] [thả:I-devicedevice] ở mức [3:B-sysnumbersysnumber]
+<smart.home.increase.level> -> trợ lý giúp mình tăng mức độ [đèn:B-devicedevice] [thờ:I-devicedevice] lên mức [3:B-sysnumbersysnumber] ở [sân:B-roomroom] [trước:I-roomroom] [3:I-roomroom] nhé
+<smart.home.increase.level> -> xin chào tôi muốn tăng cấp độ [bóng:B-devicedevice] [sân:I-devicedevice] [2:I-devicedevice] ở mức [5:B-sysnumbersysnumber]
+<smart.home.increase.level> -> anh giúp em tăng [bóng:B-devicedevice] [để:I-devicedevice] [bàn:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] lên cấp độ [5:B-sysnumbersysnumber] được không ạ
+<smart.home.increase.level> -> giúp tôi tăng độ sáng [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [1:I-roomroom] lên mức [4:B-final-valuesysnumber] luôn nhé
+<smart.home.increase.level> -> giúp tôi [tăng:B-commandcommand] [đến:I-commandcommand] độ sáng [phòng:B-roomroom] [đợi:I-roomroom] lên mức [5:B-final-valuesysnumber] luôn nhé
+<smart.home.increase.level> -> [tăng:B-commandcommand] [lên:I-commandcommand] [điều:B-devicedevice] [hòa:I-devicedevice] [1:I-devicedevice] [lầu:B-floornumberfloornumber] [1:I-floornumberfloornumber] thêm [3:B-change-valuesysnumber] mức nữa thôi
+<smart.home.increase.level> -> bạn làm ơn giúp mình tăng mức độ của [âm:B-devicedevice] [trần:I-devicedevice] với
+<smart.home.increase.level> -> bạn làm ơn giúp mình tăng mức độ của [nút:B-devicedevice] [nhấn:I-devicedevice] [1:I-devicedevice] với
+<smart.home.increase.level> -> anh giúp em tăng [đèn:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [4:I-devicedevice] lên cấp độ [4:B-sysnumbersysnumber] được không ạ
+<smart.home.increase.level> -> anh giúp em tăng [bóng:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] lên cấp độ [5:B-sysnumbersysnumber] được không ạ
+<smart.home.increase.level> -> trợ lý giúp mình tăng mức độ [đèn:B-devicedevice] [học:I-devicedevice] [4:I-devicedevice] lên mức [3:B-sysnumbersysnumber] ở [phòng:B-roomroom] số [5:I-roomroom] nhé
+<smart.home.increase.level> -> có thể [bật:B-commandcommand] độ sáng [tvs:B-devicedevice] lên mức [3:B-final-valuesysnumber] không
+<smart.home.increase.level> -> có thể [bật:B-commandcommand] độ sáng [đèn:B-devicedevice] [tròn:I-devicedevice] [3:I-devicedevice] lên mức [5:B-final-valuesysnumber] không
+<smart.home.increase.level> -> bạn làm ơn giúp mình tăng mức độ của [bóng:B-devicedevice] [ngủ:I-devicedevice] với
+<smart.home.increase.level> -> có thể [bật:B-commandcommand] độ sáng [mành:B-devicedevice] [đôi:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] lên mức [4:B-final-valuesysnumber] không
+<smart.home.increase.level> -> anh giúp em tăng [đèn:B-devicedevice] [hắt:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] lên cấp độ [5:B-sysnumbersysnumber] được không ạ
+<smart.home.increase.level> -> có thể tăng độ sáng [đèn:B-devicedevice] [màu:I-devicedevice] [3:I-devicedevice] lên mức [3:B-final-valuesysnumber] không
+<smart.home.increase.level> -> anh giúp em tăng [flash:B-devicedevice] [1:I-devicedevice] lên cấp độ [4:B-sysnumbersysnumber] được không ạ
+<smart.home.increase.level> -> giúp tôi [tăng:B-commandcommand] [đến:I-commandcommand] độ sáng [phòng:B-roomroom] [lễ:I-roomroom] [tân:I-roomroom] lên mức [5:B-final-valuesysnumber] luôn nhé
+<smart.home.increase.level> -> trợ lý giúp mình tăng mức độ [đèn:B-devicedevice] [led:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] lên mức [2:B-sysnumbersysnumber] ở [cổng:B-roomroom] nhé
+<smart.home.increase.level> -> [bật:B-commandcommand] [bóng:B-devicedevice] [ốp:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] [tầng:B-floornumberfloornumber] [5:I-floornumberfloornumber] thêm [1:B-change-valuesysnumber] mức nữa thôi
+<smart.home.increase.level> -> xin chào tôi muốn tăng cấp độ [quạt:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở mức [4:B-sysnumbersysnumber]
+<smart.home.increase.level> -> bạn làm ơn giúp mình tăng mức độ của [quạt:B-devicedevice] [thông:I-devicedevice] [gió:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] với
+<smart.home.increase.level> -> [bật:B-commandcommand] [quạt:B-devicedevice] [1:I-devicedevice] lên đến mức [4:B-final-valuesysnumber]
+<smart.home.increase.level> -> giúp tôi [tăng:B-commandcommand] [thêm:I-commandcommand] độ sáng [phòng:B-roomroom] [nam:I-roomroom] [3:I-roomroom] lên mức [4:B-final-valuesysnumber] luôn nhé
+<smart.home.increase.level> -> [bật:B-commandcommand] [bóng:B-devicedevice] [vườn:I-devicedevice] lên đến mức [4:B-final-valuesysnumber]
+<smart.home.increase.level> -> xin chào tôi muốn tăng cấp độ [đèn:B-devicedevice] [đứng:I-devicedevice] ở mức [1:B-sysnumbersysnumber]
+<smart.home.increase.level> -> [bật:B-commandcommand] [điện:B-devicedevice] lên đến mức [4:B-final-valuesysnumber]
+<smart.home.increase.level> -> [tăng:B-commandcommand] [đến:I-commandcommand] [điện:B-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] lên đến mức [4:B-final-valuesysnumber]
+<smart.home.increase.level> -> [tăng:B-commandcommand] [đến:I-commandcommand] [đèn:B-devicedevice] [cảnh:I-devicedevice] lên đến mức [4:B-final-valuesysnumber]
+<smart.home.increase.level> -> [tăng:B-commandcommand] [lên:I-commandcommand] [đèn:B-devicedevice] [chùm:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] [tầng:B-floornumberfloornumber] [3:I-floornumberfloornumber] thêm [3:B-change-valuesysnumber] mức nữa thôi
+<smart.home.increase.level> -> bạn làm ơn giúp mình tăng mức độ của [đèn:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [2:I-devicedevice] với
+<smart.home.increase.level> -> giúp tôi [bật:B-commandcommand] độ sáng [phòng:B-roomroom] [số:I-roomroom] [4:I-roomroom] lên mức [4:B-final-valuesysnumber] luôn nhé
+<smart.home.increase.level> -> [tăng:B-commandcommand] [thêm:I-commandcommand] [màn:B-devicedevice] [cửa:I-devicedevice] [tầng:B-floornumberfloornumber] [trệt:I-floornumberfloornumber] [4:I-floornumberfloornumber] thêm [3:B-change-valuesysnumber] mức nữa thôi
+<smart.home.increase.level> -> trợ lý giúp mình tăng mức độ [ti:B-devicedevice] [vi:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] lên mức [3:B-sysnumbersysnumber] ở [nhà:B-roomroom] [vệ:I-roomroom] [sinh:I-roomroom] nhé
+<smart.home.increase.level> -> [tăng:B-commandcommand] [thêm:I-commandcommand] [cảnh:B-devicedevice] [tầng:B-floornumberfloornumber] [1:I-floornumberfloornumber] thêm [3:B-change-valuesysnumber] mức nữa thôi
+<smart.home.increase.level> -> trợ lý giúp mình tăng mức độ [cột:B-devicedevice] [đèn:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] lên mức [1:B-sysnumbersysnumber] ở [phòng:B-roomroom] [nữ:I-roomroom] [2:I-roomroom] nhé
+<smart.home.increase.level> -> có thể [bật:B-commandcommand] độ sáng [rèm:B-devicedevice] [3:I-devicedevice] lên mức [4:B-final-valuesysnumber] không
+<smart.home.increase.level> -> xin chào tôi muốn tăng cấp độ [van:B-devicedevice] [tưới:I-devicedevice] [1:I-devicedevice] ở mức [5:B-sysnumbersysnumber]
+<smart.home.set.percentage> -> [mở:B-commandcommand] [39:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] độ sáng [bóng:B-devicedevice] [học:I-devicedevice] [4:I-devicedevice]
+<smart.home.set.percentage> -> [rèm:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] ở [phòng:B-roomroom] mức [90:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.level> -> chào bạn bạn có thể [đặt:B-commandcommand] giúp mình [cột:B-devicedevice] [đèn:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] trong [phòng:B-roomroom] [trẻ:I-roomroom] [em:I-roomroom] được không
+<smart.home.set.percentage> -> [đóng:B-commandcommand] [quạt:B-devicedevice] [trần:I-devicedevice] lên mức [82:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] tại [phòng:B-roomroom] [thay:I-roomroom] [đồ:I-roomroom]
+<smart.home.set.percentage> -> [đèn:B-devicedevice] [hắt:I-devicedevice] [trần:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] là mức [80:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.percentage> -> [bật:B-commandcommand] [hắt:B-devicedevice] [trần:I-devicedevice] phòng [phòng:B-roomroom] [chứa:I-roomroom] [đồ:I-roomroom] [5:I-roomroom] [69:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.device.onoff> -> tôi muốn [bật:B-commandcommand] [đèn:B-devicedevice] [tranh:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [giám:I-roomroom] [đốc:I-roomroom]
+<smart.home.device.onoff> -> mình nhờ bạn [đóng:B-commandcommand] thiết bị [bóng:B-devicedevice] [sưởi:I-devicedevice] ở [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [trai:I-roomroom] nhé
+<smart.home.set.level> -> tôi muốn [đặt:B-commandcommand] [bóng:B-devicedevice] [ngủ:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [hội:I-roomroom] [nghị:I-roomroom]
+<smart.home.set.percentage> -> [đặt:B-commandcommand] [đèn:B-devicedevice] [cảnh:I-devicedevice] phòng [phòng:B-roomroom] [họp:I-roomroom] [5:I-roomroom] [44:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.device.onoff> -> chào bạn bạn có thể [bật:B-commandcommand] giúp mình [động:B-devicedevice] [cơ:I-devicedevice] trong [phòng:B-roomroom] [nghỉ:I-roomroom] [ngơi:I-roomroom] [3:I-roomroom] được không
+<smart.home.set.percentage> -> [cài:B-commandcommand] [đặt:I-commandcommand] [80:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] độ sáng [âm:B-devicedevice] [thanh:I-devicedevice] [đa:I-devicedevice] [vùng:I-devicedevice]
+<smart.home.device.onoff> -> mình nhờ bạn [mở:B-commandcommand] thiết bị [quạt:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] ở [phòng:B-roomroom] [nữ:I-roomroom] [2:I-roomroom] nhé
+<smart.home.set.percentage> -> [mở:B-commandcommand] [kịch:B-devicedevice] [bản:I-devicedevice] lên mức [45:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] tại [phòng:B-roomroom] [học:I-roomroom] [2:I-roomroom]
+<smart.home.set.percentage> -> [mở:B-commandcommand] [đèn:B-devicedevice] [led:I-devicedevice] [1:I-devicedevice] lên mức [10:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] tại [hè:B-roomroom]
+<smart.home.set.level> -> mình nhờ bạn [cài:B-commandcommand] [đặt:I-commandcommand] thiết bị [đèn:B-devicedevice] [chùm:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [gara:B-roomroom] [1:I-roomroom] nhé
+<smart.home.set.level> -> chào bạn bạn có thể [đặt:B-commandcommand] giúp mình [đèn:B-devicedevice] [sưởi:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] trong [phòng:B-roomroom] [khách:I-roomroom] được không
+<smart.home.set.level> -> hãy [cài:B-commandcommand] [đặt:I-commandcommand] [flash:B-devicedevice] trong [phòng:B-roomroom] [ăn:I-roomroom] [tối:I-roomroom] [5:I-roomroom]
+<smart.home.set.percentage> -> [đóng:B-commandcommand] [ti:B-devicedevice] [vi:I-devicedevice] [1:I-devicedevice] lên mức [65:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] tại [phòng:B-roomroom] [chánh:I-roomroom] [5:I-roomroom]
+<smart.home.set.level> -> mình nhờ bạn [cài:B-commandcommand] [đặt:I-commandcommand] thiết bị [đèn:B-devicedevice] [lồng:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [đầu:B-roomroom] [hè:I-roomroom] [4:I-roomroom] nhé
+<smart.home.set.level> -> hãy [đặt:B-commandcommand] [bóng:B-devicedevice] [compact:I-devicedevice] trong [phòng:B-roomroom] [hội:I-roomroom] [nghị:I-roomroom] [5:I-roomroom]
+<smart.home.set.level> -> tôi muốn [đặt:B-commandcommand] [bình:B-devicedevice] [nóng:I-devicedevice] [lạnh:I-devicedevice] [2:I-devicedevice] ở [sảnh:B-roomroom] [3:I-roomroom]
+<smart.home.set.level> -> tôi muốn [mở:B-commandcommand] [mành:B-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [dành:I-roomroom] [cho:I-roomroom] [nữ:I-roomroom]
+<smart.home.device.onoff> -> chào bạn bạn có thể [cài:B-commandcommand] [đặt:I-commandcommand] giúp mình [đèn:B-devicedevice] [cây:I-devicedevice] [1:I-devicedevice] trong [hè:B-roomroom] [sau:I-roomroom] được không
+<smart.home.set.percentage> -> [bật:B-commandcommand] [bòng:B-devicedevice] [hắt:I-devicedevice] [trần:I-devicedevice] lên mức [73:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] tại [ban:B-roomroom] [công:I-roomroom]
+<smart.home.set.percentage> -> [cài:B-commandcommand] [đặt:I-commandcommand] [đèn:B-devicedevice] [học:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] [phòng:B-roomroom] [sau:I-roomroom] [vườn:I-roomroom] [69:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.device.onoff> -> hãy [cài:B-commandcommand] [đặt:I-commandcommand] [bình:B-devicedevice] [nóng:I-devicedevice] [lạnh:I-devicedevice] [2:I-devicedevice] trong [room:B-roomroom]
+<smart.home.set.percentage> -> [bật:B-commandcommand] [29:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] độ sáng [đèn:B-devicedevice] [compact:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.set.percentage> -> [led:B-devicedevice] ở [vườn:B-roomroom] [sau:I-roomroom] mức [61:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.percentage> -> [đặt:B-commandcommand] [mành:B-devicedevice] [phòng:I-devicedevice] [phòng:B-roomroom] [ngủ:I-roomroom] [bố:I-roomroom] [mẹ:I-roomroom] [4:I-roomroom] [7:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.percentage> -> [đèn:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] ở [bếp:B-roomroom] mức [2:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.percentage> -> [đóng:B-commandcommand] [73:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] độ sáng [downlight:B-devicedevice] [4:I-devicedevice]
+<smart.home.device.onoff> -> tôi muốn [bật:B-commandcommand] [tivi:B-devicedevice] ở [hiên:PAD] [sau:I-roomroom]
+<smart.home.device.onoff> -> hãy [đóng:B-commandcommand] [đèn:B-devicedevice] [cổng:I-devicedevice] [2:I-devicedevice] trong [phòng:B-roomroom]
+<smart.home.set.percentage> -> [đóng:B-commandcommand] [3:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage] độ sáng [đèn:B-devicedevice] [màu:I-devicedevice] [1:I-devicedevice]
+<smart.home.set.percentage> -> [mành:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [chứa:I-roomroom] [đồ:I-roomroom] [4:I-roomroom] mức [85:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.percentage> -> [mở:B-commandcommand] [bóng:B-devicedevice] [trang:I-devicedevice] [trí:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] phòng [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [9:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.set.level> -> chào bạn bạn có thể [cài:B-commandcommand] [đặt:I-commandcommand] giúp mình [bóng:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] [3:I-devicedevice] trong [gara:B-roomroom] được không
+<smart.home.device.onoff> -> mình nhờ bạn [mở:B-commandcommand] thiết bị [bóng:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] [1:I-devicedevice] ở [cửa:B-roomroom] [hàng:I-roomroom] nhé
+<smart.home.device.onoff> -> hãy [đóng:B-commandcommand] [bóng:B-devicedevice] [thờ:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] trong [nhà:B-roomroom] [tắm:I-roomroom] [1:I-roomroom]
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] [lên:I-commandcommand] [đèn:B-devicedevice] [compact:I-devicedevice] [2:I-devicedevice] trên [phòng:B-roomroom] [3:I-roomroom] thêm [15:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage]
+<smart.home.increase.percentage> -> cho mình tăng [rgb:B-devicedevice] lên [18:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] ở phòng [phòng:B-roomroom] [thờ:I-roomroom] [7:I-roomroom] với
+<smart.home.increase.level> -> bạn tăng hộ mình [rèm:B-devicedevice] [đơn:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [garage:B-roomroom] [1:I-roomroom] [tầng:B-floornumberfloornumber] [2:I-floornumberfloornumber] nhé
+<smart.home.increase.level> -> bạn tăng cho mình [đèn:B-devicedevice] [bàn:I-devicedevice] [3:I-devicedevice] với ạ
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] [đến:I-commandcommand] [đèn:B-devicedevice] [rủ:I-devicedevice] [1:I-devicedevice] trên [lầu:B-floornumberfloornumber] [4:I-floornumberfloornumber] thêm [11:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage]
+<smart.home.increase.percentage> -> cho mình tăng [đèn:B-devicedevice] [downlight:I-devicedevice] lên [7:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] ở phòng [phòng:B-roomroom] [ăn:I-roomroom] [trưa:I-roomroom] [3:I-roomroom] [tầng:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [8:I-floornumberfloornumber] với
+<smart.home.increase.level> -> bạn tăng hộ mình [tv:B-devicedevice] ở [ga:B-roomroom] [ra:I-roomroom] [tầng:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [7:I-floornumberfloornumber] nhé
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] [lên:I-commandcommand] [màn:B-devicedevice] [cửa:I-devicedevice] [đơn:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] trên [phòng:B-roomroom] [4:I-roomroom] thêm [20:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage]
+<smart.home.increase.percentage> -> cho mình tăng [động:B-devicedevice] [cơ:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] lên [16:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] ở phòng [đại:B-roomroom] [sảnh:I-roomroom] [3:I-roomroom] với
+<smart.home.increase.percentage> -> giúp mình tăng [bóng:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] [2:I-devicedevice] lên [5:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] tại [phòng:B-roomroom] [hội:I-roomroom] [thảo:I-roomroom] ở tầng [tầng:B-floornumberfloornumber] [5:I-floornumberfloornumber] với
+<smart.home.set.percentage> -> device [đèn:B-devicedevice] [cây:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.increase.level> -> chào bạn mình cần giúp tăng mức độ của [ốp:B-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice]
+<smart.home.increase.level> -> chào bạn mình cần giúp tăng mức độ của [rèm:B-devicedevice] [cửa:I-devicedevice] [4:I-devicedevice]
+<smart.home.increase.percentage> -> giúp mình tăng [bóng:B-devicedevice] [tường:I-devicedevice] lên [20:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] tại [phòng:B-roomroom] [cuối:I-roomroom] ở tầng [tầng:B-floornumberfloornumber] [trệt:I-floornumberfloornumber] [4:I-floornumberfloornumber] với
+<smart.home.increase.level> -> bạn tăng cho mình [mành:B-devicedevice] [cuốn:I-devicedevice] [2:I-devicedevice] với ạ
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] cho tôi [bóng:B-devicedevice] [tròn:I-devicedevice] [3:I-devicedevice] lên [6:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] cho tôi [đèn:B-devicedevice] [flash:I-devicedevice] lên [16:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] [cột:B-devicedevice] [đèn:I-devicedevice] trên [tầng:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [10:I-floornumberfloornumber] thêm [18:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage]
+<smart.home.increase.percentage> -> giúp mình tăng [bóng:B-devicedevice] [trang:I-devicedevice] [trí:I-devicedevice] lên [19:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] tại [phòng:B-roomroom] [ủi:I-roomroom] [1:I-roomroom] ở tầng [phòng:B-floornumberfloornumber] [7:I-floornumberfloornumber] với
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] cho tôi [đèn:B-devicedevice] [quảng:I-devicedevice] [cáo:I-devicedevice] [4:I-devicedevice] lên [27:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.increase.level> -> chào bạn mình cần giúp tăng mức độ của [rèm:B-devicedevice] [3:I-devicedevice]
+<smart.home.increase.level> -> chào bạn mình cần giúp tăng mức độ của [nóng:B-devicedevice] [lạnh:I-devicedevice]
+<smart.home.increase.level> -> bạn tăng cho mình [bóng:B-devicedevice] [compact:I-devicedevice] với ạ
+<smart.home.increase.percentage> -> cho mình tăng [flash:B-devicedevice] lên [24:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] ở [phòng:B-roomroom] [khách:I-roomroom] [4:I-roomroom] [5:B-floornumberfloornumber] với
+<smart.home.increase.level> -> bạn tăng cho mình [bóng:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] với ạ
+<smart.home.increase.level> -> bạn tăng hộ mình [đèn:B-devicedevice] [vách:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [thu:I-roomroom] [tầng:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [9:I-floornumberfloornumber] nhé
+<smart.home.increase.percentage> -> giúp mình tăng [bóng:B-devicedevice] [hắt:I-devicedevice] lên [2:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] tại [nhà:B-roomroom] [giữ:I-roomroom] [đồ:I-roomroom] ở tầng [phòng:B-floornumberfloornumber] [7:I-floornumberfloornumber] với
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] cho tôi [đèn:B-devicedevice] [ngủ:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] lên [3:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.increase.level> -> bạn tăng hộ mình [bóng:B-devicedevice] [tường:I-devicedevice] ở [phòng:B-roomroom] [chờ:I-roomroom] [2:I-roomroom] nhé
+<smart.home.increase.percentage> -> giúp mình tăng [tvs:B-devicedevice] [1:I-devicedevice] lên [27:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] tại [lễ:B-roomroom] [tân:I-roomroom] [1:I-roomroom] ở tầng [lầu:B-floornumberfloornumber] [3:I-floornumberfloornumber] với
+<greeting> -> device [bóng:B-devicedevice] [vườn:I-devicedevice]
+<smart.home.increase.level> -> bạn tăng hộ mình [van:B-devicedevice] [nước:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [hè:B-roomroom] [sau:I-roomroom] [2:I-roomroom] [tầng:B-floornumberfloornumber] [hầm:I-floornumberfloornumber] [1:I-floornumberfloornumber] nhé
+<smart.home.increase.level> -> chào bạn mình cần giúp tăng mức độ của [bóng:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice]
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] cho tôi [bóng:B-devicedevice] [thờ:I-devicedevice] [1:I-devicedevice] lên [3:B-final-valuesyspercentage] [phần:I-final-valuesyspercentage] [trăm:I-final-valuesyspercentage]
+<smart.home.increase.level> -> bạn tăng cho mình [bóng:B-devicedevice] [ngủ:I-devicedevice] với ạ
+<greeting> -> device [bóng:B-devicedevice] [để:I-devicedevice] [bàn:I-devicedevice]
+<smart.home.set.percentage> -> device [đèn:B-devicedevice] [lồng:I-devicedevice] [1:I-devicedevice]
+<smart.home.increase.percentage> -> [tăng:B-commandcommand] [đến:I-commandcommand] [đèn:B-devicedevice] [ngủ:I-devicedevice] [1:I-devicedevice] trên [4:B-floornumberfloornumber] thêm [20:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage]
+<smart.home.set.percentage> -> device [đèn:B-devicedevice] [rủ:I-devicedevice] [1:I-devicedevice]
+<smart.home.increase.percentage> -> cho mình tăng [bóng:B-devicedevice] [thả:I-devicedevice] [4:I-devicedevice] lên [17:B-change-valuesyspercentage] [phần:I-change-valuesyspercentage] [trăm:I-change-valuesyspercentage] ở phòng [phòng:B-roomroom] [nữ:I-roomroom] [lầu:B-floornumberfloornumber] [7:I-floornumberfloornumber] với
+<smart.home.increase.level> -> [tiếp:B-commandcommand] [tục:I-commandcommand] [hạ:B-commandcommand] [thấp:I-commandcommand] [bóng:B-devicedevice] [ngủ:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] thêm [1:B-change-valuesysnumber] mức nữa
+<smart.home.decrease.level> -> giảm [đèn:B-devicedevice] [hoa:I-devicedevice] [3:I-devicedevice] xuống mức [3:B-sysnumbersysnumber] hộ mình với
+<smart.home.decrease.level> -> chào chị chị giúp em giảm mức độ [huỳnh:B-devicedevice] [quang:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] được không ạ
+<smart.home.increase.level> -> [tiếp:B-commandcommand] [tục:I-commandcommand] [giảm:B-commandcommand] [đi:I-commandcommand] [đèn:B-devicedevice] [sân:I-devicedevice] thêm [2:B-change-valuesysnumber] mức nữa
+<smart.home.decrease.level> -> [bóng:B-devicedevice] [hắt:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] [hạ:B-commandcommand] [thấp:I-commandcommand] xuống số [3:B-final-valuesysnumber]
+<smart.home.decrease.level> -> bạn giúp mình giảm mức độ thiết bị [tivi:B-devicedevice] [1:I-devicedevice] với ạ
+<smart.home.decrease.level> -> giảm [cửa:B-devicedevice] [cuốn:I-devicedevice] [2:I-devicedevice] về mức 3 giúp tôi với
+<smart.home.decrease.level> -> chào bạn bạn có thể giúp mình giảm [nóng:B-devicedevice] [lạnh:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] [2:B-sysnumbersysnumber] về mức 2 được không
+<smart.home.decrease.level> -> bạn giúp mình giảm mức độ thiết bị [đèn:B-devicedevice] [màu:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] với ạ
+<smart.home.decrease.level> -> giảm [đèn:B-devicedevice] [hoa:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] xuống mức [2:B-sysnumbersysnumber] hộ mình với
+<smart.home.decrease.level> -> giảm [rèm:B-devicedevice] [đơn:I-devicedevice] [2:I-devicedevice] về mức 1 giúp tôi với
+<smart.home.decrease.level> -> giảm [rgb:B-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] xuống mức [4:B-sysnumbersysnumber] hộ mình với
+<smart.home.decrease.level> -> chào chị chị giúp em giảm mức độ [màn:B-devicedevice] [cuốn:I-devicedevice] được không ạ
+<smart.home.increase.level> -> [tiếp:B-commandcommand] [tục:I-commandcommand] [giảm:B-commandcommand] [đi:I-commandcommand] [đèn:B-devicedevice] [trần:I-devicedevice] thêm [1:B-change-valuesysnumber] mức nữa
+<smart.home.decrease.level> -> bạn giúp mình giảm mức độ thiết bị [đèn:B-devicedevice] [trần:I-devicedevice] [3:I-devicedevice] với ạ
+<smart.home.decrease.level> -> bạn giúp mình giảm mức độ thiết bị [màn:B-devicedevice] [cuốn:I-devicedevice] [4:I-devicedevice] với ạ
+<smart.home.decrease.level> -> [bóng:B-devicedevice] [huỳnh:I-devicedevice] [quang:I-devicedevice] [4:I-devicedevice] [hạ:B-commandcommand] [xuống:I-commandcommand] xuống số [2:B-final-valuesysnumber]
+<smart.home.decrease.level> -> giảm [đèn:B-devicedevice] [đứng:I-devicedevice] [4:I-devicedevice] về mức 3 giúp tôi với
+<smart.home.decrease.level> -> giảm [ốp:B-devicedevice] [tường:I-devicedevice] xuống mức [5:B-sysnumbersysnumber] hộ mình với
+<smart.home.decrease.level> -> chào chị chị giúp em giảm mức độ [đèn:B-devicedevice] [hắt:I-devicedevice] [tường:I-devicedevice] được không ạ
+<smart.home.decrease.level> -> chào bạn bạn có thể giúp mình giảm [đèn:B-devicedevice] [thả:I-devicedevice] [3:I-devicedevice] [2:B-sysnumbersysnumber] về mức 2 được không
+<smart.home.decrease.level> -> bạn giúp mình giảm mức độ thiết bị [led:B-devicedevice] [3:I-devicedevice] với ạ
+<smart.home.decrease.level> -> giảm [bóng:B-devicedevice] [hoa:I-devicedevice] về mức [3:B-sysnumbersysnumber] giúp tôi với
+<smart.home.decrease.level> -> chào chị chị giúp em giảm mức độ [van:B-devicedevice] [tưới:I-devicedevice] [1:I-devicedevice] được không ạ
+<smart.home.decrease.level> -> chào bạn bạn có thể giúp mình giảm [đèn:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [4:I-devicedevice] [2:B-sysnumbersysnumber] về mức 2 được không
+<smart.home.decrease.level> -> giảm [đèn:B-devicedevice] [cây:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] về mức 5 giúp tôi với
+<smart.home.decrease.level> -> giảm [rèm:B-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] xuống mức [4:B-sysnumbersysnumber] hộ mình với
+<smart.home.decrease.level> -> chào bạn bạn có thể giúp mình giảm [đèn:B-devicedevice] [sưởi:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] [4:B-sysnumbersysnumber] về mức 2 được không
+<smart.home.decrease.level> -> chào chị chị giúp em giảm mức độ [điều:B-devicedevice] [hòa:I-devicedevice] [4:I-devicedevice] được không ạ
+<smart.home.decrease.level> -> [đèn:B-devicedevice] [đứng:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] [giảm:B-commandcommand] xuống số [2:B-final-valuesysnumber]
+<smart.home.decrease.level> -> chào bạn bạn có thể giúp mình giảm [ốp:B-devicedevice] [trần:I-devicedevice] [3:I-devicedevice] [2:B-sysnumbersysnumber] về mức 2 được không
+<smart.home.decrease.level> -> [downlight:B-devicedevice] [giảm:B-commandcommand] [đi:I-commandcommand] xuống số [2:B-final-valuesysnumber]
+<smart.home.decrease.level> -> [đèn:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] [hạ:B-commandcommand] [xuống:I-commandcommand] xuống số [3:B-final-valuesysnumber]
+<smart.home.increase.level> -> [tiếp:B-commandcommand] [tục:I-commandcommand] [hạ:B-commandcommand] [thấp:I-commandcommand] [bóng:B-devicedevice] [1:I-devicedevice] thêm [3:B-change-valuesysnumber] mức nữa
+<smart.home.increase.level> -> [tiếp:B-commandcommand] [tục:I-commandcommand] [giảm:B-commandcommand] [bóng:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] thêm [3:B-change-valuesysnumber] mức nữa
+<smart.home.set.color> -> em ơi thay đổi [đèn:B-devicedevice] [hắt:I-devicedevice] thành [màu:B-colorcolor] [xanh:I-colorcolor] nhé
+<smart.home.set.color> -> bạn có thể giúp mình [thiết:B-commandcommand] [lập:I-commandcommand] màu của [đèn:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [1:I-devicedevice] trong [hội:B-roomroom] [trường:I-roomroom] [2:I-roomroom] được không
+<smart.home.device.onoff> -> bạn có thể giúp mình [chế:B-commandcommand] [độ:I-commandcommand] [màu:I-commandcommand] của [đèn:B-devicedevice] [để:I-devicedevice] [bàn:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] trong [tiền:B-roomroom] [sảnh:I-roomroom] được không
+<smart.home.set.color> -> command đen của [đèn:B-devicedevice] [vườn:I-devicedevice] [2:I-devicedevice] [phòng:B-roomroom] [xông:I-roomroom] [hơi:I-roomroom] [floornumber:B-floornumberfloornumber] giúp mình với
+<smart.home.device.onoff> -> em có biết [kích:B-commandcommand] [hoạt:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] của [màn:B-devicedevice] [cửa:I-devicedevice] không
+<smart.home.device.onoff> -> em có biết [chạy:B-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] của [bóng:B-devicedevice] [tuýp:I-devicedevice] không
+<smart.home.set.color> -> bạn [chuyển:B-commandcommand] cái [đèn:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] sang [tía:B-colorcolor] cho mình
+<smart.home.set.color> -> [khởi:B-commandcommand] [chạy:I-commandcommand] [mỗi:B-allall] [bóng:B-devicedevice] [thả:I-devicedevice] [2:I-devicedevice] [cam:B-colorcolor]
+<smart.home.set.color> -> bạn chuyển cái [đèn:B-devicedevice] [tròn:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] sang [màu:B-colorcolor] [lam:I-colorcolor] cho mình
+<smart.home.set.color> -> bạn [chuyển:B-commandcommand] cái [đèn:B-devicedevice] [trang:I-devicedevice] [trí:I-devicedevice] [2:I-devicedevice] sang [xám:B-colorcolor] cho mình
+<smart.home.device.onoff> -> em có biết [thay:B-commandcommand] [đổi:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] của [bóng:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] không
+<smart.home.set.color> -> em ơi [điều:B-commandcommand] [chỉnh:I-commandcommand] [tivi:B-devicedevice] thành [xanh:B-colorcolor] [lá:I-colorcolor] nhé
+<smart.home.set.color> -> để [tvs:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] [màu:B-colorcolor] [trắng:I-colorcolor]
+<smart.home.set.color> -> [chỉnh:B-commandcommand] [bóng:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] [floornumber:B-roomroom] sáng [màu:B-colorcolor] [trắng:I-colorcolor]
+<smart.home.set.color> -> [để:B-commandcommand] [điện:B-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] [màu:B-colorcolor] [hồng:I-colorcolor]
+<smart.home.set.level> -> bạn có thể giúp mình [đặt:B-commandcommand] màu của [công:B-devicedevice] [tắc:I-devicedevice] trong [phòng:B-roomroom] [đọc:I-roomroom] [sách:I-roomroom] được không
+<smart.home.device.onoff> -> bạn có thể giúp mình [chuyển:B-commandcommand] [màu:I-commandcommand] của [đèn:B-devicedevice] [hắt:I-devicedevice] [tường:I-devicedevice] [2:I-devicedevice] trong [lễ:B-roomroom] [tân:I-roomroom] được không
+<smart.home.set.color> -> bạn ơi [thiết:B-commandcommand] [lập:I-commandcommand] giúp mình cái [cảnh:B-devicedevice] [2:I-devicedevice] sang [màu:B-colorcolor] [xanh:I-colorcolor] [da:I-colorcolor] [trời:I-colorcolor] bạn nhé
+<smart.home.set.color> -> bạn ơi [bật:B-commandcommand] giúp mình cái [loa:B-devicedevice] [còi:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] sang [tím:B-colorcolor] bạn nhé
+<smart.home.set.color> -> [khởi:B-commandcommand] [chạy:I-commandcommand] [tất:B-allall] [cả:B-allall] [ti:B-devicedevice] [vi:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] [màu:B-colorcolor] [nâu:I-colorcolor]
+<smart.home.set.color> -> [cài:B-commandcommand] [đặt:I-commandcommand] [mọi:B-allall] [downlight:B-devicedevice] [đỏ:B-colorcolor]
+<smart.home.device.onoff> -> em có biết [chế:B-commandcommand] [độ:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] của [bóng:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [4:I-devicedevice] không
+<smart.home.set.color> -> em ơi command [bóng:B-devicedevice] [hắt:I-devicedevice] thành [màu:B-colorcolor] [xanh:I-colorcolor] [nước:I-colorcolor] [biển:I-colorcolor] nhé
+<smart.home.set.color> -> bạn [chuyển:B-commandcommand] cái [đèn:B-devicedevice] [flash:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] sang [màu:B-colorcolor] [xanh:I-colorcolor] [lá:I-colorcolor] cho mình
+<smart.home.set.color> -> [chế:B-commandcommand] [độ:I-commandcommand] [đèn:B-devicedevice] [sắc:I-devicedevice] [màu:I-devicedevice] [4:I-devicedevice] [lầu:B-floornumberfloornumber] [3:I-floornumberfloornumber] sáng [màu:B-colorcolor] [hồng:I-colorcolor]
+<smart.home.set.color> -> [đặt:B-commandcommand] [điện:B-devicedevice] [4:I-devicedevice] [floornumber:B-floornumberfloornumber] sáng [xanh:B-colorcolor] [nước:I-colorcolor] [biển:I-colorcolor]
+<smart.home.set.color> -> [để:B-commandcommand] [đèn:B-devicedevice] [cổng:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] [màu:B-colorcolor] [màu:B-colorcolor] [cam:I-colorcolor]
+<smart.home.device.onoff> -> bạn có thể giúp mình [điều:B-commandcommand] [chỉnh:I-commandcommand] màu của [hắt:B-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] trong [phòng:B-roomroom] [ông:I-roomroom] [chủ:I-roomroom] được không
+<smart.home.set.color> -> bạn ơi [bắt:B-commandcommand] [đầu:I-commandcommand] giúp mình cái [led:B-devicedevice] sang [màu:B-colorcolor] [tía:I-colorcolor] bạn nhé
+<smart.home.set.color> -> [để:B-commandcommand] [van:B-devicedevice] [nước:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] màu [màu:B-colorcolor] [xám:I-colorcolor]
+<smart.home.set.color> -> bạn ơi [đổi:B-commandcommand] [màu:I-commandcommand] giúp mình cái [đèn:B-devicedevice] [tuýp:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] sang [màu:B-colorcolor] [xanh:I-colorcolor] [da:I-colorcolor] [trời:I-colorcolor] bạn nhé
+<smart.home.set.color> -> [đặt:B-commandcommand] màu [trắng:B-colorcolor] của [đèn:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] [đầu:B-roomroom] [hè:I-roomroom] [lầu:B-floornumberfloornumber] [trệt:I-floornumberfloornumber] [2:I-floornumberfloornumber] giúp mình với
+<smart.home.set.color> -> [chuyển:B-commandcommand] [loa:B-devicedevice] [còi:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] [lầu:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [6:I-floornumberfloornumber] sáng [màu:B-colorcolor] [nâu:I-colorcolor]
+<smart.home.set.color> -> [thay:B-commandcommand] [tất:B-allall] [cả:B-allall] [đèn:B-devicedevice] [thả:I-devicedevice] [4:I-devicedevice] [tím:B-colorcolor]
+<smart.home.set.color> -> bạn [chuyển:B-commandcommand] cái [tivi:B-devicedevice] [1:I-devicedevice] sang [xanh:B-colorcolor] [lá:I-colorcolor] cho mình
+<smart.home.set.color> -> [thiết:B-commandcommand] [lập:I-commandcommand] [đèn:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [3:I-devicedevice] [lầu:B-floornumberfloornumber] [10:I-floornumberfloornumber] sáng [màu:B-colorcolor] [xanh:I-colorcolor] [lá:I-colorcolor]
+<smart.home.set.color> -> [thay:B-commandcommand] [đổi:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] màu [xanh:B-colorcolor] [nước:I-colorcolor] [biển:I-colorcolor] của [mành:B-devicedevice] [cuốn:I-devicedevice] [4:I-devicedevice] [phòng:B-roomroom] [ông:I-roomroom] [bà:I-roomroom] [3:I-roomroom] [floornumber:B-floornumberfloornumber] giúp mình với
+<smart.home.set.color> -> command [cam:B-colorcolor] của [rèm:B-devicedevice] [đôi:I-devicedevice] [phòng:B-roomroom] [nghiên:I-roomroom] [cứu:I-roomroom] [floornumber:B-floornumberfloornumber] giúp mình với
+<smart.home.set.color> -> em ơi [đặt:B-commandcommand] [màn:B-devicedevice] [cuốn:I-devicedevice] [3:I-devicedevice] thành [trắng:B-colorcolor] nhé
+<smart.home.set.color> -> em ơi [khởi:B-commandcommand] [chạy:I-commandcommand] [quạt:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] thành [xanh:B-colorcolor] [nước:I-colorcolor] [biển:I-colorcolor] nhé
+<smart.home.device.onoff> -> em có biết [kích:B-commandcommand] [hoạt:I-commandcommand] [màu:I-commandcommand] [sắc:I-commandcommand] của [quạt:B-devicedevice] [trần:I-devicedevice] không
+<smart.home.set.color> -> [chế:B-commandcommand] [độ:I-commandcommand] [mọi:B-allall] [rèm:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [màu:B-colorcolor] [tía:I-colorcolor]
+<smart.home.set.color> -> [chạy:B-commandcommand] [tía:B-colorcolor] của [đèn:B-devicedevice] [lồng:I-devicedevice] [phòng:B-roomroom] [bếp:I-roomroom] [4:I-roomroom] [tầng:B-floornumberfloornumber] [thượng:I-floornumberfloornumber] [2:I-floornumberfloornumber] giúp mình với
+<smart.home.set.color> -> [để:B-commandcommand] [rèm:B-devicedevice] [cửa:I-devicedevice] [2:I-devicedevice] màu [màu:B-colorcolor] [cam:I-colorcolor]
+<smart.home.set.color> -> bạn ơi [thiết:B-commandcommand] [lập:I-commandcommand] giúp mình cái [đèn:B-devicedevice] [học:I-devicedevice] [1:I-devicedevice] sang [xám:B-colorcolor] bạn nhé
+<smart.home.device.onoff> -> [bật:B-commandcommand] giúp mình [đèn:B-devicedevice] [âm:I-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] với
+<smart.home.increase.level> -> [điều:B-commandcommand] [chỉnh:I-commandcommand] giúp tôi [bóng:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [mặt:B-roomroom] [tiền:I-roomroom] [3:I-roomroom] lên mức [5:B-sysnumbersysnumber]
+<smart.home.device.onoff> -> bạn [chuyển:B-commandcommand] hộ mình [đèn:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] lên với
+<smart.home.set.level> -> giúp ta [chỉnh:B-commandcommand] cái [bóng:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [ông:I-roomroom] [chủ:I-roomroom] [3:I-roomroom] mức [4:B-sysnumbersysnumber] nhé
+<smart.home.set.level> -> [bật:B-commandcommand] [bóng:B-devicedevice] [rủ:I-devicedevice] ở [phòng:B-roomroom] [thí:I-roomroom] [nghiệm:I-roomroom] ở mức [2:B-sysnumbersysnumber]
+<smart.home.set.level> -> [chuyển:B-commandcommand] giúp tôi [đèn:B-devicedevice] [học:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [lễ:I-roomroom] [tân:I-roomroom] [3:I-roomroom] lên nhé
+<smart.home.set.level> -> chào bạn bạn [cài:B-commandcommand] [đặt:I-commandcommand] giúp mình [downlight:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [con:I-roomroom] [2:I-roomroom] được không ạ
+<smart.home.set.level> -> giúp ta [bật:B-commandcommand] cái [bóng:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] ở [nhà:B-roomroom] [tắm:I-roomroom] [1:I-roomroom] mức [4:B-sysnumbersysnumber] nhé
+<smart.home.set.level> -> [cài:B-commandcommand] [đặt:I-commandcommand] giúp tôi [màn:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [chính:I-roomroom] [4:I-roomroom] lên mức [4:B-sysnumbersysnumber]
+<smart.home.set.level> -> [chỉnh:B-commandcommand] giúp tôi [bóng:B-devicedevice] [thờ:I-devicedevice] [3:I-devicedevice] ở [văn:B-roomroom] [phòng:I-roomroom] [3:I-roomroom] lên mức [1:B-sysnumbersysnumber]
+<smart.home.device.onoff> -> bạn [đặt:B-commandcommand] hộ mình [đèn:B-devicedevice] [cổng:I-devicedevice] lên với
+<smart.home.set.level> -> [đèn:B-devicedevice] [tranh:I-devicedevice] trong [nhà:B-roomroom] [xe:I-roomroom] [4:I-roomroom] [chuyển:B-commandcommand] số [4:B-sysnumbersysnumber]
+<smart.home.set.level> -> [đèn:B-devicedevice] [compact:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] trong [phòng:B-roomroom] [gia:I-roomroom] [đình:I-roomroom] [1:I-roomroom] [cài:B-commandcommand] [đặt:I-commandcommand] số [1:B-sysnumbersysnumber]
+<smart.home.set.level> -> giúp ta [thay:B-commandcommand] [đổi:I-commandcommand] cái [đèn:B-devicedevice] [cổng:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [thu:I-roomroom] [âm:I-roomroom] [4:I-roomroom] mức [1:B-sysnumbersysnumber] nhé
+<smart.home.set.level> -> chào bạn bạn [thay:B-commandcommand] giúp mình [bóng:B-devicedevice] [hắt:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [giặt:I-roomroom] [4:I-roomroom] được không ạ
+<smart.home.set.level> -> chào bạn bạn [đổi:B-commandcommand] giúp mình [bóng:B-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [sân:B-roomroom] [vườn:I-roomroom] được không ạ
+<smart.home.set.level> -> [đặt:B-commandcommand] giúp tôi [đèn:B-devicedevice] [hắt:I-devicedevice] [trần:I-devicedevice] ở [phòng:B-roomroom] [họp:I-roomroom] [gia:I-roomroom] [đình:I-roomroom] [2:I-roomroom] lên nhé
+<smart.home.device.onoff> -> [bật:B-commandcommand] giúp mình [bóng:B-devicedevice] [đứng:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] với
+<smart.home.set.level> -> giúp ta [đặt:B-commandcommand] cái [bóng:B-devicedevice] [chùm:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [em:I-roomroom] [nhỏ:I-roomroom] mức [3:B-sysnumbersysnumber] nhé
+<smart.home.set.level> -> [chỉnh:B-commandcommand] giúp tôi [đèn:B-devicedevice] [flash:I-devicedevice] [2:I-devicedevice] ở [phòng:B-roomroom] [tiếp:I-roomroom] [đón:I-roomroom] lên nhé
+<smart.home.set.percentage> -> [bật:B-commandcommand] giúp mình [bóng:B-devicedevice] [led:I-devicedevice] [3:I-devicedevice] với
+<smart.home.device.onoff> -> bạn [cài:B-commandcommand] [đặt:I-commandcommand] hộ mình [đèn:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] lên với
+<smart.home.device.onoff> -> [bật:B-commandcommand] giúp mình [mành:B-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] với
+<smart.home.decrease.level> -> [quạt:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] [3:I-devicedevice] trong [ga:B-roomroom] [ra:I-roomroom] [3:I-roomroom] [đổi:B-commandcommand] số [1:B-final-valuesysnumber]
+<smart.home.device.onoff> -> [bật:B-commandcommand] giúp mình [đèn:B-devicedevice] với
+<smart.home.device.onoff> -> chào bạn bạn [bật:B-commandcommand] giúp mình [loa:B-devicedevice] [còi:I-devicedevice] ở [nhà:B-roomroom] [bếp:I-roomroom] được không ạ
+<smart.home.set.level> -> [đặt:B-commandcommand] giúp tôi [bóng:B-devicedevice] [thả:I-devicedevice] ở [phòng:B-roomroom] [sinh:I-roomroom] [hoạt:I-roomroom] [chung:I-roomroom] lên mức [4:B-sysnumbersysnumber]
+<smart.home.set.percentage> -> bạn [đặt:B-commandcommand] hộ mình [nút:B-devicedevice] [ấn:I-devicedevice] [2:I-devicedevice] lên với
+<smart.home.set.level> -> [chỉnh:B-commandcommand] [cột:B-devicedevice] [đèn:I-devicedevice] ở [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [trai:I-roomroom] ở mức [4:B-sysnumbersysnumber]
+<smart.home.device.onoff> -> bạn [đổi:B-commandcommand] hộ mình [rèm:B-devicedevice] [cửa:I-devicedevice] lên với
+<smart.home.set.level> -> [cài:B-commandcommand] [đặt:I-commandcommand] giúp tôi [âm:B-devicedevice] [trần:I-devicedevice] ở [phòng:B-roomroom] [ông:I-roomroom] [chủ:I-roomroom] lên nhé
+<smart.home.set.level> -> chào bạn bạn [thay:B-commandcommand] [đổi:I-commandcommand] giúp mình [đèn:B-devicedevice] [cây:I-devicedevice] ở [hè:B-roomroom] [sau:I-roomroom] được không ạ
+<smart.home.set.level> -> giúp ta [chuyển:B-commandcommand] cái [đèn:B-devicedevice] [cây:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [nghỉ:I-roomroom] [3:I-roomroom] mức [2:B-sysnumbersysnumber] nhé
+<smart.home.increase.level> -> [điều:B-commandcommand] [chỉnh:I-commandcommand] giúp tôi [tvs:B-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] ở [tiền:B-roomroom] [sảnh:I-roomroom] [2:I-roomroom] lên mức [5:B-sysnumbersysnumber]
+<smart.home.set.level> -> [bật:B-commandcommand] [đèn:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] ở [phòng:B-roomroom] [ăn:I-roomroom] [tối:I-roomroom] [4:I-roomroom] ở mức [5:B-sysnumbersysnumber]
+<smart.home.set.level> -> [đèn:B-devicedevice] [led:I-devicedevice] [4:I-devicedevice] trong [sân:B-roomroom] [điều:B-commandcommand] [chỉnh:I-commandcommand] số [4:B-sysnumbersysnumber]
+<smart.home.set.level> -> [đèn:B-devicedevice] [downlight:I-devicedevice] [4:I-devicedevice] trong [sảnh:B-roomroom] [đặt:B-commandcommand] số [1:B-final-valuesysnumber]
+<smart.home.set.level> -> [bật:B-commandcommand] [bóng:B-devicedevice] [đứng:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [cuối:I-roomroom] ở mức [3:B-sysnumbersysnumber]
+<smart.home.set.level> -> [cài:B-commandcommand] [đặt:I-commandcommand] giúp tôi [nút:B-devicedevice] [nhấn:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [chung:I-roomroom] lên nhé
+<smart.home.set.level> -> [thay:B-commandcommand] [màn:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [3:I-devicedevice] ở [phòng:B-roomroom] [hội:I-roomroom] [thảo:I-roomroom] ở mức [2:B-sysnumbersysnumber]
+<smart.home.device.onoff> -> em giúp anh [tắt:B-commandcommand] [vô:B-devicedevice] [tuyến:I-devicedevice] [3:I-devicedevice] nha em
+<smart.home.device.onoff> -> [bật:B-commandcommand] [rèm:B-devicedevice] [cửa:I-devicedevice] đi cái
+<smart.home.device.onoff> -> giúp mình [bật:B-commandcommand] thiết bị [máy:B-devicedevice] [lạnh:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [sân:B-roomroom] [tiện:I-roomroom] quá thể
+<smart.home.device.onoff> -> alo tôi muốn [tắt:B-commandcommand] [màn:B-devicedevice] [cửa:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] nhé
+<smart.home.device.onoff> -> hãy [bật:B-commandcommand] [bóng:B-devicedevice] [thờ:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] trong [phòng:B-roomroom] [con:I-roomroom] [nhỏ:I-roomroom]
+<smart.home.device.onoff> -> hãy [bật:B-commandcommand] [đèn:B-devicedevice] [đứng:I-devicedevice] trong [phòng:B-roomroom] [bếp:I-roomroom] [3:I-roomroom]
+<smart.home.device.onoff> -> giúp mình [tắt:B-commandcommand] thiết bị [đèn:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] ở [tiền:B-roomroom] [sảnh:I-roomroom] [5:I-roomroom] tiện quá thể
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ cái [hắt:B-devicedevice] [trần:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice]
+<smart.home.device.onoff> -> em giúp anh [tắt:B-commandcommand] [bóng:B-devicedevice] [trần:I-devicedevice] [4:I-devicedevice] nha em
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ cái [đèn:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice]
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ cái [bóng:B-devicedevice] [sưởi:I-devicedevice] [2:I-devicedevice]
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ tôi cái [bóng:B-devicedevice] [rọi:I-devicedevice] [1:I-devicedevice] ở [phòng:B-roomroom] [chánh:I-roomroom] với tôi lười quá nên không muốn đi
+<smart.home.device.onoff> -> alo tôi muốn [tắt:B-commandcommand] [bóng:B-devicedevice] [ốp:I-devicedevice] [trần:I-devicedevice] nhé
+<smart.home.device.onoff> -> alo tôi muốn [tắt:B-commandcommand] [đèn:B-devicedevice] [sợi:I-devicedevice] [đốt:I-devicedevice] nhé
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ tôi cái [van:B-devicedevice] [tưới:I-devicedevice] ở [phòng:B-roomroom] [tiếp:I-roomroom] [đón:I-roomroom] [5:I-roomroom] với tôi lười quá nên không muốn đi
+<smart.home.device.onoff> -> [bật:B-commandcommand] [đèn:B-devicedevice] [tranh:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] đi cái
+<smart.home.set.percentage> -> tôi muốn tắt [màn:B-devicedevice] [cửa:I-devicedevice] [đơn:I-devicedevice] [2:I-devicedevice]
+<smart.home.set.percentage> -> tôi muốn tắt [loa:B-devicedevice]
+<smart.home.device.onoff> -> [bật:B-commandcommand] hộ tôi cái [đèn:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] ở [ban:B-roomroom] [công:I-roomroom] [3:I-roomroom] với tôi lười quá nên không muốn đi
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ cái [bóng:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice]
+<smart.home.device.onoff> -> giúp mình [bật:B-commandcommand] thiết bị [mành:B-devicedevice] ở [cửa:B-roomroom] [hàng:I-roomroom] tiện quá thể
+<smart.home.device.onoff> -> giúp tôi [tắt:B-commandcommand] cái [bóng:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] [3:I-devicedevice] nhé
+<smart.home.set.percentage> -> em giúp anh [bật:B-commandcommand] [đèn:B-devicedevice] [quảng:I-devicedevice] [cáo:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] nha em
+<smart.home.device.onoff> -> giúp mình [bật:B-commandcommand] thiết bị [rèm:B-devicedevice] [cửa:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] ở [sảnh:B-roomroom] [tiện:I-roomroom] quá thể
+<smart.home.set.percentage> -> tôi muốn tắt [đèn:B-devicedevice] [cây:I-devicedevice]
+<smart.home.set.percentage> -> em giúp anh [bật:B-commandcommand] [đèn:B-devicedevice] [sắc:I-devicedevice] [màu:I-devicedevice] nha em
+<smart.home.device.onoff> -> tôi muốn tắt [bóng:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [1:I-devicedevice]
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ tôi cái [rèm:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [3:I-devicedevice] ở [bếp:B-roomroom] [1:I-roomroom] với tôi lười quá nên không muốn đi
+<smart.home.device.onoff> -> giúp tôi [tắt:B-commandcommand] cái [rèm:B-devicedevice] [ngang:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] nhé
+<smart.home.device.onoff> -> giúp tôi [tắt:B-commandcommand] cái [bóng:B-devicedevice] [huỳnh:I-devicedevice] [quang:I-devicedevice] [thứ:I-devicedevice] [4:I-devicedevice] nhé
+<smart.home.device.onoff> -> giúp tôi [bật:B-commandcommand] cái [bóng:B-devicedevice] [trụ:I-devicedevice] [cổng:I-devicedevice] [1:I-devicedevice] nhé
+<smart.home.device.onoff> -> giúp mình [bật:B-commandcommand] thiết bị [bóng:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] [4:I-devicedevice] ở [phòng:B-roomroom] [xông:I-roomroom] [hơi:I-roomroom] [2:I-roomroom] tiện quá thể
+<smart.home.device.onoff> -> [tắt:B-commandcommand] [nút:B-devicedevice] [ấn:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] đi cái
+<smart.home.device.onoff> -> [bật:B-commandcommand] [mành:B-devicedevice] [đôi:I-devicedevice] [thứ:I-devicedevice] [3:I-devicedevice] đi cái
+<smart.home.device.onoff> -> alo tôi muốn [bật:B-commandcommand] [bòng:B-devicedevice] [hắt:I-devicedevice] [trần:I-devicedevice] nhé
+<smart.home.device.onoff> -> hãy [bật:B-commandcommand] [rèm:B-devicedevice] [cửa:I-devicedevice] [đôi:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] trong [vườn:B-roomroom] [sau:I-roomroom] [5:I-roomroom]
+<smart.home.device.onoff> -> alo tôi muốn [tắt:B-commandcommand] [bình:B-devicedevice] [nóng:I-devicedevice] [lạnh:I-devicedevice] [thứ:I-devicedevice] [1:I-devicedevice] nhé
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ tôi cái [đèn:B-devicedevice] [tiết:I-devicedevice] [kiệm:I-devicedevice] [điện:I-devicedevice] ở [đại:B-roomroom] [sảnh:I-roomroom] với tôi lười quá nên không muốn đi
+<smart.home.device.onoff> -> [tắt:B-commandcommand] hộ cái [quạt:B-devicedevice] [1:I-devicedevice]
+<smart.home.device.onoff> -> em giúp anh [tắt:B-commandcommand] [đèn:B-devicedevice] [treo:I-devicedevice] [tường:I-devicedevice] [thứ:I-devicedevice] [2:I-devicedevice] nha em
+<smart.home.set.percentage> -> tôi muốn tắt [công:B-devicedevice] [tắc:I-devicedevice]
+<smart.home.device.onoff> -> giúp tôi [bật:B-commandcommand] cái [đèn:B-devicedevice] [sắc:I-devicedevice] [màu:I-devicedevice] nhé
+<smart.home.device.onoff> -> hãy [bật:B-commandcommand] [đèn:B-devicedevice] [ốp:I-devicedevice] [tường:I-devicedevice] trong [phòng:B-roomroom] [ngủ:I-roomroom] [con:I-roomroom] [trai:I-roomroom] [5:I-roomroom]
+<smart.home.device.onoff> -> hãy [tắt:B-commandcommand] [bóng:B-devicedevice] [làm:I-devicedevice] [việc:I-devicedevice] [4:I-devicedevice] trong [ga:B-roomroom] [ra:I-roomroom]
+<smart.home.device.onoff> -> [tắt:B-commandcommand] [flash:B-devicedevice] [4:I-devicedevice] đi cái
+<greeting> -> chào em
+<smart.home.set.color> -> xin chào hãy thông minh cùng mình nhá
+<greeting> -> chào idol
+<smart.home.check.status> -> hi trợ lí ảo ơi tôi cần trợ giúp
+<smart.home.decrease.level> -> xin chào bạn cảm ơn bạn rất nhiều
+<greeting> -> trợ lí ơi
+<smart.home.check.status> -> hello em trai
