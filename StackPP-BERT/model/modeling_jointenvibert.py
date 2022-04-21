@@ -1,209 +1,15 @@
-"""
-@Author		:           Lee, Qin
-@StartTime	:           2018/08/13
-@Filename	:           module.py
-@Software	:           Pycharm
-@Framework  :           Pytorch
-@LastModify	:           2019/05/07
-"""
-
-import math
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch.nn.utils.rnn import pad_packed_sequence
+
 from transformers import RobertaPreTrainedModel, RobertaModel, RobertaConfig
+from torchcrf import CRF
+from .module import IntentClassifier, SlotClassifier
+from torch.autograd import Variable
 
-
-class ModelManager(nn.Module):
-
-    def __init__(self, args, num_word, num_slot, num_intent):
-        super(ModelManager, self).__init__()
-
-        self.__num_word = num_word
-        self.__num_slot = num_slot
-        self.__num_intent = num_intent
-        self.__args = args
-
-        # Initialize an embedding object.
-        # self.__embedding = EmbeddingCollection(
-        #     self.__num_word,
-        #     self.__args.word_embedding_dim
-        # )
-        self.__embedding = BERT(RobertaConfig())
-
-
-        # Initialize an LSTM Encoder object.
-        self.__encoder = LSTMEncoder(
-            self.__args.word_embedding_dim,
-            self.__args.encoder_hidden_dim,
-            self.__args.dropout_rate
-        )
-
-        # Initialize an self-attention layer.
-        self.__attention = SelfAttention(
-            self.__args.word_embedding_dim,
-            self.__args.attention_hidden_dim,
-            self.__args.attention_output_dim,
-            self.__args.dropout_rate
-        )
-
-        # Initialize an Decoder object for intent.
-        self.__intent_decoder = LSTMDecoder(
-            self.__args.encoder_hidden_dim + self.__args.attention_output_dim,
-            self.__args.intent_decoder_hidden_dim,
-            self.__num_intent, self.__args.dropout_rate,
-            embedding_dim=self.__args.intent_embedding_dim
-        )
-        # Initialize an Decoder object for slot.
-        self.__slot_decoder = LSTMDecoder(
-            self.__args.encoder_hidden_dim + self.__args.attention_output_dim,
-            self.__args.slot_decoder_hidden_dim,
-            self.__num_slot, self.__args.dropout_rate,
-            embedding_dim=self.__args.slot_embedding_dim,
-            extra_dim=self.__num_intent
-        )
-
-        # One-hot encoding for augment data feed. 
-        self.__intent_embedding = nn.Embedding(
-            self.__num_intent, self.__num_intent
-        )
-        self.__intent_embedding.weight.data = torch.eye(self.__num_intent)
-        self.__intent_embedding.weight.requires_grad = False
-
-    def show_summary(self):
-        """
-        print the abstract of the defined model.
-        """
-
-        print('Model parameters are listed as follows:\n')
-
-        print('\tnumber of word:                            {};'.format(self.__num_word))
-        print('\tnumber of slot:                            {};'.format(self.__num_slot))
-        print('\tnumber of intent:						    {};'.format(self.__num_intent))
-        print('\tword embedding dimension:				    {};'.format(self.__args.word_embedding_dim))
-        print('\tencoder hidden dimension:				    {};'.format(self.__args.encoder_hidden_dim))
-        print('\tdimension of intent embedding:		    	{};'.format(self.__args.intent_embedding_dim))
-        print('\tdimension of slot embedding:			    {};'.format(self.__args.slot_embedding_dim))
-        print('\tdimension of slot decoder hidden:  	    {};'.format(self.__args.slot_decoder_hidden_dim))
-        print('\tdimension of intent decoder hidden:        {};'.format(self.__args.intent_decoder_hidden_dim))
-        print('\thidden dimension of self-attention:        {};'.format(self.__args.attention_hidden_dim))
-        print('\toutput dimension of self-attention:        {};'.format(self.__args.attention_output_dim))
-
-        print('\nEnd of parameters show. Now training begins.\n\n')
-
-    def forward(self, text, seq_lens, n_predicts=None, forced_slot=None, forced_intent=None):
-        word_tensor, _ = self.__embedding(text)
-
-        lstm_hiddens = self.__encoder(word_tensor, seq_lens)
-        # transformer_hiddens = self.__transformer(pos_tensor, seq_lens)
-        attention_hiddens = self.__attention(word_tensor, seq_lens)
-        hiddens = torch.cat([attention_hiddens, lstm_hiddens], dim=1)
-
-        pred_intent = self.__intent_decoder(
-            hiddens, seq_lens,
-            forced_input=forced_intent
-        )
-
-        if not self.__args.differentiable:
-            _, idx_intent = pred_intent.topk(1, dim=-1)
-            feed_intent = self.__intent_embedding(idx_intent.squeeze(1))
-        else:
-            feed_intent = pred_intent
-
-        pred_slot = self.__slot_decoder(
-            hiddens, seq_lens,
-            forced_input=forced_slot,
-            extra_input=feed_intent
-        )
-
-        if n_predicts is None:
-            return F.log_softmax(pred_slot, dim=1), F.log_softmax(pred_intent, dim=1)
-        else:
-            _, slot_index = pred_slot.topk(n_predicts, dim=1)
-            _, intent_index = pred_intent.topk(n_predicts, dim=1)
-
-            return slot_index.cpu().data.numpy().tolist(), intent_index.cpu().data.numpy().tolist()
-
-    def golden_intent_predict_slot(self, text, seq_lens, golden_intent, n_predicts=1):
-        word_tensor, _ = self.__embedding(text)
-        embed_intent = self.__intent_embedding(golden_intent)
-
-        lstm_hiddens = self.__encoder(word_tensor, seq_lens)
-        attention_hiddens = self.__attention(word_tensor, seq_lens)
-        hiddens = torch.cat([attention_hiddens, lstm_hiddens], dim=1)
-
-        pred_slot = self.__slot_decoder(
-            hiddens, seq_lens, extra_input=embed_intent
-        )
-        _, slot_index = pred_slot.topk(n_predicts, dim=-1)
-
-        # Just predict single slot value.
-        return slot_index.cpu().data.numpy().tolist()
-
-class BERT(RobertaPreTrainedModel):
-    def __init__(self, config):
-        super(EmbeddingCollection, self).__init__()
-
-        self.bert = RobertaModel(config=config)  # Load pretrained bert
-
-        # Word vector encoder.
-        self.__embedding_layer = nn.Embedding(
-            self.__input_dim, self.__embedding_dim
-        )
-
-    def forward(self, input_ids, attention_mask, token_type_ids):
-
-        outputs = self.bert(input_ids, attention_mask=attention_mask,
-                            token_type_ids=token_type_ids)  # sequence_output, pooled_output, (hidden_states), (attentions)
-        sequence_output = outputs[0]
-        # pooled_output = outputs[1]  # [CLS]
-
-        return sequence_output, sequence_output
-
-class EmbeddingCollection(nn.Module):
-    """
-    Provide word vector and position vector encoding.
-    """
-
-    def __init__(self, input_dim, embedding_dim, max_len=5000):
-        super(EmbeddingCollection, self).__init__()
-
-        self.__input_dim = input_dim
-        # Here embedding_dim must be an even embedding.
-        self.__embedding_dim = embedding_dim
-        self.__max_len = max_len
-
-        # Word vector encoder.
-        self.__embedding_layer = nn.Embedding(
-            self.__input_dim, self.__embedding_dim
-        )
-
-        # Position vector encoder.
-        # self.__position_layer = torch.zeros(self.__max_len, self.__embedding_dim)
-        # position = torch.arange(0, self.__max_len).unsqueeze(1)
-        # div_term = torch.exp(torch.arange(0, self.__embedding_dim, 2) *
-        #                      (-math.log(10000.0) / self.__embedding_dim))
-
-        # Sine wave curve design.
-        # self.__position_layer[:, 0::2] = torch.sin(position * div_term)
-        # self.__position_layer[:, 1::2] = torch.cos(position * div_term)
-        #
-        # self.__position_layer = self.__position_layer.unsqueeze(0)
-        # self.register_buffer('pe', self.__position_layer)
-
-    def forward(self, input_x):
-        # Get word vector encoding.
-        embedding_x = self.__embedding_layer(input_x)
-
-        # Get position encoding.
-        # position_x = Variable(self.pe[:, :input_x.size(1)], requires_grad=False)
-
-        # Board-casting principle.
-        return embedding_x, embedding_x
-
+import math
 
 class LSTMEncoder(nn.Module):
     """
@@ -246,7 +52,7 @@ class LSTMEncoder(nn.Module):
         dropout_text = self.__dropout_layer(embedded_text)
 
         # Pack and Pad process for input of variable length.
-        packed_text = pack_padded_sequence(dropout_text, seq_lens, batch_first=True)
+        packed_text = pack_padded_sequence(dropout_text, seq_lens, batch_first=True, enforce_sorted=False)
         lstm_hiddens, (h_last, c_last) = self.__lstm_layer(packed_text)
         padded_hiddens, _ = pad_packed_sequence(lstm_hiddens, batch_first=True)
 
@@ -258,7 +64,8 @@ class LSTMDecoder(nn.Module):
     Decoder structure based on unidirectional LSTM.
     """
 
-    def __init__(self, input_dim, hidden_dim, output_dim, dropout_rate, embedding_dim=None, extra_dim=None):
+    def __init__(   self, input_dim, hidden_dim, output_dim, dropout_rate, \
+                    embedding_dim=None, extra_dim=None):
         """ Construction function for Decoder.
 
         :param input_dim: input dimension of Decoder. In fact, it's encoder hidden size.
@@ -283,7 +90,7 @@ class LSTMDecoder(nn.Module):
         if self.__embedding_dim is not None:
             self.__embedding_layer = nn.Embedding(output_dim, embedding_dim)
             self.__init_tensor = nn.Parameter(
-                torch.randn(1, self.__embedding_dim),
+                torch.rand(1, self.__embedding_dim),
                 requires_grad=True
             )
 
@@ -464,3 +271,160 @@ class SelfAttention(nn.Module):
              i in range(0, len(seq_lens))], dim=0
         )
         return flat_x
+
+class StackPropagationBERT(RobertaPreTrainedModel):
+    def __init__(self, config, args, intent_label_lst, slot_label_lst):
+        super(StackPropagationBERT, self).__init__(config)
+        self.args = args
+        self.num_intent_labels = len(intent_label_lst)
+        self.num_slot_labels = len(slot_label_lst)
+        self.bert = RobertaModel(config=config)  # Load pretrained bert
+
+        for param in self.bert.parameters():
+            param.requires_grad = False
+
+
+        # Initialize an LSTM Encoder object.
+        self.encoder = LSTMEncoder(
+            self.args.word_embedding_dim,
+            self.args.encoder_hidden_dim,
+            self.args.dropout_rate
+        )
+
+        # Initialize an self-attention layer.
+        self.attention = SelfAttention(
+            self.args.word_embedding_dim,
+            self.args.attention_hidden_dim,
+            self.args.attention_output_dim,
+            self.args.dropout_rate
+        )
+
+        # Initialize an Decoder object for intent.
+        self.intent_decoder = LSTMDecoder(
+            self.args.encoder_hidden_dim + self.args.attention_output_dim,
+            self.args.intent_decoder_hidden_dim,
+            self.num_intent_labels, self.args.dropout_rate,
+            embedding_dim=self.args.intent_embedding_dim
+        )
+        # Initialize an Decoder object for slot.
+        self.slot_decoder = LSTMDecoder(
+            self.args.encoder_hidden_dim + self.args.attention_output_dim,
+            self.args.slot_decoder_hidden_dim,
+            self.num_slot_labels, self.args.dropout_rate,
+            embedding_dim=self.args.slot_embedding_dim,
+            extra_dim=self.num_intent_labels
+        )
+
+        # One-hot encoding for augment data feed. 
+        self.intent_embedding = nn.Embedding(
+            self.num_intent_labels, self.num_intent_labels
+        )
+        self.intent_embedding.weight.data = torch.eye(self.num_intent_labels)
+        self.intent_embedding.weight.requires_grad = False
+
+        self.intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
+        self.slot_classifier = SlotClassifier(config.hidden_size, self.num_slot_labels, args.dropout_rate)
+
+        if args.use_crf:
+            self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
+
+    def forward(self, input_ids, attention_mask, token_type_ids, intent_label_ids, slot_labels_ids):
+        outputs = self.bert(input_ids, attention_mask=attention_mask,
+                            token_type_ids=token_type_ids)  # sequence_output, pooled_output, (hidden_states), (attentions)
+        sequence_output = outputs[0]
+        pooled_output = outputs[1]  # [CLS]
+
+        seq_lens = torch.sum(attention_mask, dim=1)
+        # sequence_output: (batch_size x max_seq_len x word_hidden_size)
+        lstm_hiddens = self.encoder(sequence_output, seq_lens)
+        # lstm_hiddens: (batch_size*max_seq_len x hidden size)
+        attention_hiddens = self.attention(sequence_output, seq_lens)
+        # hiddens: (batch_size*max_seq_len x 2*hidden size)
+        hiddens = torch.cat([attention_hiddens, lstm_hiddens], dim=1)
+
+        forced_intent = []
+        forced_slot = []
+        for intent, seq_len in zip(intent_label_ids, seq_lens):
+            forced_intent.extend([intent]*seq_len)
+
+        for slot, seq_len in zip(slot_labels_ids, seq_lens):
+            forced_slot.extend(slot[:seq_len])
+
+        # forced_intent: (batch_size*total_word_num x 1)
+        # forced_slot: (batch_size*total_word_num x 1)
+        forced_intent = Variable(torch.LongTensor(forced_intent))
+        forced_slot = Variable(torch.LongTensor(forced_slot))
+
+        if torch.cuda.is_available():
+            forced_intent = forced_intent.cuda()
+            forced_slot = forced_slot.cuda()
+
+        # pred_intent: (batch_size x 1)
+        pred_intent = self.intent_decoder(
+            hiddens, seq_lens,
+            forced_input=forced_intent # teacher forcing :D
+        )
+
+        if not self.args.differentiable:
+            _, idx_intent = pred_intent.topk(1, dim=-1)
+            feed_intent = self.intent_embedding(idx_intent.squeeze(1))
+        else:
+            feed_intent = pred_intent
+
+        # pred_slot: (batch_size*total_word_len x num_slot_label)
+        pred_slot = self.slot_decoder(
+            hiddens, seq_lens,
+            forced_input=forced_slot,
+            extra_input=feed_intent
+        )
+
+
+        # intent of each tokens
+        # intent_logits = F.log_softmax(pred_intent, dim=1)
+        # slot_logits = F.log_softmax(pred_slot, dim=1)
+
+        intent_logits = pred_intent
+        slot_logits = pred_slot
+
+        # intent_logits = self.intent_classifier(pooled_output)
+        # slot_logits = self.slot_classifier(sequence_output)
+
+        total_loss = 0
+        # 1. Intent Softmax
+        if intent_label_ids is not None:
+            if self.num_intent_labels == 1:
+                intent_loss_fct = nn.MSELoss()
+                intent_loss = intent_loss_fct(intent_logits.view(-1), forced_intent.view(-1))
+            else:
+                intent_loss_fct = nn.CrossEntropyLoss()
+                intent_loss = intent_loss_fct(  intent_logits.view(-1, self.num_intent_labels), \
+                                                forced_intent.view(-1)
+                                                )
+            total_loss += intent_loss
+
+        # 2. Slot Softmax
+        if slot_labels_ids is not None:
+            if self.args.use_crf:
+                slot_loss = self.crf(slot_logits, slot_labels_ids, mask=attention_mask.byte(), reduction='mean')
+                slot_loss = -1 * slot_loss  # negative log-likelihood
+            else:
+                slot_loss_fct = nn.CrossEntropyLoss(ignore_index=self.args.ignore_index)
+                # Only keep active parts of the loss
+                # if attention_mask is not None:
+                #     active_loss = attention_mask.view(-1) == 1
+                #     active_logits = slot_logits.view(-1, self.num_slot_labels)[active_loss]
+                #     active_labels = slot_labels_ids.view(-1)[active_loss]
+                #     slot_loss = slot_loss_fct(active_logits, active_labels)
+                # else:
+                slot_loss = slot_loss_fct(  slot_logits.view(-1, self.num_slot_labels), \
+                                            forced_slot.view(-1))
+            total_loss += self.args.slot_loss_coef * slot_loss
+
+        outputs = ((intent_logits, slot_logits),) + outputs[2:]  # add hidden states and attention if they are here
+
+        # print(intent_loss, slot_loss)
+        # print(slot_logits.view(-1, self.num_slot_labels), forced_slot.view(-1))
+
+        outputs = (total_loss,) + outputs
+
+        return outputs  # (loss), logits, (hidden_states), (attentions) # Logits is a tuple of intent and slot logits
