@@ -83,8 +83,8 @@ class JointProcessor(object):
             lines = []
             for line in f:
                 lines.append(line.strip())
-                # if (len(lines) > 65):
-                #     break
+                if (len(lines) > 65):
+                    break
             return lines
 
     def _create_examples(self, texts, intents, slots, set_type):

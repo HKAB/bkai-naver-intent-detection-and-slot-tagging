@@ -52,7 +52,8 @@ class LSTMEncoder(nn.Module):
         dropout_text = self.__dropout_layer(embedded_text)
 
         # Pack and Pad process for input of variable length.
-        packed_text = pack_padded_sequence(dropout_text, seq_lens, batch_first=True, enforce_sorted=False)
+        # seq_lens.cpu(): https://github.com/pytorch/pytorch/issues/43227
+        packed_text = pack_padded_sequence(dropout_text, seq_lens.cpu(), batch_first=True, enforce_sorted=False)
         lstm_hiddens, (h_last, c_last) = self.__lstm_layer(packed_text)
         padded_hiddens, _ = pad_packed_sequence(lstm_hiddens, batch_first=True)
 
@@ -328,7 +329,8 @@ class StackPropagationBERT(RobertaPreTrainedModel):
         if args.use_crf:
             self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
 
-    def forward(self, input_ids, attention_mask, token_type_ids, intent_label_ids, slot_labels_ids):
+    def forward(self, input_ids, attention_mask, token_type_ids, intent_label_ids, slot_labels_ids,
+                teacher_forcing=True, is_test=False):
         outputs = self.bert(input_ids, attention_mask=attention_mask,
                             token_type_ids=token_type_ids)  # sequence_output, pooled_output, (hidden_states), (attentions)
         sequence_output = outputs[0]
@@ -342,41 +344,58 @@ class StackPropagationBERT(RobertaPreTrainedModel):
         # hiddens: (batch_size*max_seq_len x 2*hidden size)
         hiddens = torch.cat([attention_hiddens, lstm_hiddens], dim=1)
 
-        forced_intent = []
-        forced_slot = []
-        for intent, seq_len in zip(intent_label_ids, seq_lens):
-            forced_intent.extend([intent]*seq_len)
+        if not is_test:
+            forced_intent = []
+            forced_slot = []
+            for intent, seq_len in zip(intent_label_ids, seq_lens):
+                forced_intent.extend([intent]*seq_len)
 
-        for slot, seq_len in zip(slot_labels_ids, seq_lens):
-            forced_slot.extend(slot[:seq_len])
+            for slot, seq_len in zip(slot_labels_ids, seq_lens):
+                forced_slot.extend(slot[:seq_len])
 
-        # forced_intent: (batch_size*total_word_num x 1)
-        # forced_slot: (batch_size*total_word_num x 1)
-        forced_intent = Variable(torch.LongTensor(forced_intent))
-        forced_slot = Variable(torch.LongTensor(forced_slot))
+            # forced_intent: (batch_size*total_word_num x 1)
+            # forced_slot: (batch_size*total_word_num x 1)
+            forced_intent = Variable(torch.LongTensor(forced_intent))
+            forced_slot = Variable(torch.LongTensor(forced_slot))
 
-        if torch.cuda.is_available():
-            forced_intent = forced_intent.cuda()
-            forced_slot = forced_slot.cuda()
+            if torch.cuda.is_available():
+                forced_intent = forced_intent.cuda()
+                forced_slot = forced_slot.cuda()
+        if teacher_forcing:
+            # pred_intent: (batch_size x 1)
+            pred_intent = self.intent_decoder(
+                hiddens, seq_lens,
+                forced_input=forced_intent # teacher forcing :D
+            )
 
-        # pred_intent: (batch_size x 1)
-        pred_intent = self.intent_decoder(
-            hiddens, seq_lens,
-            forced_input=forced_intent # teacher forcing :D
-        )
+            if not self.args.differentiable:
+                _, idx_intent = pred_intent.topk(1, dim=-1)
+                feed_intent = self.intent_embedding(idx_intent.squeeze(1))
+            else:
+                feed_intent = pred_intent
 
-        if not self.args.differentiable:
-            _, idx_intent = pred_intent.topk(1, dim=-1)
-            feed_intent = self.intent_embedding(idx_intent.squeeze(1))
+            # pred_slot: (batch_size*total_word_len x num_slot_label)
+            pred_slot = self.slot_decoder(
+                hiddens, seq_lens,
+                forced_input=forced_slot,
+                extra_input=feed_intent
+            )
         else:
-            feed_intent = pred_intent
+            pred_intent = self.intent_decoder(
+                hiddens, seq_lens,
+            )
 
-        # pred_slot: (batch_size*total_word_len x num_slot_label)
-        pred_slot = self.slot_decoder(
-            hiddens, seq_lens,
-            forced_input=forced_slot,
-            extra_input=feed_intent
-        )
+            if not self.args.differentiable:
+                _, idx_intent = pred_intent.topk(1, dim=-1)
+                feed_intent = self.intent_embedding(idx_intent.squeeze(1))
+            else:
+                feed_intent = pred_intent
+
+            # pred_slot: (batch_size*total_word_len x num_slot_label)
+            pred_slot = self.slot_decoder(
+                hiddens, seq_lens,
+                extra_input=feed_intent
+            )
 
 
         # intent of each tokens

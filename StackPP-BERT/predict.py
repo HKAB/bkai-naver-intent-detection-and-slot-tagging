@@ -8,6 +8,7 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader, SequentialSampler
 
 from utils import init_logger, load_tokenizer, get_intent_labels, get_slot_labels, MODEL_CLASSES
+from scipy import stats
 
 logger = logging.getLogger(__name__)
 
@@ -144,9 +145,9 @@ def predict(pred_config):
     sampler = SequentialSampler(dataset)
     data_loader = DataLoader(dataset, sampler=sampler, batch_size=pred_config.batch_size)
 
-    all_slot_label_mask = None
-    intent_preds = None
-    slot_preds = None
+    all_slot_label_mask = []
+    intent_preds = []
+    slot_preds = []
 
     for batch in tqdm(data_loader, desc="Predicting"):
         batch = tuple(t.to(device) for t in batch)
@@ -157,41 +158,44 @@ def predict(pred_config):
                       "slot_labels_ids": None}
             if args.model_type != "distilbert":
                 inputs["token_type_ids"] = batch[2]
-            outputs = model(**inputs)
+            outputs = model(**inputs, teacher_forcing=False, is_test=True)
             _, (intent_logits, slot_logits) = outputs[:2]
 
+
+            seq_lens = torch.sum(inputs["attention_mask"], dim=1)
+
             # Intent Prediction
-            if intent_preds is None:
-                intent_preds = intent_logits.detach().cpu().numpy()
-            else:
-                intent_preds = np.append(intent_preds, intent_logits.detach().cpu().numpy(), axis=0)
+            start_pos = 0
+            for i in range(len(seq_lens)):
+                sent_intent = intent_logits.detach().cpu().numpy()[start_pos:start_pos + seq_lens[i]]
+                intent_preds.append(stats.mode(np.argmax(sent_intent, axis=1)).mode[0])
+                start_pos = start_pos + seq_lens[i]
 
             # Slot prediction
-            if slot_preds is None:
-                if args.use_crf:
-                    # decode() in `torchcrf` returns list with best index directly
-                    slot_preds = np.array(model.crf.decode(slot_logits))
-                else:
-                    slot_preds = slot_logits.detach().cpu().numpy()
-                all_slot_label_mask = batch[3].detach().cpu().numpy()
+            if args.use_crf:
+                # fix this later
+                # decode() in `torchcrf` returns list with best index directly
+                slot_preds = slot_preds.append(model.crf.decode(slot_logits))
             else:
-                if args.use_crf:
-                    slot_preds = np.append(slot_preds, np.array(model.crf.decode(slot_logits)), axis=0)
-                else:
-                    slot_preds = np.append(slot_preds, slot_logits.detach().cpu().numpy(), axis=0)
-                all_slot_label_mask = np.append(all_slot_label_mask, batch[3].detach().cpu().numpy(), axis=0)
+                # slot_logits: (batch_size*total_word_len x num_slot_labels)
+                start_pos = 0
+                for i in range(len(seq_lens)):
+                    sent_slot = slot_logits.detach().cpu().numpy()[start_pos:start_pos + seq_lens[i]]
+                    slot_preds.append(np.argmax(sent_slot, axis=1))
+                    start_pos = start_pos + seq_lens[i]
+            all_slot_label_mask.extend(batch[3].detach().cpu().numpy().tolist())
 
-    intent_preds = np.argmax(intent_preds, axis=1)
+    # intent_preds = np.argmax(intent_preds, axis=1)
 
-    if not args.use_crf:
-        slot_preds = np.argmax(slot_preds, axis=2)
-
+    # if not args.use_crf:
+    #     slot_preds = np.argmax(slot_preds, axis=2)
+    # print(all_slot_label_mask)
     slot_label_map = {i: label for i, label in enumerate(slot_label_lst)}
-    slot_preds_list = [[] for _ in range(slot_preds.shape[0])]
+    slot_preds_list = [[] for _ in range(len(slot_preds))]
 
-    for i in range(slot_preds.shape[0]):
-        for j in range(slot_preds.shape[1]):
-            if all_slot_label_mask[i, j] != pad_token_label_id:
+    for i in range(len(slot_preds)):
+        for j in range(len(slot_preds[i])):
+            if all_slot_label_mask[i][j] != pad_token_label_id:
                 slot_preds_list[i].append(slot_label_map[slot_preds[i][j]])
 
     # with open(pred_config.intent_output_file, "w", encoding="utf-8") as f:

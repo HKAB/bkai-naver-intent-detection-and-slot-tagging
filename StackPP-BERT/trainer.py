@@ -160,7 +160,7 @@ class Trainer(object):
                           'slot_labels_ids': batch[4]}
                 if self.args.model_type != 'distilbert':
                     inputs['token_type_ids'] = batch[2]
-                outputs = self.model(**inputs)
+                outputs = self.model(**inputs, teacher_forcing=False)
                 tmp_eval_loss, (intent_logits, slot_logits) = outputs[:2]
 
                 eval_loss += tmp_eval_loss.mean().item()
