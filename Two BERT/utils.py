@@ -10,7 +10,7 @@ from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConf
 from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer, XLMRobertaTokenizer
 
 from model import   JointBERT, JointDistilBERT, JointAlbert, \
-                    JointPhoBERT, IntentEnviBERT, IntentXLMR, SlotFillingEnviBERT
+                    JointPhoBERT, IntentEnviBERT, IntentXLMR, SlotFillingEnviBERT, SlotFillingXLMR
 
 from importlib.machinery import SourceFileLoader
 from transformers.file_utils import cached_path, hf_bucket_url
@@ -22,6 +22,7 @@ MODEL_CLASSES = {
     'intent-envibert': (RobertaConfig, IntentEnviBERT, AutoTokenizer),
     "intent-xlmr": (XLMRobertaConfig, IntentXLMR, XLMRobertaTokenizer),
     'slot-filling-envibert': (RobertaConfig, SlotFillingEnviBERT, AutoTokenizer),
+    'slot-filling-envibert': (RobertaConfig, SlotFillingXLMR, XLMRobertaTokenizer),
 }
 
 MODEL_PATH_MAP = {
@@ -31,6 +32,7 @@ MODEL_PATH_MAP = {
     'intent-envibert': 'nguyenvulebinh/envibert',
     'intent-xlmr': 'xlm-roberta-base',
     'slot-filling-envibert': 'nguyenvulebinh/envibert',
+    'slot-filling-xlmr': 'xlm-roberta-base',
 }
 
 CACHE_DIR = "./cache"

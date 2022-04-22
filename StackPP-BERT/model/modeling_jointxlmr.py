@@ -283,8 +283,8 @@ class StackPropagationXLMR(RobertaPreTrainedModel):
         self.num_slot_labels = len(slot_label_lst)
         self.bert = XLMRobertaModel(config=config)  # Load pretrained bert
 
-        # for param in self.bert.parameters():
-        #     param.requires_grad = False
+        for param in self.bert.parameters():
+            param.requires_grad = False
 
 
         # Initialize an LSTM Encoder object.

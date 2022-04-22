@@ -187,6 +187,15 @@ def predict(pred_config):
                 intent_preds = np.append(intent_preds, intent_logits.detach().cpu().numpy(), axis=0)
     # predict slot
     del model
+    pad_token_label_id = slot_filling_args.ignore_index
+    tokenizer = load_tokenizer(slot_filling_args)
+    lines = read_input_file(pred_config)
+    dataset = convert_input_file_to_tensor_dataset(lines, pred_config, slot_filling_args, tokenizer, pad_token_label_id)
+
+    # Predict
+    sampler = SequentialSampler(dataset)
+    data_loader = DataLoader(dataset, sampler=sampler, batch_size=pred_config.batch_size)
+    
     model = load_model(pred_config, slot_filling_args, device, subtask="slot_filling")
     for batch in tqdm(data_loader, desc="Predicting"):
         batch = tuple(t.to(device) for t in batch)

@@ -5,3 +5,4 @@ from .modeling_jointalbert import JointAlbert
 from .modeling_intent_envibert import IntentEnviBERT
 from .modeling_intent_xlmr import IntentXLMR
 from .modeling_slot_filling_envibert import SlotFillingEnviBERT
+from .modeling_slot_filling_xlmr import SlotFillingXLMR
