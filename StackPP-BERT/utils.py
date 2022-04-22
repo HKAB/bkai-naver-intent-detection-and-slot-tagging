@@ -6,10 +6,10 @@ import torch
 import numpy as np
 from seqeval.metrics import precision_score, recall_score, f1_score
 
-from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
-from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
+from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig, XLMRobertaConfig
+from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer, XLMRobertaTokenizer
 
-from model import   JointBERT, JointDistilBERT, JointAlbert, StackPropagationBERT
+from model import   JointBERT, JointDistilBERT, JointAlbert, StackPropagationBERT, StackPropagationXLMR
 
 from importlib.machinery import SourceFileLoader
 from transformers.file_utils import cached_path, hf_bucket_url
@@ -19,6 +19,7 @@ MODEL_CLASSES = {
     'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
     'envibert': (RobertaConfig, StackPropagationBERT, AutoTokenizer),
+    "xlmr": (XLMRobertaConfig, StackPropagationXLMR, XLMRobertaTokenizer),
 }
 
 MODEL_PATH_MAP = {
@@ -26,6 +27,7 @@ MODEL_PATH_MAP = {
     'distilbert': 'distilbert-base-uncased',
     'albert': 'albert-xxlarge-v1',
     'envibert': 'nguyenvulebinh/envibert',
+    "xlmr": "xlm-roberta-base",
 }
 
 CACHE_DIR = "./cache"
