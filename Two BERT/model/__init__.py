@@ -3,4 +3,5 @@ from .modeling_jointphobert import JointPhoBERT
 from .modeling_jointdistilbert import JointDistilBERT
 from .modeling_jointalbert import JointAlbert
 from .modeling_intent_envibert import IntentEnviBERT
+from .modeling_intent_xlmr import IntentXLMR
 from .modeling_slot_filling_envibert import SlotFillingEnviBERT
