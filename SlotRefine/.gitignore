@@ -107,8 +107,8 @@ venv.bak/
 .vscode/
 .idea/
 bkai_model*/
-bkai_intent_model*/
-bkai_slot_filling_model*/
+bkai_intent_model/
+bkai_slot_filling_model/
 *.csv
 VnCoreNLP-master/
 

@@ -47,7 +47,7 @@ class JointSlotRefineEnviBERT(RobertaPreTrainedModel):
         for i in range(second_phase_embedding.shape[0]):
             for j in range(second_phase_embedding.shape[1]):
                 if ("B-" not in self.slot_label_lst[second_phase_embedding[i][j]]):
-                    second_phase_embedding[i][j] = 0
+                    second_phase_embedding[i][j] = self.o_tag_idx
 
         second_phase_embedding = self.slot_embedding(second_phase_embedding)
         

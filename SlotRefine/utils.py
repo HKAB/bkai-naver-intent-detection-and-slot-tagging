@@ -16,10 +16,12 @@ from transformers.file_utils import cached_path, hf_bucket_url
 
 MODEL_CLASSES = {
     'envibert': (RobertaConfig, JointSlotRefineEnviBERT, AutoTokenizer),
+    'xlmr': (RobertaConfig, JointSlotRefineEnviBERT, AutoTokenizer),
 }
 
 MODEL_PATH_MAP = {
     'envibert': 'nguyenvulebinh/envibert',
+    'xlmr': 'xlm-roberta-base',
 }
 
 CACHE_DIR = "./cache"

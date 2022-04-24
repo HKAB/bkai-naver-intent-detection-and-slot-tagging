@@ -8,7 +8,7 @@ from transformers.models.xlm_roberta.modeling_xlm_roberta import XLMRobertaModel
 
 class SlotFillingXLMR(RobertaPreTrainedModel):
     def __init__(self, config, args, slot_label_lst):
-        super(SlotFillingEnviBERT, self).__init__(config)
+        super(SlotFillingXLMR, self).__init__(config)
         self.args = args
         # self.num_intent_labels = len(intent_label_lst)
         self.num_slot_labels = len(slot_label_lst)

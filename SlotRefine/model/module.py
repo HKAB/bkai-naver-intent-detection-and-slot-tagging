@@ -22,9 +22,8 @@ class SlotClassifier(nn.Module):
     def forward(self, x):
 
         # x: (batch x max_seq_length x hidden_size)
-        new_x = torch.zeros_like(x)
-        new_x[:, 1:, :] +=  x[:, :-1, :]
-        new_x = torch.cat([x, new_x], dim=2)
+        cls_addition = torch.repeat_interleave(x[:, 0, :].unsqueeze(dim=1), x.shape[1], dim=1)
+        x = torch.cat([x, cls_addition], dim=2)
 
-        new_x = self.dropout(new_x)
-        return self.linear(new_x)
+        x = self.dropout(x)
+        return self.linear(x)
