@@ -2,7 +2,7 @@ import argparse
 
 from trainer import Trainer
 from utils import init_logger, load_tokenizer, read_prediction_text, set_seed, MODEL_CLASSES, MODEL_PATH_MAP
-from data_loader import load_and_cache_examples
+from data_loader import load_and_cache_examples, concat_train_dev_and_split
 
 
 def main(args):
@@ -14,6 +14,8 @@ def main(args):
     dev_dataset = load_and_cache_examples(args, tokenizer, mode="dev")
     test_dataset = None #load_and_cache_examples(args, tokenizer, mode="test")
 
+    if (args.concat_and_slit_train_dev):
+        train_dataset, dev_dataset = concat_train_dev_and_split(args, [train_dataset, dev_dataset])
     trainer = Trainer(args, train_dataset, dev_dataset, test_dataset)
 
     if args.do_train:

@@ -14,7 +14,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch.nn.utils.rnn import pad_packed_sequence
-from transformers import RobertaPreTrainedModel, RobertaModel, RobertaConfig
 
 
 class ModelManager(nn.Module):
@@ -28,11 +27,10 @@ class ModelManager(nn.Module):
         self.__args = args
 
         # Initialize an embedding object.
-        # self.__embedding = EmbeddingCollection(
-        #     self.__num_word,
-        #     self.__args.word_embedding_dim
-        # )
-        self.__embedding = BERT(RobertaConfig())
+        self.__embedding = EmbeddingCollection(
+            self.__num_word,
+            self.__args.word_embedding_dim
+        )
 
 
         # Initialize an LSTM Encoder object.
@@ -142,26 +140,6 @@ class ModelManager(nn.Module):
 
         # Just predict single slot value.
         return slot_index.cpu().data.numpy().tolist()
-
-class BERT(RobertaPreTrainedModel):
-    def __init__(self, config):
-        super(EmbeddingCollection, self).__init__()
-
-        self.bert = RobertaModel(config=config)  # Load pretrained bert
-
-        # Word vector encoder.
-        self.__embedding_layer = nn.Embedding(
-            self.__input_dim, self.__embedding_dim
-        )
-
-    def forward(self, input_ids, attention_mask, token_type_ids):
-
-        outputs = self.bert(input_ids, attention_mask=attention_mask,
-                            token_type_ids=token_type_ids)  # sequence_output, pooled_output, (hidden_states), (attentions)
-        sequence_output = outputs[0]
-        # pooled_output = outputs[1]  # [CLS]
-
-        return sequence_output, sequence_output
 
 class EmbeddingCollection(nn.Module):
     """

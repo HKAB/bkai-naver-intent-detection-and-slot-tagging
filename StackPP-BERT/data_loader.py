@@ -255,3 +255,12 @@ def load_and_cache_examples(args, tokenizer, mode):
     dataset = TensorDataset(all_input_ids, all_attention_mask,
                             all_token_type_ids, all_intent_label_ids, all_slot_labels_ids)
     return dataset
+
+
+def concat_train_dev_and_split(args, datasets):
+    total_train_dataset = torch.utils.data.ConcatDataset(datasets)
+
+    new_train_dataset, new_dev_dataset = torch.utils.data.random_split(  total_train_dataset, \
+                                                        [len(total_train_dataset) - 342, 342], \
+                                                        torch.Generator().manual_seed(args.seed) )
+    return new_train_dataset, new_dev_dataset
