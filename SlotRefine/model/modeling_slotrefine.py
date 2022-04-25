@@ -5,9 +5,9 @@ from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
 
-class JointSlotRefineEnviBERT(RobertaPreTrainedModel):
+class JointSlotRefine(RobertaPreTrainedModel):
     def __init__(self, config, args, intent_label_lst, slot_label_lst):
-        super(JointSlotRefineEnviBERT, self).__init__(config)
+        super(JointSlotRefine, self).__init__(config)
         self.args = args
         self.num_intent_labels = len(intent_label_lst)
         self.num_slot_labels = len(slot_label_lst)
@@ -77,7 +77,8 @@ class JointSlotRefineEnviBERT(RobertaPreTrainedModel):
         # 2. Slot Softmax
         if slot_labels_ids is not None:
             if self.args.use_crf:
-                slot_loss = self.crf(slot_logits, slot_labels_ids, mask=attention_mask.byte(), reduction='mean')
+                slot_loss = self.crf(first_pass_slot_logits, slot_labels_ids, mask=attention_mask.byte(), reduction='mean')
+                slot_loss += self.crf(second_pass_slot_logits, slot_labels_ids, mask=attention_mask.byte(), reduction='mean')
                 slot_loss = -1 * slot_loss  # negative log-likelihood
             else:
                 slot_loss_fct = nn.CrossEntropyLoss(ignore_index=self.args.ignore_index)

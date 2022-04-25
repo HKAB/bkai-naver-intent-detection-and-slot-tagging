@@ -9,14 +9,14 @@ from seqeval.metrics import precision_score, recall_score, f1_score
 from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
 from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
 
-from model import JointSlotRefineEnviBERT
+from model import JointSlotRefine
 
 from importlib.machinery import SourceFileLoader
 from transformers.file_utils import cached_path, hf_bucket_url
 
 MODEL_CLASSES = {
-    'envibert': (RobertaConfig, JointSlotRefineEnviBERT, AutoTokenizer),
-    'xlmr': (RobertaConfig, JointSlotRefineEnviBERT, AutoTokenizer),
+    'envibert': (RobertaConfig, JointSlotRefine, AutoTokenizer),
+    'xlmr': (RobertaConfig, JointSlotRefine, AutoTokenizer),
 }
 
 MODEL_PATH_MAP = {

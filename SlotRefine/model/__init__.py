@@ -1,1 +1,1 @@
-from .modeling_slotrefine import JointSlotRefineEnviBERT
+from .modeling_slotrefine import JointSlotRefine
