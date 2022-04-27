@@ -72,6 +72,7 @@ if __name__ == '__main__':
 
     # Data option
     parser.add_argument("--concat_and_slit_train_dev", action="store_true", help="Concat train and dev data, then random split again")
+    parser.add_argument('--dev_size', type=int, default=500, help="Use when --concat_and_slit_train_dev is True. Size of the dev set.")
     args = parser.parse_args()
 
     args.model_name_or_path = MODEL_PATH_MAP[args.model_type]

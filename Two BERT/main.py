@@ -14,6 +14,9 @@ def main(args):
     train_dataset = load_and_cache_examples(args, tokenizer, mode="train")
     dev_dataset = load_and_cache_examples(args, tokenizer, mode="dev")
     test_dataset = None #load_and_cache_examples(args, tokenizer, mode="test")
+    
+    if (args.concat_and_slit_train_dev):
+        train_dataset, dev_dataset = concat_train_dev_and_split(args, [train_dataset, dev_dataset])
 
     if (args.subtask == "intent"):
         trainer = IntentTrainer(args, train_dataset, dev_dataset, test_dataset)
@@ -72,6 +75,10 @@ if __name__ == '__main__':
 
     # Intent or Slot filling
     parser.add_argument("--subtask", default="intent", type=str, help="Intent or Slot filling")
+    
+    # Data option
+    parser.add_argument("--concat_and_slit_train_dev", action="store_true", help="Concat train and dev data, then random split again")
+    parser.add_argument('--dev_size', type=int, default=500, help="Use when --concat_and_slit_train_dev is True. Size of the dev set.")
 
     args = parser.parse_args()
 

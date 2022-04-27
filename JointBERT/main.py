@@ -68,6 +68,9 @@ if __name__ == '__main__':
     parser.add_argument("--use_crf", action="store_true", help="Whether to use CRF")
     parser.add_argument("--slot_pad_label", default="PAD", type=str, help="Pad token for slot label pad (to be ignore when calculate loss)")
 
+    # Data option
+    parser.add_argument("--concat_and_slit_train_dev", action="store_true", help="Concat train and dev data, then random split again")
+    parser.add_argument('--dev_size', type=int, default=500, help="Use when --concat_and_slit_train_dev is True. Size of the dev set.")
     args = parser.parse_args()
 
     args.model_name_or_path = MODEL_PATH_MAP[args.model_type]

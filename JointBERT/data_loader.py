@@ -258,6 +258,6 @@ def concat_train_dev_and_split(args, datasets):
     total_train_dataset = torch.utils.data.ConcatDataset(datasets)
 
     new_train_dataset, new_dev_dataset = torch.utils.data.random_split(  total_train_dataset, \
-                                                        [len(total_train_dataset) - 342, 342], \
+                                                        [len(total_train_dataset) - args.dev_size, args.dev_size], \
                                                         torch.Generator().manual_seed(args.seed) )
     return new_train_dataset, new_dev_dataset
