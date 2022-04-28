@@ -109,21 +109,21 @@ class Processor(object):
                   'about {:2.6} seconds.'.format(epoch, total_slot_loss, total_intent_loss, time_con))
 
             change, time_start = False, time.time()
-            dev_f1_score, dev_acc, dev_sent_acc = self.estimate(if_dev=True, test_batch=self.__batch_size)
+            dev_precision_score, dev_acc, dev_sent_acc = self.estimate(if_dev=True, test_batch=self.__batch_size)
 
-            if dev_f1_score > best_dev_slot or dev_acc > best_dev_intent or dev_sent_acc > best_dev_sent:
+            if dev_precision_score > best_dev_slot or dev_acc > best_dev_intent or dev_sent_acc > best_dev_sent:
                 # No test data
                 # test_f1, test_acc, test_sent_acc = self.estimate(if_dev=False, test_batch=self.__batch_size)
 
-                if dev_f1_score > best_dev_slot:
-                    best_dev_slot = dev_f1_score
+                if dev_precision_score > best_dev_slot:
+                    best_dev_slot = dev_precision_score
                 if dev_acc > best_dev_intent:
                     best_dev_intent = dev_acc
                 if dev_sent_acc > best_dev_sent:
                     best_dev_sent = dev_sent_acc
 
-                print('\nDest result: slot f1 score: {:.6f}, intent acc score: {:.6f}, semantic '
-                      'accuracy score: {:.6f}.'.format(dev_f1_score, dev_acc, dev_sent_acc))
+                print('\nDest result: slot precision score: {:.6f}, intent acc score: {:.6f}, semantic '
+                      'accuracy score: {:.6f}.'.format(dev_precision_score, dev_acc, dev_sent_acc))
 
                 model_save_dir = os.path.join(self.__dataset.save_dir, "model")
                 if not os.path.exists(model_save_dir):
@@ -133,9 +133,9 @@ class Processor(object):
                 torch.save(self.__dataset, os.path.join(model_save_dir, 'dataset.pkl'))
 
                 time_con = time.time() - time_start
-                print('[Epoch {:2d}]: In validation process, the slot f1 score is {:2.6f}, ' \
+                print('[Epoch {:2d}]: In validation process, the slot precision score is {:2.6f}, ' \
                       'the intent acc is {:2.6f}, the semantic acc is {:.2f}, cost about ' \
-                      '{:2.6f} seconds.\n'.format(epoch, dev_f1_score, dev_acc, dev_sent_acc, time_con))
+                      '{:2.6f} seconds.\n'.format(epoch, dev_precision_score, dev_acc, dev_sent_acc, time_con))
 
     def estimate(self, if_dev, test_batch=100):
         """
@@ -151,11 +151,12 @@ class Processor(object):
                 self.__model, self.__dataset, "test", test_batch
             )
 
-        slot_f1_socre = f1_score(real_slot, pred_slot) #miulab.computeF1Score(pred_slot, real_slot)[0]
+        slot_precision_score = precision_score(real_slot, pred_slot)
+        # slot_f1_score = f1_score(real_slot, pred_slot) #miulab.computeF1Score(pred_slot, real_slot)[0]
         intent_acc = Evaluator.accuracy(pred_intent, real_intent)
         sent_acc = Evaluator.semantic_acc(pred_slot, real_slot, pred_intent, real_intent)
 
-        return slot_f1_socre, intent_acc, sent_acc
+        return slot_precision_score, intent_acc, sent_acc
 
 
     @staticmethod

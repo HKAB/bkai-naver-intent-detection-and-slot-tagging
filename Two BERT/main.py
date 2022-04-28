@@ -3,7 +3,7 @@ import argparse
 from intent_trainer import IntentTrainer
 from slot_filling_trainer import SlotFillingTrainer
 from utils import init_logger, load_tokenizer, read_prediction_text, set_seed, MODEL_CLASSES, MODEL_PATH_MAP
-from data_loader import load_and_cache_examples
+from data_loader import load_and_cache_examples, concat_train_dev_and_split
 
 
 def main(args):

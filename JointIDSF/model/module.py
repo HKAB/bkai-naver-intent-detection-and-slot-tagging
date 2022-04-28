@@ -154,4 +154,4 @@ class SlotClassifier(nn.Module):
             output, weights = self.attention(x, intent_context, attention_mask)
             x = output
         x = self.dropout(x)
-        return self.linear(x)
+        return self.linear(x), torch.sum(x, dim=1)
