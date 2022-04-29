@@ -1,13 +1,16 @@
 import argparse
-from random import shuffle
 from dataloader import *
 from utils import *
 from models import WordEmbedding, SlotModel, IntentModel
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+import json
 
 def train(args):
+    with open(os.path.join(args.save_dir, 'config.json'), 'w') as f:
+        json.dump(vars(args), f)
+            
     device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
 
     dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len)
@@ -62,12 +65,12 @@ def train(args):
         slot_f1 = slot_metrics['slot_f1']
         slot_pre = slot_metrics['slot_precision']
         slot_recall = slot_metrics['slot_recall']
-        if sent_acc > best_acc:
+        if sent_acc >= best_acc:
             best_acc = sent_acc
             torch.save(slot_model.state_dict(), f'{args.save_dir}/slot.pth')
             torch.save(intent_model.state_dict(), f'{args.save_dir}/intent.pth')
-            with open(f'{args.save_dir}/log.txt', 'w') as f:
-                f.write(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre}, Slot recall: {slot_recall}, Sent acc: {sent_acc:.2f}\n')
+            # with open(f'{args.save_dir}/log.txt', 'a') as f:
+            #     f.write(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre}, Slot recall: {slot_recall}, Sent acc: {sent_acc:.2f}\n')
 
         iterator.set_description(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Sent acc: {sent_acc:.2f}')
 

@@ -32,7 +32,7 @@ class DataManager:
         if name == 'dev':
             return TextData(self.dev_data, self.word_dict, self.slot_label, max_len = self.max_len)
         if name == 'test':
-            return TextData(self.train_data, self.word_dict, self.slot_label, is_test=True, max_len = self.max_len)
+            return TextData(self.test_data, self.word_dict, self.slot_label, is_test=True, max_len = self.max_len)
 
     def __read_data(self, folder, is_test = False):
         data = {}
