@@ -1,0 +1,1 @@
+Epoch: 2, Intent loss: 0.19, Slot loss, 6.80, Intent acc: 0.78, Slot F1: 0.55, Slot pre: 0.6556671449067432, Slot recall: 0.47604166666666664, Sent acc: 0.19
