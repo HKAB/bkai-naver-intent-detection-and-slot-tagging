@@ -16,7 +16,8 @@ class JointXLMR(RobertaPreTrainedModel):
         self.roberta = XLMRobertaModel(config)  # Load pretrained bert
         self.intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
 
-        self.final_intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
+        # self.linear_fix_intent = nn.Linear(config.hidden_size, config.hidden_size)
+        # self.final_intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
         self.slot_classifier = SlotClassifier(
             config.hidden_size,
             self.num_intent_labels,
@@ -49,11 +50,12 @@ class JointXLMR(RobertaPreTrainedModel):
             for i, sample in enumerate(intent_logits):
                 max_idx = torch.argmax(sample)
                 hard_intent_logits[i][max_idx] = 1
-            slot_logits, intent_rep = self.slot_classifier(sequence_output, hard_intent_logits, tmp_attention_mask)
+            slot_logits = self.slot_classifier(sequence_output, hard_intent_logits, tmp_attention_mask)
         else:
-            slot_logits, intent_rep = self.slot_classifier(sequence_output, intent_logits, tmp_attention_mask)
+            slot_logits = self.slot_classifier(sequence_output, intent_logits, tmp_attention_mask)
 
-        intent_logits = self.final_intent_classifier(intent_rep)
+        # pooled_output_fix = self.linear_fix_intent(pooled_output)
+        # intent_logits = self.final_intent_classifier(pooled_output_fix)
         total_loss = 0
         # 1. Intent Softmax
         if intent_label_ids is not None:

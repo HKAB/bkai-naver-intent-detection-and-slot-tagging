@@ -19,8 +19,18 @@ class JointSlotRefine(RobertaPreTrainedModel):
 
         self.bert = RobertaModel(config=config)  # Load pretrained bert
 
-        self.intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
-        self.slot_classifier = SlotClassifier(config.hidden_size, self.num_slot_labels, args.dropout_rate)
+        self.intent_classifier = IntentClassifier(
+            config.hidden_size, 
+            self.num_intent_labels, 
+            args.dropout_rate
+        )
+        self.slot_classifier = SlotClassifier(
+            config.hidden_size, 
+            self.num_intent_labels, 
+            self.num_slot_labels, 
+            args.dropout_rate,
+            use_intent_context_attn=True
+        )
         
         if args.use_crf:
             self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
@@ -41,7 +51,7 @@ class JointSlotRefine(RobertaPreTrainedModel):
         pooled_output = outputs[1]  # [CLS]
 
         first_pass_intent_logits = self.intent_classifier(pooled_output)
-        first_pass_slot_logits = self.slot_classifier(sequence_output)
+        first_pass_slot_logits = self.slot_classifier(sequence_output, first_pass_intent_logits)
 
         second_phase_embedding = torch.argmax(first_pass_slot_logits, dim=2)
         for i in range(second_phase_embedding.shape[0]):
@@ -59,7 +69,7 @@ class JointSlotRefine(RobertaPreTrainedModel):
         pooled_output = outputs[1]  # [CLS]
 
         second_pass_intent_logits = self.intent_classifier(pooled_output)
-        second_pass_slot_logits = self.slot_classifier(sequence_output)
+        second_pass_slot_logits = self.slot_classifier(sequence_output, second_pass_intent_logits)
 
         total_loss = 0
         # 1. Intent Softmax
