@@ -11,7 +11,8 @@ def train(args):
     with open(os.path.join(args.save_dir, 'config.json'), 'w') as f:
         json.dump(vars(args), f)
             
-    device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
+    # device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
+    device = torch.device('cpu')
 
     dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len)
     train_data = dataset.get_data('train')
