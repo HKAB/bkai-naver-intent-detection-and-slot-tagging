@@ -1,13 +1,18 @@
 import argparse
-from dataloader import *
-from utils import *
-from models import StackPropagation
-import torch
-from torch.utils.data import DataLoader
-from transformers import AutoModel, AutoConfig
 from tqdm import tqdm
 import json
 import logging
+import pickle
+import os
+
+from dataloader import *
+from utils import *
+from models import StackPropagation
+
+import torch
+from torch.utils.data import DataLoader
+from transformers import AutoModel, AutoConfig
+
 
 def train(args):
     os.makedirs(args.save_dir, exist_ok=True)
@@ -21,7 +26,15 @@ def train(args):
     device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
     # device = torch.device('cpu')
 
-    dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
+    data_file = 'data.pickle'
+    if os.path.isfile(data_file):
+        with open(data_file, 'rb') as fr:
+            dataset = pickle.load(fr)
+    else:
+        dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
+        with open(data_file, 'wb') as fw:
+            pickle.dump(dataset, fw)
+    
     train_data = dataset.get_data('train')
     num_word = len(dataset.word_dict.keys())
     num_slot = len(dataset.slot_label)
@@ -85,8 +98,8 @@ def get_prediction(model, dev_loader, device, slot_list):
 
             intent_out, slot_out = model(text, att_mask, len_list)
             intent_out = model.intent_dec.crf.decode(intent_out)
-            intent_out = torch.tensor(intent_out).to(device)
-            intent_out = model.get_intent(intent_out)
+            seq_mask = slots >= 0
+            intent_out = model.get_intent(intent_out, seq_mask).to(device)
             slot_out = model.slot_dec.crf.decode(slot_out)
 
             intent_label.append(intents)

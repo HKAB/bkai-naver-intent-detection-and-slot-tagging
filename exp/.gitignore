@@ -133,3 +133,4 @@ dmypy.json
 save/
 *.zip
 *.csv
+*.pickle

@@ -1,3 +1,4 @@
+from scipy import stats
 import torch
 import torch.nn as nn
 from transformers.models.xlm_roberta.modeling_xlm_roberta import XLMRobertaModel, XLMRobertaConfig
@@ -32,11 +33,10 @@ class StackPropagation(nn.Module):
         slot_loss = self.slot_dec.get_loss(slot_logits, slot_labels, mask)
         return intent_coeff * intent_loss + (1 - intent_coeff) * slot_loss, intent_loss, slot_loss
 
-    def get_intent(self, intent_pred):
-        # intent_pred = intent_logits.argmax(dim = -1)
-        intent_pred = voting_intent_label(intent_pred)
-        return intent_pred
-
-def voting_intent_label(seq_labels):
-    labels, indices = torch.mode(seq_labels, dim = 1)
-    return labels
+    def get_intent(self, seq_pred, mask):
+        intent_pred = []
+        # print(mask, seq_pred)
+        for sent_pred, sent_mask in zip(seq_pred, mask):
+            true_sent = [label for label, m in zip(sent_pred, sent_mask) if m]
+            intent_pred.append(stats.mode(true_sent)[0][0])
+        return torch.tensor(intent_pred)
