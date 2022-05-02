@@ -8,8 +8,9 @@ def create_mask(len_list, max_len = None):
         mask[i, :l] = 1
     return mask
 
-def get_intent_acc(intent_labels, intent_logits):
-    intent_pred = intent_logits.argmax(dim = 1)
+
+def get_intent_acc(intent_labels, intent_pred):
+    # intent_pred = intent_logits.argmax(dim = -1)
     acc = (intent_labels == intent_pred).float().mean()
     return acc, intent_pred
 

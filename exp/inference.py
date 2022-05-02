@@ -11,7 +11,7 @@ class HP:
     def __init__(self, **entries):
         self.__dict__.update(entries)
 args = HP(**args)
-args.gpu = -1
+# args.gpu = -1
 device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
 dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
 num_word = len(dataset.word_dict.keys())
@@ -22,7 +22,7 @@ test_loader = DataLoader(test_data, batch_size = args.dev_batch_size, collate_fn
 
 
 model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout).to(device)
-model.load_state_dict(torch.load(os.path.join(save_dir, 'jointxlmr_104.pth')))
+model.load_state_dict(torch.load(os.path.join(save_dir, 'jointxlmr.pth')))
 
 slot_list = dataset.slot_label
 intent_list = dataset.intent_label
