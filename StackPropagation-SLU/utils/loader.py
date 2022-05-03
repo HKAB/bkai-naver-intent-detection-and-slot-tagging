@@ -348,7 +348,7 @@ class DatasetManager(object):
 
         return texts, slots, intents
 
-    def batch_delivery(self, data_name, batch_size=None, is_digital=True, shuffle=True):
+    def batch_delivery(self, data_name, batch_size=None, is_digital=True, shuffle=False):
         if batch_size is None:
             batch_size = self.batch_size
 

@@ -26,14 +26,19 @@ class JointSlotRefine(RobertaPreTrainedModel):
         )
         self.slot_classifier = SlotClassifier(
             config.hidden_size, 
-            self.num_intent_labels, 
             self.num_slot_labels, 
             args.dropout_rate,
-            use_intent_context_attn=True
         )
         
         if args.use_crf:
             self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
+
+        self.intent_loss_coef = None
+        self.slot_loss_coef = None
+
+    def set_loss_coef(self, intent_loss_coef, slot_loss_coef):
+        self.intent_loss_coef = intent_loss_coef
+        self.slot_loss_coef = slot_loss_coef
 
     def forward(self, input_ids, attention_mask, token_type_ids, intent_label_ids, slot_labels_ids):
 
@@ -51,7 +56,7 @@ class JointSlotRefine(RobertaPreTrainedModel):
         pooled_output = outputs[1]  # [CLS]
 
         first_pass_intent_logits = self.intent_classifier(pooled_output)
-        first_pass_slot_logits = self.slot_classifier(sequence_output, first_pass_intent_logits)
+        first_pass_slot_logits = self.slot_classifier(sequence_output)
 
         second_phase_embedding = torch.argmax(first_pass_slot_logits, dim=2)
         for i in range(second_phase_embedding.shape[0]):
@@ -69,7 +74,7 @@ class JointSlotRefine(RobertaPreTrainedModel):
         pooled_output = outputs[1]  # [CLS]
 
         second_pass_intent_logits = self.intent_classifier(pooled_output)
-        second_pass_slot_logits = self.slot_classifier(sequence_output, second_pass_intent_logits)
+        second_pass_slot_logits = self.slot_classifier(sequence_output)
 
         total_loss = 0
         # 1. Intent Softmax
@@ -82,7 +87,7 @@ class JointSlotRefine(RobertaPreTrainedModel):
                 intent_loss_fct = nn.CrossEntropyLoss()
                 intent_loss = intent_loss_fct(first_pass_intent_logits.view(-1, self.num_intent_labels), intent_label_ids.view(-1))
                 intent_loss += intent_loss_fct(second_pass_intent_logits.view(-1, self.num_intent_labels), intent_label_ids.view(-1))
-            total_loss += intent_loss
+            total_loss += (1 - self.args.slot_loss_coef) * intent_loss
 
         # 2. Slot Softmax
         if slot_labels_ids is not None:

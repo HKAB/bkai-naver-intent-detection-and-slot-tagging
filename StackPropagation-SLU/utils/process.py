@@ -91,7 +91,7 @@ class Processor(object):
 
                 slot_loss = self.__criterion(slot_out, slot_var)
                 intent_loss = self.__criterion(intent_out, intent_var)
-                batch_loss = slot_loss + intent_loss
+                batch_loss = 0.75*slot_loss + 0.25*intent_loss
 
                 self.__optimizer.zero_grad()
                 batch_loss.backward()

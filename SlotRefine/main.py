@@ -1,9 +1,12 @@
 import argparse
 
-from trainer import Trainer
+from trainer_tune import Trainer
 from utils import init_logger, load_tokenizer, read_prediction_text, set_seed, MODEL_CLASSES, MODEL_PATH_MAP
 from data_loader import load_and_cache_examples, concat_train_dev_and_split
-
+from ray import tune
+from ray.tune import CLIReporter
+from ray.tune.schedulers import ASHAScheduler
+from functools import partial
 
 def main(args):
     init_logger()
@@ -17,10 +20,42 @@ def main(args):
     if (args.concat_and_slit_train_dev):
         train_dataset, dev_dataset = concat_train_dev_and_split(args, [train_dataset, dev_dataset])
 
-    trainer = Trainer(args, train_dataset, dev_dataset, test_dataset)
+    config = {
+        "lr": tune.loguniform(1e-4, 1e-1),
+        "intent_loss_coef": tune.quniform(0.1, 1.0, 0.1),
+        "slot_loss_coef": tune.quniform(0.1, 1.0, 0.1),
+        "batch_size": tune.choice([16, 32, 64]),
+        "args": args,
+        "train_dataset": train_dataset,
+        "dev_dataset": dev_dataset,
+        "test_dataset": test_dataset
+    }
 
-    if args.do_train:
-        trainer.train()
+    # trainer = Trainer(args, train_dataset, dev_dataset, test_dataset)
+
+    scheduler = ASHAScheduler()
+    reporter = CLIReporter(
+        # parameter_columns=["l1", "l2", "lr", "batch_size"],
+        metric_columns=["loss", "sementic_frame_acc", "training_iteration"]
+    )
+
+    result = tune.run(
+        Trainer,
+        metric="sementic_frame_acc",
+        mode="max",
+        stop={
+            "training_iteration": 1
+        },
+        resources_per_trial={"cpu": 2, "gpu": int(args.no_cuda)},
+        config=config,
+        num_samples=1,
+        scheduler=scheduler,
+        progress_reporter=reporter
+    )
+
+    print("Best trial config: {}".format(result.best_config))
+    print("Best trial : {}".format(result.best_trial))
+    print("Best checkpoint dir is:", result.best_checkpoint)
 
     # if args.do_eval:
     #     trainer.load_model()

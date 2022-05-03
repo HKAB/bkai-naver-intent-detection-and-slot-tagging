@@ -4,7 +4,7 @@
 # 忽略文件夹:
 /*/__pycache__
 /.idea
-/save
+/save*
 
 *.csv
 *.zip
