@@ -1,5 +1,19 @@
+import os
+import pickle
+from dataloader import DataManager
 import torch
 from seqeval.metrics import precision_score, recall_score, f1_score
+
+def get_dataset(args):
+    data_file = 'data.pickle'
+    if os.path.isfile(data_file):
+        with open(data_file, 'rb') as fr:
+            dataset = pickle.load(fr)
+    else:
+        dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
+        with open(data_file, 'wb') as fw:
+            pickle.dump(dataset, fw)
+    return dataset
 
 def create_mask(len_list, max_len = None):
     max_len = len_list[0] if max_len is None else max_len

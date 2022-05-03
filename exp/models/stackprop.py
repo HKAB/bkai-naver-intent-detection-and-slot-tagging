@@ -40,3 +40,12 @@ class StackPropagation(nn.Module):
             true_sent = [label for label, m in zip(sent_pred, sent_mask) if m]
             intent_pred.append(stats.mode(true_sent)[0][0])
         return torch.tensor(intent_pred)
+
+    def predict(self, text, att_mask, slots, len_list, device, perm_idx = None, intents = None):
+        intent_out, slot_out = self.forward(text, att_mask, len_list)
+        intent_out = self.intent_dec.crf.decode(intent_out)
+        seq_mask = slots >= 0
+        intent_out = self.get_intent(intent_out, seq_mask).to(device)
+        slot_out = self.slot_dec.crf.decode(slot_out)
+        return intent_out, slot_out
+

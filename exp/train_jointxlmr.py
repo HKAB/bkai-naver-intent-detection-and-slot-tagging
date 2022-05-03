@@ -83,8 +83,9 @@ def evaluate(model, dev_loader, device, slot_list):
             intents = intents.to(device)
             att_mask = att_mask.to(device)
 
-            intent_out, slot_out = model(text, att_mask)
-            slot_out = model.crf.decode(slot_out)
+            # intent_out, slot_out = model(text, att_mask)
+            # slot_out = model.crf.decode(slot_out)
+            intent_out, slot_out = model.predict(text, att_mask, slots, len_list, device, perm_idx = perm_idx, intents = intents)
 
             intent_label.append(intents)
             intent_logits.append(intent_out)

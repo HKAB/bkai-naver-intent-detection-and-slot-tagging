@@ -34,3 +34,9 @@ class JointXLMR(nn.Module):
         intent_coeff = (intent_labels.size(0) / mask.sum()).detach()
         total_loss = intent_loss * intent_coeff + (1 - intent_coeff) * slot_loss
         return total_loss, intent_loss, slot_loss
+
+    def predict(self, text, att_mask, slots, len_list, device, perm_idx = None, intents = None):
+        intent_out, slot_out = self.forward(text, att_mask)
+        slot_out = self.crf.decode(slot_out)
+        intent_out = intent_out.argmax(dim = -1)
+        return intent_out, slot_out

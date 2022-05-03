@@ -26,14 +26,7 @@ def train(args):
     device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
     # device = torch.device('cpu')
 
-    data_file = 'data.pickle'
-    if os.path.isfile(data_file):
-        with open(data_file, 'rb') as fr:
-            dataset = pickle.load(fr)
-    else:
-        dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
-        with open(data_file, 'wb') as fw:
-            pickle.dump(dataset, fw)
+    dataset = get_dataset(args)
     
     train_data = dataset.get_data('train')
     num_word = len(dataset.word_dict.keys())
@@ -82,7 +75,7 @@ def train(args):
     logging.info(f'Best checkpoint: {best_ckpt}')
 
 
-def get_prediction(model, dev_loader, device, slot_list):
+def get_prediction(model, dev_loader, device, slot_list, is_test = False):
     model.eval()
     slot_pred = []
     intent_pred = []
@@ -90,19 +83,24 @@ def get_prediction(model, dev_loader, device, slot_list):
     slot_label = []
     with torch.no_grad():
         for batch in dev_loader:
-            text, att_mask, slots, intents, len_list, perm_idx = batch
+            if not is_test:
+                text, att_mask, slots, intents, len_list, perm_idx = batch
+                intents = intents.to(device)
+            else:
+                text, att_mask, slots, len_list, perm_idx = batch
             text = text.to(device)
             slots = slots.to(device)
-            intents = intents.to(device)
             att_mask = att_mask.to(device)
 
-            intent_out, slot_out = model(text, att_mask, len_list)
-            intent_out = model.intent_dec.crf.decode(intent_out)
-            seq_mask = slots >= 0
-            intent_out = model.get_intent(intent_out, seq_mask).to(device)
-            slot_out = model.slot_dec.crf.decode(slot_out)
+            intent_out, slot_out = model.predict(text, att_mask, slots, len_list, device, perm_idx = perm_idx, intents = intents)
+            # intent_out, slot_out = model(text, att_mask, len_list)
+            # intent_out = model.intent_dec.crf.decode(intent_out)
+            # seq_mask = slots >= 0
+            # intent_out = model.get_intent(intent_out, seq_mask).to(device)
+            # slot_out = model.slot_dec.crf.decode(slot_out)
 
-            intent_label.append(intents)
+            if not is_test:
+                intent_label.append(intents)
             intent_pred.append(intent_out)
 
             for sp, sl in zip(slot_out, slots):
@@ -110,9 +108,12 @@ def get_prediction(model, dev_loader, device, slot_list):
                 slot_label.append([slot_list[tgt_slot] for tgt_slot in sl if tgt_slot >= 0])
                 slot_pred.append([slot_list[out_slot] for out_slot, tgt_slot in zip(sp, sl) if tgt_slot >= 0])
 
-    intent_label = torch.cat(intent_label)
     intent_pred = torch.cat(intent_pred)
-    return intent_label, intent_pred, slot_label, slot_pred
+    if is_test:
+        return intent_pred, slot_pred
+    else:
+        intent_label = torch.cat(intent_label)
+        return intent_label, intent_pred, slot_label, slot_pred
 
 def evaluate(model, dev_loader, device, slot_list):
     intent_label, intent_pred, slot_label, slot_pred = get_prediction(model, dev_loader, device, slot_list)
