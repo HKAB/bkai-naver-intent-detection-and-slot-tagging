@@ -4,14 +4,14 @@ from models import *
 from torch.utils.data import DataLoader
 from transformers import AutoModel, AutoConfig
 
-save_dir = 'save/v1'
+save_dir = 'save/no_pooler'
 with open(os.path.join(save_dir, 'config.json'), 'r') as f:
     args = json.load(f)
 class HP:
     def __init__(self, **entries):
         self.__dict__.update(entries)
 args = HP(**args)
-
+args.gpu = -1
 device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
 dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
 num_word = len(dataset.word_dict.keys())
@@ -52,7 +52,7 @@ with torch.no_grad():
         slot_feat = slot_model.encode(text, len_list, att_mask = att_mask)
         slot_share = slot_feat.clone().detach()
         
-        intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler)
+        intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler = None)
         slot_out = slot_model.decode(slot_feat, intent_share, len_list)
         slot_out = slot_model.crf.decode(slot_out)
 

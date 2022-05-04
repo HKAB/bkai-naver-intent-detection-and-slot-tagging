@@ -10,6 +10,7 @@ import json
 import logging
 
 def train(args):
+    os.makedirs(args.save_dir, exist_ok=True)
     logging.basicConfig(filename=os.path.join(args.save_dir, 'log.txt'),
                         format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S',
@@ -33,12 +34,16 @@ def train(args):
     emb_dim = args.emb_dim
 
     if args.pretrained:
-        pretrained_embedding = AutoModel.from_pretrained(args.pretrained_model).requires_grad_(False)
+        pretrained_embedding = AutoModel.from_pretrained(args.pretrained_model)#.requires_grad_(False)
         emb_dim = AutoConfig.from_pretrained(args.pretrained_model).hidden_size
 
     embedding = WordEmbedding(num_word, args.emb_dim) if not args.pretrained else pretrained_embedding
     slot_model = SlotModel(embedding, emb_dim, args.hidden_dim, num_slot, \
         args.dropout, args.max_len, use_pretrained = args.pretrained).to(device)
+
+    if args.pretrained:
+        pretrained_embedding = AutoModel.from_pretrained(args.pretrained_model)#.requires_grad_(False)
+        emb_dim = AutoConfig.from_pretrained(args.pretrained_model).hidden_size
     embedding = WordEmbedding(num_word, args.emb_dim) if not args.pretrained else pretrained_embedding
     intent_model = IntentModel(embedding, emb_dim, args.hidden_dim, num_intent, \
         args.dropout, args.max_len, use_pretrained = args.pretrained).to(device)
@@ -66,7 +71,7 @@ def train(args):
             slot_feat = slot_model.encode(text, len_list, att_mask = att_mask)
             slot_share = slot_feat.clone().detach()
             
-            intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler)
+            intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler = None)
             slot_out = slot_model.decode(slot_feat, intent_share, len_list)
 
             intent_loss = intent_model.get_loss(intent_out, intents)
@@ -85,8 +90,8 @@ def train(args):
             best_acc = sent_acc
             torch.save(slot_model.state_dict(), f'{args.save_dir}/slot.pth')
             torch.save(intent_model.state_dict(), f'{args.save_dir}/intent.pth')
-            logging.info(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre}, Slot recall: {slot_recall}, Sent acc: {sent_acc:.2f}')
-
+            
+        logging.info(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Sent acc: {sent_acc:.2f}')
         iterator.set_description(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Sent acc: {sent_acc:.2f}')
 
 def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
@@ -111,7 +116,7 @@ def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
             slot_feat = slot_model.encode(text, len_list, att_mask = att_mask)
             slot_share = slot_feat.clone().detach()
             
-            intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler)
+            intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler = None)
             slot_out = slot_model.decode(slot_feat, intent_share, len_list)
             slot_out = slot_model.crf.decode(slot_out)
 
@@ -146,7 +151,7 @@ if __name__ == '__main__':
     parser.add_argument('--train-folder', type=str, default='training_data')
     parser.add_argument('--dev-folder', type=str, default='dev_data')
     parser.add_argument('--test-folder', type=str, default='public_test_data')
-    parser.add_argument('--save-dir', type=str, default='save/v1')
+    parser.add_argument('--save-dir', type=str, default='save/finetune')
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--pretrained', action='store_true')
     parser.add_argument('--pretrained-model', type=str, default='xlm-roberta-base')

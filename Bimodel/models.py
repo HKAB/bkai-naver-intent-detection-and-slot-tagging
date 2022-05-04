@@ -33,7 +33,7 @@ class IntentDecoder(nn.Module):
     
     def __init__(self, hidden_dim, num_label, dropout, pretrained_dim = 0) -> None:
         super().__init__()
-        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, bidirectional = True, batch_first = True)
+        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 2, bidirectional = True, batch_first = True)
         self.linear = nn.Linear(hidden_dim + pretrained_dim, num_label)
         self.dropout = nn.Dropout(dropout)
 
@@ -55,7 +55,7 @@ class IntentModel(nn.Module):
         self.use_pretrained = use_pretrained
         self.embedding_model = embedding_model
         self.enc = Encoder(emb_dim, hidden_dim, dropout, max_len)
-        pretrained_dim = emb_dim if use_pretrained else 0
+        pretrained_dim = 0#emb_dim if use_pretrained else 0
         self.dec = IntentDecoder(hidden_dim, num_intent, dropout, pretrained_dim = pretrained_dim)
         self.loss = nn.CrossEntropyLoss()
 
@@ -83,7 +83,7 @@ class SlotDecoder(nn.Module):
 
     def __init__(self, hidden_dim, num_slot, dropout, max_len) -> None:
         super().__init__()
-        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, bidirectional = True, batch_first = True)
+        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 2, bidirectional = True, batch_first = True)
         self.linear = nn.Linear(hidden_dim, num_slot)
         self.dropout = nn.Dropout(dropout)
         self.max_len = max_len
