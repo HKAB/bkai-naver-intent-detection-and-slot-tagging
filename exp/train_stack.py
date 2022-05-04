@@ -7,7 +7,7 @@ import os
 
 from dataloader import *
 from utils import *
-from models import StackPropagation
+from models import StackPropagation, StackPropagationAtt
 
 import torch
 from torch.utils.data import DataLoader
@@ -37,9 +37,12 @@ def train(args):
     dev_data = dataset.get_data('dev')
     dev_loader = DataLoader(dev_data, batch_size = args.dev_batch_size, collate_fn = dev_data.collate_fn, num_workers = 8, shuffle = False, pin_memory = True)
 
-    model = StackPropagation(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
+    model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
+    # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', min_lr = 1e-5)
+    # optimizer = torch.optim.Adam(model.parameters(), lr = args.lr, weight_decay = 1e-5)
+    freeze = True
 
     best_acc = 0
     best_ckpt = 0
@@ -62,6 +65,7 @@ def train(args):
             optimizer.step()
         
         intent_acc, slot_metrics, sent_acc = evaluate(model, dev_loader, device, dataset.slot_label)
+        # scheduler.step(sent_acc)
         slot_f1 = slot_metrics['slot_f1']
         slot_pre = slot_metrics['slot_precision']
         slot_recall = slot_metrics['slot_recall']
@@ -132,6 +136,7 @@ if __name__ == '__main__':
     parser.add_argument('--test-folder', type=str, default='public_test_data')
     parser.add_argument('--save-dir', type=str, default='save/stackprop')
     parser.add_argument('--gpu', type=int, default=0)
+    parser.add_argument('--model', type=str, default='stackprop')
     parser.add_argument('--pretrained', action='store_true')
     parser.add_argument('--pretrained-model', type=str, default='xlm-roberta-base')
     parser.add_argument('--emb-dim', type=int, default=300)

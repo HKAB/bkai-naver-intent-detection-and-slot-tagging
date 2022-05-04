@@ -3,6 +3,17 @@ import pickle
 from dataloader import DataManager
 import torch
 from seqeval.metrics import precision_score, recall_score, f1_score
+from models import StackPropagation, StackPropagationAtt, JointXLMR
+
+def get_model(args, num_intent, num_slot):
+    if args.model == 'stackprop':
+        model = StackPropagation(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
+    elif args.model == 'stackprop_att':
+        model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
+    elif args.model == 'jointxlmr':
+        model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout)
+
+    return model
 
 def get_dataset(args):
     data_file = 'data.pickle'

@@ -26,13 +26,13 @@ class SlotClassifier(nn.Module):
 
 class LSTMDecoder(nn.Module):
 
-    def __init__(self, input_dim, hidden_dim, output_dim, dropout = 0.2, use_crf = True, max_len = None) -> None:
+    def __init__(self, input_dim, hidden_dim, output_dim, dropout = 0.2, use_crf = True, max_len = None, use_linear = True) -> None:
         super().__init__()
 
         self.lstm = nn.LSTM(input_size = input_dim, hidden_size = hidden_dim, batch_first = True,\
              bidirectional = True, dropout = dropout, num_layers = 1)
         self.dropout = nn.Dropout(dropout)
-        self.linear = nn.Linear(hidden_dim * 2, output_dim) # bidirectional
+        self.linear = nn.Linear(hidden_dim * 2, output_dim) if use_linear else None# bidirectional
         self.use_crf = use_crf
         self.max_len = max_len
         if use_crf:
@@ -45,7 +45,9 @@ class LSTMDecoder(nn.Module):
         packed_inputs = pack_padded_sequence(inputs, len_list, batch_first = True)
         seq_out, (h_state, c_state) = self.lstm(packed_inputs)
         seq_out, _ = pad_packed_sequence(seq_out, batch_first = True, total_length = self.max_len)
-        seq_out = self.linear(seq_out)
+
+        if self.linear is not None:
+            seq_out = self.linear(seq_out)
         return seq_out
 
     def get_loss(self, logits, labels, mask):
