@@ -27,4 +27,5 @@ def get_sent_acc(intent_labels, intent_pred, slot_labels, slot_pred):
     assert len(intent_correct) == len(slot_correct)
     sent_acc = (intent_correct * slot_correct.to(intent_correct)).float().mean()
     # print(intent_correct * slot_correct.cuda())
-    return sent_acc
+    slot_acc = slot_correct.float().mean()
+    return sent_acc, slot_acc

@@ -82,7 +82,7 @@ def train(args):
             slot_loss.backward()
             slot_optim.step()
         
-        intent_acc, slot_metrics, sent_acc = evaluate(slot_model, intent_model, dev_loader, device, dataset.slot_label)
+        intent_acc, slot_metrics, sent_acc, slot_acc = evaluate(slot_model, intent_model, dev_loader, device, dataset.slot_label)
         slot_f1 = slot_metrics['slot_f1']
         slot_pre = slot_metrics['slot_precision']
         slot_recall = slot_metrics['slot_recall']
@@ -91,8 +91,8 @@ def train(args):
             torch.save(slot_model.state_dict(), f'{args.save_dir}/slot.pth')
             torch.save(intent_model.state_dict(), f'{args.save_dir}/intent.pth')
             
-        logging.info(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Sent acc: {sent_acc:.2f}')
-        iterator.set_description(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Sent acc: {sent_acc:.2f}')
+        logging.info(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
+        iterator.set_description(f'Epoch: {i}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
 
 def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
     slot_model.eval()
@@ -141,7 +141,7 @@ def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
     intent_acc, intent_pred = get_intent_acc(intent_label, intent_logits)
     slot_metrics = get_slot_metrics(slot_label, slot_pred)
     sent_acc = get_sent_acc(intent_label, intent_pred, slot_label, slot_pred)
-    return intent_acc, slot_metrics, sent_acc
+    return intent_acc, slot_metrics, sent_acc, slot_acc
 
 
 
@@ -151,7 +151,7 @@ if __name__ == '__main__':
     parser.add_argument('--train-folder', type=str, default='training_data')
     parser.add_argument('--dev-folder', type=str, default='dev_data')
     parser.add_argument('--test-folder', type=str, default='public_test_data')
-    parser.add_argument('--save-dir', type=str, default='save/finetune')
+    parser.add_argument('--save-dir', type=str, default='save/default')
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--pretrained', action='store_true')
     parser.add_argument('--pretrained-model', type=str, default='xlm-roberta-base')
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     parser.add_argument('--hidden-dim', type = int, default=200)
     parser.add_argument('--dropout', type=float, default=0.2)
     parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--batch-size', type=int, default=16)
     parser.add_argument('--dev-batch-size', type=int, default=32)
     parser.add_argument('--max-len', type=int, default=50)
     parser.add_argument('--num-epoch', type=int, default=500)
