@@ -38,7 +38,7 @@ class LSTMDecoder(nn.Module):
         if use_crf:
             self.crf = CRF(output_dim, batch_first = True)
         else:
-            self.nllloss = nn.NLLLoss(reduction = 'sum')
+            self.loss = nn.CrossEntropyLoss(reduction = 'mean')
 
     def forward(self, inputs, len_list):
 
@@ -52,8 +52,14 @@ class LSTMDecoder(nn.Module):
 
     def get_loss(self, logits, labels, mask):
         if self.use_crf:
-            loss = - self.crf(logits, labels, mask.byte(), reduction = 'mean')
+            loss = - self.crf(logits, labels, mask.bool(), reduction = 'mean')
         else:
-            loss = self.nllloss(logits, labels)
-            loss = torch.masked_select(loss, mask).mean()
+            mask = mask.bool()
+            loss = self.loss(logits[mask, :], labels[mask])
         return loss
+    
+    def predict(self, logits):
+        if self.use_crf:
+            return self.crf.decode(logits)
+        else:
+            return logits.argmax(dim = -1).cpu()

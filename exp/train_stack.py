@@ -40,8 +40,9 @@ def train(args):
     # model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
     model = get_model(args, num_intent, num_slot).to(device)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)#, weight_decay = 0.01)
-    # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', min_lr = 1e-5)
+    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
+    warmup_scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, total_iters = 5)
+    decay_scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, total_iters = 8, start_factor = 1.0, end_factor = 0.3, last_epoch = -10)
     # optimizer = torch.optim.Adam(model.parameters(), lr = args.lr, weight_decay = 1e-5)
     freeze = True
 
@@ -64,6 +65,8 @@ def train(args):
             loss, intent_loss, slot_loss = model.get_loss(intent_logits, slot_logits, intents, slots, att_mask, intent_coeff = args.intent_coeff)
             loss.backward()
             optimizer.step()
+        warmup_scheduler.step()
+        decay_scheduler.step()
         
         intent_acc, slot_metrics, sent_acc, slot_acc = evaluate(model, dev_loader, device, dataset.slot_label)
         # scheduler.step(sent_acc)

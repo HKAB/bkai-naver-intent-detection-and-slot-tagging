@@ -13,7 +13,7 @@ class StackPropagation(nn.Module):
         self.max_len = max_len
         config = XLMRobertaConfig.from_pretrained(pretrained_model)
         self.xlmr = XLMRobertaModel.from_pretrained(pretrained_model)
-        self.intent_dec = LSTMDecoder(config.hidden_size, hidden_dim, num_intent, dropout = dropout, max_len = max_len)
+        self.intent_dec = LSTMDecoder(config.hidden_size, hidden_dim, num_intent, dropout = dropout, max_len = max_len, use_crf = False)
         slot_input_dim = config.hidden_size + num_intent
         self.slot_dec = LSTMDecoder(slot_input_dim, hidden_dim, num_slot, dropout = dropout, max_len = max_len)
 
@@ -44,10 +44,10 @@ class StackPropagation(nn.Module):
 
     def predict(self, text, att_mask, slots, len_list, device, perm_idx = None, intents = None):
         intent_out, slot_out = self.forward(text, att_mask, len_list)
-        intent_out = self.intent_dec.crf.decode(intent_out)
+        intent_out = self.intent_dec.predict(intent_out)
         seq_mask = slots >= 0
         intent_out = self.get_intent(intent_out, seq_mask).to(device)
-        slot_out = self.slot_dec.crf.decode(slot_out)
+        slot_out = self.slot_dec.predict(slot_out)
         return intent_out, slot_out
 
 class StackPropagationAtt(nn.Module):
@@ -131,7 +131,7 @@ class LowDim(nn.Module):
 
     def get_loss(self, intent_logits, slot_logits, intent_labels, slot_labels, mask, intent_coeff = 0.5):
         intent_labels = intent_labels.unsqueeze(1).expand(-1, self.max_len)
-        intent_loss = - self.intent_crf(intent_logits, intent_labels, mask.byte(), reduction = 'mean')
+        intent_loss = - self.intent_crf(intent_logits, intent_labels, mask.bool(), reduction = 'mean')
         slot_loss = self.slot_dec.get_loss(slot_logits, slot_labels, mask)
         return intent_coeff * intent_loss + (1 - intent_coeff) * slot_loss, intent_loss, slot_loss
 
