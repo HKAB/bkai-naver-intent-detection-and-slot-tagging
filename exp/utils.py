@@ -3,7 +3,7 @@ import pickle
 from dataloader import DataManager
 import torch
 from seqeval.metrics import precision_score, recall_score, f1_score
-from models import StackPropagation, StackPropagationAtt, JointXLMR
+from models import StackPropagation, StackPropagationAtt, JointXLMR, LowDim
 
 def get_model(args, num_intent, num_slot):
     if args.model == 'stackprop':
@@ -12,6 +12,8 @@ def get_model(args, num_intent, num_slot):
         model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
     elif args.model == 'jointxlmr':
         model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout)
+    elif args.model == 'lowdim':
+        model = LowDim(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
 
     return model
 
@@ -52,5 +54,6 @@ def get_sent_acc(intent_labels, intent_pred, slot_labels, slot_pred):
     slot_correct = torch.tensor([sl == sp for sl, sp in zip(slot_labels, slot_pred)])
     assert len(intent_correct) == len(slot_correct)
     sent_acc = (intent_correct * slot_correct.to(intent_correct)).float().mean()
+    slot_acc = slot_correct.float().mean()
     # print(intent_correct * slot_correct.cuda())
-    return sent_acc
+    return sent_acc, slot_acc

@@ -1,11 +1,11 @@
 import json
 from dataloader import *
 from models import *
-from utils import get_dataset
+from utils import get_dataset, get_model
 from torch.utils.data import DataLoader
 from transformers import AutoModel, AutoConfig
 
-save_dir = 'save/stackatt'
+save_dir = 'save/lowdim'
 with open(os.path.join(save_dir, 'config.json'), 'r') as f:
     args = json.load(f)
 class HP:
@@ -21,7 +21,8 @@ num_intent = len(dataset.intent_label)
 test_data = dataset.get_data('test')
 test_loader = DataLoader(test_data, batch_size = args.dev_batch_size, collate_fn = test_data.collate_fn, shuffle = False, pin_memory = True)
 
-model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
+model = get_model(args, num_intent, num_slot).to(device)
+# model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
 # model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout).to(device)
 model.load_state_dict(torch.load(os.path.join(save_dir, 'model.pth')))
 

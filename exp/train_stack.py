@@ -37,9 +37,10 @@ def train(args):
     dev_data = dataset.get_data('dev')
     dev_loader = DataLoader(dev_data, batch_size = args.dev_batch_size, collate_fn = dev_data.collate_fn, num_workers = 8, shuffle = False, pin_memory = True)
 
-    model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
+    # model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
+    model = get_model(args, num_intent, num_slot).to(device)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)#, weight_decay = 0.01)
     # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', min_lr = 1e-5)
     # optimizer = torch.optim.Adam(model.parameters(), lr = args.lr, weight_decay = 1e-5)
     freeze = True
@@ -58,13 +59,13 @@ def train(args):
             # mask = create_mask(len_list, args.max_len).to(device)
 
             optimizer.zero_grad()
-            intent_logits, slot_logits = model(text, att_mask, len_list)
+            intent_logits, slot_logits = model(text, att_mask)
 
             loss, intent_loss, slot_loss = model.get_loss(intent_logits, slot_logits, intents, slots, att_mask, intent_coeff = args.intent_coeff)
             loss.backward()
             optimizer.step()
         
-        intent_acc, slot_metrics, sent_acc = evaluate(model, dev_loader, device, dataset.slot_label)
+        intent_acc, slot_metrics, sent_acc, slot_acc = evaluate(model, dev_loader, device, dataset.slot_label)
         # scheduler.step(sent_acc)
         slot_f1 = slot_metrics['slot_f1']
         slot_pre = slot_metrics['slot_precision']
@@ -74,8 +75,8 @@ def train(args):
             best_ckpt = i
             torch.save(model.state_dict(), f'{args.save_dir}/model.pth')
             
-        logging.info(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Sent acc: {sent_acc:.2f}')
-        iterator.set_description(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Sent acc: {sent_acc:.2f}')
+        logging.info(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
+        iterator.set_description(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
     logging.info(f'Best checkpoint: {best_ckpt}')
 
 
@@ -123,8 +124,8 @@ def evaluate(model, dev_loader, device, slot_list):
     intent_label, intent_pred, slot_label, slot_pred = get_prediction(model, dev_loader, device, slot_list)
     intent_acc, intent_pred = get_intent_acc(intent_label, intent_pred)
     slot_metrics = get_slot_metrics(slot_label, slot_pred)
-    sent_acc = get_sent_acc(intent_label, intent_pred, slot_label, slot_pred)
-    return intent_acc, slot_metrics, sent_acc
+    sent_acc, slot_acc = get_sent_acc(intent_label, intent_pred, slot_label, slot_pred)
+    return intent_acc, slot_metrics, sent_acc, slot_acc
 
 
 

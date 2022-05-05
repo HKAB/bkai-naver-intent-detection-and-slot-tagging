@@ -31,7 +31,7 @@ class JointXLMR(nn.Module):
     def get_loss(self, intent_logits, slot_logits, intent_labels, slot_labels, mask, intent_coeff = 0.5):
         intent_loss = self.intent_loss(intent_logits, intent_labels)
         slot_loss = - self.crf(slot_logits, slot_labels, mask.byte(), reduction = 'mean')
-        intent_coeff = (intent_labels.size(0) / mask.sum()).detach()
+        # intent_coeff = (intent_labels.size(0) / mask.sum()).detach()
         total_loss = intent_loss * intent_coeff + (1 - intent_coeff) * slot_loss
         return total_loss, intent_loss, slot_loss
 
