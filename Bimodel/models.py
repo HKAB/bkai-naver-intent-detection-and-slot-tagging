@@ -8,7 +8,11 @@ class WordEmbedding(nn.Module):
     def __init__(self, num_word, emb_dim) -> None:
         super().__init__()
         self.embedding = nn.Embedding(num_word, emb_dim)
+        self.__init_weight()
 
+    def __init_weight(self):
+        torch.nn.init.xavier_uniform_(self.embedding.weight)
+        
     def forward(self, input):
         return self.embedding(input)
         
@@ -33,7 +37,7 @@ class IntentDecoder(nn.Module):
     
     def __init__(self, hidden_dim, num_label, dropout, pretrained_dim = 0) -> None:
         super().__init__()
-        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 2, bidirectional = True, batch_first = True)
+        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 1, bidirectional = True, batch_first = True)
         self.linear = nn.Linear(hidden_dim + pretrained_dim, num_label)
         self.dropout = nn.Dropout(dropout)
 
@@ -54,7 +58,10 @@ class IntentModel(nn.Module):
         super().__init__()
         self.use_pretrained = use_pretrained
         self.embedding_model = embedding_model
-        self.enc = Encoder(emb_dim, hidden_dim, dropout, max_len)
+        # self.enc = Encoder(emb_dim, hidden_dim, dropout, max_len)
+        self.enc = nn.Sequential(nn.Linear(emb_dim, hidden_dim),
+                                nn.Dropout(dropout),
+                                nn.ReLU())
         pretrained_dim = 0#emb_dim if use_pretrained else 0
         self.dec = IntentDecoder(hidden_dim, num_intent, dropout, pretrained_dim = pretrained_dim)
         self.loss = nn.CrossEntropyLoss()
@@ -67,7 +74,7 @@ class IntentModel(nn.Module):
             embedding, pooler = trf_output.last_hidden_state, trf_output.pooler_output
         else:
             embedding = self.embedding_model(text)
-        h_feat = self.enc(embedding, len_list)
+        h_feat = self.enc(embedding)
         return h_feat, pooler
 
     def decode(self, main_feat, aux_feat, len_list, pooler = None):
@@ -83,7 +90,7 @@ class SlotDecoder(nn.Module):
 
     def __init__(self, hidden_dim, num_slot, dropout, max_len) -> None:
         super().__init__()
-        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 2, bidirectional = True, batch_first = True)
+        self.lstm = nn.LSTM(hidden_dim * 2, hidden_dim // 2, num_layers = 1, bidirectional = True, batch_first = True)
         self.linear = nn.Linear(hidden_dim, num_slot)
         self.dropout = nn.Dropout(dropout)
         self.max_len = max_len
@@ -102,7 +109,10 @@ class SlotModel(nn.Module):
         super().__init__()
         self.use_pretrained = use_pretrained
         self.embedding_model = embedding_model
-        self.enc = Encoder(emb_dim, hidden_dim, dropout, max_len)
+        self.enc = nn.Sequential(nn.Linear(emb_dim, hidden_dim),
+                                nn.Dropout(dropout),
+                                nn.ReLU())
+        # self.enc = Encoder(emb_dim, hidden_dim, dropout, max_len)
         self.dec = SlotDecoder(hidden_dim, num_slot, dropout, max_len)
         self.crf = CRF(num_slot, batch_first = True)
 
@@ -113,7 +123,7 @@ class SlotModel(nn.Module):
             embedding = trf_output.last_hidden_state
         else:
             embedding = self.embedding_model(text)
-        h_feat = self.enc(embedding, len_list)
+        h_feat = self.enc(embedding)
         return h_feat
 
     def decode(self, main_feat, aux_feat, len_list):
@@ -122,5 +132,5 @@ class SlotModel(nn.Module):
         return out
 
     def get_loss(self, output, labels, mask):
-        loss = - self.crf(output, labels, mask.byte(), reduction = 'mean')
+        loss = - self.crf(output, labels, mask.bool(), reduction = 'mean')
         return loss

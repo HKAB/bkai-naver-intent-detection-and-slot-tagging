@@ -21,7 +21,7 @@ def train(args):
     device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
     # device = torch.device('cpu')
 
-    dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
+    dataset = get_dataset(args)
     train_data = dataset.get_data('train')
     num_word = len(dataset.word_dict.keys())
     num_slot = len(dataset.slot_label)
@@ -70,15 +70,18 @@ def train(args):
             intent_share = intent_feat.clone().detach()
             slot_feat = slot_model.encode(text, len_list, att_mask = att_mask)
             slot_share = slot_feat.clone().detach()
+            # print(intent_share, slot_share, intent_feat, slot_feat)
             
             intent_out = intent_model.decode(intent_feat, slot_share, len_list, pooler = None)
-            slot_out = slot_model.decode(slot_feat, intent_share, len_list)
-
             intent_loss = intent_model.get_loss(intent_out, intents)
-            slot_loss = slot_model.get_loss(slot_out, slots, att_mask)
-
+            torch.nn.utils.clip_grad_norm_(intent_model.parameters(), 5.0)
             intent_loss.backward()
             intent_optim.step()
+            
+            
+            slot_out = slot_model.decode(slot_feat, intent_share, len_list)
+            slot_loss = slot_model.get_loss(slot_out, slots, att_mask)
+            torch.nn.utils.clip_grad_norm_(slot_model.parameters(), 5.0)
             slot_loss.backward()
             slot_optim.step()
         
@@ -123,7 +126,6 @@ def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
             intent_label.append(intents)
             intent_logits.append(intent_out)
 
-
             for sp, sl in zip(slot_out, slots):
                 assert len(sp) == len(sl)
                 # print(sp, sl)
@@ -140,7 +142,7 @@ def evaluate(slot_model, intent_model, dev_loader, device, slot_list):
 
     intent_acc, intent_pred = get_intent_acc(intent_label, intent_logits)
     slot_metrics = get_slot_metrics(slot_label, slot_pred)
-    sent_acc = get_sent_acc(intent_label, intent_pred, slot_label, slot_pred)
+    sent_acc, slot_acc = get_sent_acc(intent_label, intent_pred, slot_label, slot_pred)
     return intent_acc, slot_metrics, sent_acc, slot_acc
 
 
