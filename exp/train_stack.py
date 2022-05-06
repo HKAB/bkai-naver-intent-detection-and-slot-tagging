@@ -60,7 +60,7 @@ def train(args):
             # mask = create_mask(len_list, args.max_len).to(device)
 
             optimizer.zero_grad()
-            intent_logits, slot_logits = model(text, att_mask)
+            intent_logits, slot_logits = model(text, att_mask, len_list)
 
             loss, intent_loss, slot_loss = model.get_loss(intent_logits, slot_logits, intents, slots, att_mask, intent_coeff = args.intent_coeff)
             loss.backward()

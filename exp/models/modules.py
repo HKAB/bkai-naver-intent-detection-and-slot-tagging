@@ -14,16 +14,58 @@ class IntentClassifier(nn.Module):
         return self.linear(x)
 
 
+class Attention(nn.Module):
+    
+    def __init__(self, in_dim, hidden_dim):
+        super().__init__()
+        self.hidden_dim = hidden_dim
+        self.value_mlp_in = nn.Linear(in_dim, hidden_dim, bias = False)
+        self.proj = nn.Sequential(nn.Linear(hidden_dim * 2, hidden_dim),
+                                 nn.ReLU())
+                                   
+    
+    def forward(self, queries, values, mask):
+        """
+            queries: bs x seq_len x slot_hidden_dim
+            values: bs x seq_len x 1 x num_intent
+            Returns:
+                output: bs x seq_len x slot_hidden_dim
+            
+        """
+        values = self.mlp_in(values)
+        att_scores = torch.bmm(queries, values.transpose(1, 2).contiguous()) / np.sqrt(self.hidden_dim)
+        att_scores[mask == 0] = float('-inf') # bs x seq_len x 1
+        att_weights = torch.softmax(att_scores, dim = 1)
+        att_output = torch.bmm(att_weights, values)
+        mix = torch.cat((queries, att_output), dim = 2)
+        output = self.proj(mix)
+        return output
+    
 class SlotClassifier(nn.Module):
-    def __init__(self, input_dim, num_slot_labels, dropout_rate=0.):
+    def __init__(self, input_dim, num_slot_labels, num_intent = None, use_attention = False, hidden_dim = 200, dropout_rate=0.):
         super(SlotClassifier, self).__init__()
         self.dropout = nn.Dropout(dropout_rate)
         self.linear = nn.Linear(input_dim, num_slot_labels)
+        self.use_attention = use_attention
+        if use_attention and num_intent is not None:
+            self.slot_linear_in = nn.Linear(input_dim, hidden_dim)
+            self.attention = Attention(num_intent, hidden_dim)
+            self.slot_linear_out = nn.Linear(hidden_dim, num_slot_labels)
 
-    def forward(self, x):
-        x = self.dropout(x)
-        return self.linear(x)
-
+    def forward(self, x, intent_context = None, mask = None):
+        if not self.use_attention :
+            x = self.dropout(x)
+            return self.linear(x)
+        else:
+            assert intent_context is not None and mask is not None
+            x = self.slot_linear_in(x)
+            intent_prob = torch.softmax(intent_context, dim = 1)
+            intent_prob = intent_prob.unsqueeze(1)
+            output = self.attention(x, intent_prob, mask)
+            output = self.slot_linear_out(output)
+            output = self.dropout(output)
+            return output
+        
 class LSTMDecoder(nn.Module):
 
     def __init__(self, input_dim, hidden_dim, output_dim, dropout = 0.2, use_crf = True, max_len = None, use_linear = True) -> None:
@@ -63,3 +105,4 @@ class LSTMDecoder(nn.Module):
             return self.crf.decode(logits)
         else:
             return logits.argmax(dim = -1).cpu()
+        

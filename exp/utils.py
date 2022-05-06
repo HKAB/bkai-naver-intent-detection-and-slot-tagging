@@ -3,7 +3,7 @@ import pickle
 from dataloader import DataManager
 import torch
 from seqeval.metrics import precision_score, recall_score, f1_score
-from models import StackPropagation, StackPropagationAtt, JointXLMR, LowDim
+from models import StackPropagation, StackPropagationAtt, JointXLMR, JointIDSF, LowDim
 
 def get_model(args, num_intent, num_slot):
     if args.model == 'stackprop':
@@ -12,6 +12,8 @@ def get_model(args, num_intent, num_slot):
         model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
     elif args.model == 'jointxlmr':
         model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout)
+    elif args.model == 'jointidsf':
+        model = JointIDSF(args.pretrained_model, num_intent, num_slot, args.dropout)
     elif args.model == 'lowdim':
         model = LowDim(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len)
 

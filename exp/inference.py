@@ -5,26 +5,26 @@ from utils import get_dataset, get_model
 from torch.utils.data import DataLoader
 from transformers import AutoModel, AutoConfig
 
-save_dir = 'save/stackprop'
+save_dir = 'large'
 with open(os.path.join(save_dir, 'config.json'), 'r') as f:
     args = json.load(f)
 class HP:
     def __init__(self, **entries):
         self.__dict__.update(entries)
 args = HP(**args)
-# args.gpu = -1
+args.gpu = -1
 device = torch.device(f'cuda:{args.gpu}') if args.gpu >= 0 else torch.device('cpu')
 dataset = get_dataset(args)#DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=args.pretrained_model)
 num_word = len(dataset.word_dict.keys())
 num_slot = len(dataset.slot_label)
 num_intent = len(dataset.intent_label)
 test_data = dataset.get_data('test')
-test_loader = DataLoader(test_data, batch_size = args.dev_batch_size, collate_fn = test_data.collate_fn, shuffle = False, pin_memory = True)
+test_loader = DataLoader(test_data, batch_size = args.dev_batch_size, collate_fn = test_data.collate_fn, shuffle = False, pin_memory = False)
 
 model = get_model(args, num_intent, num_slot).to(device)
 # model = StackPropagationAtt(args.pretrained_model, args.hidden_dim, num_intent, num_slot, args.dropout, max_len = args.max_len).to(device)
 # model = JointXLMR(args.pretrained_model, num_intent, num_slot, args.dropout).to(device)
-model.load_state_dict(torch.load(os.path.join(save_dir, 'model.pth')))
+model.load_state_dict(torch.load(os.path.join(save_dir, 'model.pth'), map_location = device))
 
 slot_list = dataset.slot_label
 intent_list = dataset.intent_label

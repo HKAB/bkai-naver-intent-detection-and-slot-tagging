@@ -42,13 +42,16 @@ class StackPropagation(nn.Module):
             intent_pred.append(stats.mode(true_sent)[0][0])
         return torch.tensor(intent_pred)
 
-    def predict(self, text, att_mask, slots, len_list, device, perm_idx = None, intents = None):
+    def predict(self, text, att_mask, slots, len_list, device, perm_idx = None, intents = None, return_logits = False):
         intent_out, slot_out = self.forward(text, att_mask, len_list)
-        intent_out = self.intent_dec.predict(intent_out)
+        intent_logits = self.intent_dec.predict(intent_out)
         seq_mask = slots >= 0
-        intent_out = self.get_intent(intent_out, seq_mask).to(device)
+        intent_out = self.get_intent(intent_logits, seq_mask).to(device)
         slot_out = self.slot_dec.predict(slot_out)
-        return intent_out, slot_out
+        if return_logits:
+            return intent_out, slot_out, intent_logits
+        else:
+            return intent_out, slot_out
 
 class StackPropagationAtt(nn.Module):
 

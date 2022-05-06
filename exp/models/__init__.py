@@ -1,2 +1,2 @@
-from .jointxlmr import JointXLMR, get_optim
+from .jointxlmr import JointXLMR, JointIDSF, get_optim
 from .stackprop import StackPropagation, StackPropagationAtt, LowDim
