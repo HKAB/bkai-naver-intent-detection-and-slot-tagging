@@ -74,7 +74,7 @@ class Trainer(object):
         is_saved = False
         best_sementic_frame_acc = -100
         for _ in train_iterator:
-            epoch_iterator = tqdm(train_dataloader, desc="Iteration")
+            epoch_iterator = tqdm(train_dataloader)
             for step, batch in enumerate(epoch_iterator):
                 self.model.train()
                 batch = tuple(t.to(self.device) for t in batch)  # GPU or CPU
@@ -113,7 +113,7 @@ class Trainer(object):
                     break
             # save the best epoch
             epoch_result = self.evaluate("dev")
-            if (epoch_result['sementic_frame_acc'] < best_sementic_frame_acc):
+            if (epoch_result['sementic_frame_acc'] > best_sementic_frame_acc):
                 self.save_model()
                 is_saved = True
                 best_sementic_frame_acc = epoch_result['sementic_frame_acc']
@@ -150,7 +150,7 @@ class Trainer(object):
 
         self.model.eval()
 
-        for batch in tqdm(eval_dataloader, desc="Evaluating"):
+        for batch in tqdm(eval_dataloader):
             batch = tuple(t.to(self.device) for t in batch)
             with torch.no_grad():
                 inputs = {'input_ids': batch[0],

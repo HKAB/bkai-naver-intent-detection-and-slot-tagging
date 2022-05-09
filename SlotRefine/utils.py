@@ -6,8 +6,9 @@ import torch
 import numpy as np
 from seqeval.metrics import precision_score, recall_score, f1_score
 
-from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
-from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
+from transformers import RobertaConfig
+from transformers.models.xlm_roberta.modeling_xlm_roberta import XLMRobertaConfig
+from transformers import AutoTokenizer, XLMRobertaTokenizer
 
 from model import JointSlotRefine
 
@@ -16,7 +17,7 @@ from transformers.file_utils import cached_path, hf_bucket_url
 
 MODEL_CLASSES = {
     'envibert': (RobertaConfig, JointSlotRefine, AutoTokenizer),
-    'xlmr': (RobertaConfig, JointSlotRefine, AutoTokenizer),
+    'xlmr': (XLMRobertaConfig, JointSlotRefine, XLMRobertaTokenizer),
 }
 
 MODEL_PATH_MAP = {
@@ -86,7 +87,8 @@ def get_slot_metrics(preds, labels):
     return {
         "slot_precision": precision_score(labels, preds),
         "slot_recall": recall_score(labels, preds),
-        "slot_f1": f1_score(labels, preds)
+        "slot_f1": f1_score(labels, preds),
+        "slot_acc": accuracy_score(y_true, y_pred)
     }
 
 

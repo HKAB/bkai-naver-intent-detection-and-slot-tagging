@@ -6,26 +6,21 @@ import torch
 import numpy as np
 from seqeval.metrics import precision_score, recall_score, f1_score
 
-from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
-from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
+from transformers import RobertaConfig
+from transformers.models.xlm_roberta.modeling_xlm_roberta import XLMRobertaConfig
+from transformers import AutoTokenizer, XLMRobertaTokenizer
 
-from model import   JointBERT, JointDistilBERT, JointAlbert, JointEnviBERT, JointXLMR
+from model import JointEnviBERT, JointXLMR
 
 from importlib.machinery import SourceFileLoader
 from transformers.file_utils import cached_path, hf_bucket_url
 
 MODEL_CLASSES = {
-    'bert': (BertConfig, JointBERT, BertTokenizer),
-    'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
-    'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
     'envibert': (RobertaConfig, JointEnviBERT, AutoTokenizer),
-    'xlmr': (RobertaConfig, JointXLMR, AutoTokenizer),
+    'xlmr': (XLMRobertaConfig, JointXLMR, XLMRobertaTokenizer),
 }
 
 MODEL_PATH_MAP = {
-    'bert': 'bert-base-uncased',
-    'distilbert': 'distilbert-base-uncased',
-    'albert': 'albert-xxlarge-v1',
     'envibert': 'nguyenvulebinh/envibert',
     'xlmr': 'xlm-roberta-base'
 }
@@ -92,7 +87,8 @@ def get_slot_metrics(preds, labels):
     return {
         "slot_precision": precision_score(labels, preds),
         "slot_recall": recall_score(labels, preds),
-        "slot_f1": f1_score(labels, preds)
+        "slot_f1": f1_score(labels, preds),
+        "slot_acc": accuracy_score(y_true, y_pred)
     }
 
 
