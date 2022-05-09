@@ -113,7 +113,7 @@ class Trainer(object):
                     break
             # save the best epoch
             epoch_result = self.evaluate("dev")
-            if (epoch_result['sementic_frame_acc'] < best_sementic_frame_acc):
+            if (epoch_result['sementic_frame_acc'] > best_sementic_frame_acc):
                 self.save_model()
                 is_saved = True
                 best_sementic_frame_acc = epoch_result['sementic_frame_acc']
