@@ -9,7 +9,7 @@ from seqeval.metrics import precision_score, recall_score, f1_score
 from transformers import RobertaConfig, BertConfig, DistilBertConfig, AlbertConfig
 from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, AutoTokenizer
 
-from model import   JointBERT, JointDistilBERT, JointAlbert, JointEnviBERT
+from model import   JointBERT, JointDistilBERT, JointAlbert, JointEnviBERT, JointXLMR
 
 from importlib.machinery import SourceFileLoader
 from transformers.file_utils import cached_path, hf_bucket_url
@@ -19,6 +19,7 @@ MODEL_CLASSES = {
     'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
     'envibert': (RobertaConfig, JointEnviBERT, AutoTokenizer),
+    'xlmr': (RobertaConfig, JointXLMR, AutoTokenizer),
 }
 
 MODEL_PATH_MAP = {
@@ -26,6 +27,7 @@ MODEL_PATH_MAP = {
     'distilbert': 'distilbert-base-uncased',
     'albert': 'albert-xxlarge-v1',
     'envibert': 'nguyenvulebinh/envibert',
+    'xlmr': 'xlm-roberta-base'
 }
 
 CACHE_DIR = "./cache"
