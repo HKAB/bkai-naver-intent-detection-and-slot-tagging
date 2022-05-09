@@ -20,7 +20,7 @@ class JointXLMR(nn.Module):
         self.crf = CRF(num_slot, batch_first = True)
         self.intent_loss = nn.CrossEntropyLoss()
 
-    def forward(self, input_ids, att_mask):
+    def forward(self, input_ids, att_mask, len_list = None):
         trf_output = self.xlmr(input_ids, attention_mask = att_mask)
         embedding, pooler = trf_output.last_hidden_state, trf_output.pooler_output
 
@@ -53,9 +53,9 @@ class JointIDSF(nn.Module):
         self.intent_dec = IntentClassifier(config.hidden_size, num_intent, dropout_rate = dropout)
         self.slot_dec = SlotClassifier(config.hidden_size, num_slot, num_intent = num_intent, use_attention = True, dropout_rate = dropout)
         self.crf = CRF(num_slot, batch_first = True)
-        self.intent_loss = nn.CrossEntropyLoss()
+        self.intent_loss = nn.CrossEntropyLoss(label_smoothing = 0.2)
 
-    def forward(self, input_ids, att_mask):
+    def forward(self, input_ids, att_mask, len_list = None):
         trf_output = self.xlmr(input_ids, attention_mask = att_mask)
         embedding, pooler = trf_output.last_hidden_state, trf_output.pooler_output
 

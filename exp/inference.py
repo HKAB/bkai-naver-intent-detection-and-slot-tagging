@@ -5,7 +5,7 @@ from utils import get_dataset, get_model
 from torch.utils.data import DataLoader
 from transformers import AutoModel, AutoConfig
 
-save_dir = 'large'
+save_dir = 'save/crossintent'
 with open(os.path.join(save_dir, 'config.json'), 'r') as f:
     args = json.load(f)
 class HP:

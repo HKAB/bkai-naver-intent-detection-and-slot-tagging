@@ -1,4 +1,5 @@
 import argparse
+from unicodedata import east_asian_width
 from tqdm import tqdm
 import json
 import logging
@@ -8,6 +9,7 @@ import os
 from dataloader import *
 from utils import *
 from models import StackPropagation, StackPropagationAtt
+from scheduler import LinearLR
 
 import torch
 from torch.utils.data import DataLoader
@@ -41,13 +43,18 @@ def train(args):
     model = get_model(args, num_intent, num_slot).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
-    warmup_scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, total_iters = 5)
-    decay_scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, total_iters = 8, start_factor = 1.0, end_factor = 0.3, last_epoch = -10)
+    warmup_scheduler = LinearLR(optimizer, total_iters = 5)
+    decay_scheduler = LinearLR(optimizer, total_iters = 8, start_factor = 1.0, end_factor = 0.3, last_epoch = -10)
     # optimizer = torch.optim.Adam(model.parameters(), lr = args.lr, weight_decay = 1e-5)
     freeze = True
 
     best_acc = 0
     best_ckpt = 0
+    best_intent_acc, best_slot_f1 = 0, 0
+    intent_es, slot_es = 0, 0
+    freeze_intent, freeze_slot = False, False
+    early_stop = 0
+    intent_coeff = args.intent_coeff
     iterator = tqdm(range(args.num_epoch))
     for i in iterator:
         model.train()
@@ -62,21 +69,53 @@ def train(args):
             optimizer.zero_grad()
             intent_logits, slot_logits = model(text, att_mask, len_list)
 
-            loss, intent_loss, slot_loss = model.get_loss(intent_logits, slot_logits, intents, slots, att_mask, intent_coeff = args.intent_coeff)
+            loss, intent_loss, slot_loss = model.get_loss(intent_logits, slot_logits, intents, slots, att_mask, intent_coeff = intent_coeff)
             loss.backward()
             optimizer.step()
-        warmup_scheduler.step()
-        decay_scheduler.step()
+        # warmup_scheduler.step()
+        # decay_scheduler.step()
         
         intent_acc, slot_metrics, sent_acc, slot_acc = evaluate(model, dev_loader, device, dataset.slot_label)
         # scheduler.step(sent_acc)
         slot_f1 = slot_metrics['slot_f1']
         slot_pre = slot_metrics['slot_precision']
         slot_recall = slot_metrics['slot_recall']
-        if sent_acc >= best_acc:
+        # if intent_acc <= best_intent_acc and intent_coeff != 0:
+        #     intent_es += 1
+        # else:
+        #     intent_es = 0
+        #     best_intent_acc = intent_acc
+        #     intent_coeff = args.intent_coeff
+
+        # if slot_f1 <= best_slot_f1 and intent_coeff != 1:
+        #     slot_es += 1
+        # else:
+        #     slot_es = 0
+        #     best_slot_f1 = slot_f1
+        #     intent_coeff = args.intent_coeff
+
+        # if intent_es > 5:
+        #     if intent_coeff == 1:
+        #         break
+        #     else:
+        #         intent_coeff = 0
+
+        # if slot_es > 5:
+        #     if intent_coeff == 0:
+        #         break
+        #     else:
+        #         intent_coeff = 1
+
+        if sent_acc > best_acc:
+            early_stop = 0
             best_acc = sent_acc
             best_ckpt = i
             torch.save(model.state_dict(), f'{args.save_dir}/model.pth')
+        else:
+            early_stop += 1
+        
+        # if early_stop > 5:
+        #     break
             
         logging.info(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot pre: {slot_pre:.2f}, Slot recall: {slot_recall:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
         iterator.set_description(f'Epoch: {i}, Total loss: {loss:.2f}, Intent loss: {intent_loss.item():.2f}, Slot loss, {slot_loss.item():.2f}, Intent acc: {intent_acc:.2f}, Slot F1: {slot_f1:.2f}, Slot acc: {slot_acc:.2f}, Sent acc: {sent_acc:.2f}')
@@ -151,7 +190,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--dev-batch-size', type=int, default=32)
     parser.add_argument('--max-len', type=int, default=50)
-    parser.add_argument('--num-epoch', type=int, default=500)
+    parser.add_argument('--num-epoch', type=int, default=100)
     
     args = parser.parse_args()
     train(args)

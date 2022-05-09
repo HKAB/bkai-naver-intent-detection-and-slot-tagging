@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 from torchcrf import CRF
@@ -15,6 +16,31 @@ class IntentClassifier(nn.Module):
 
 
 class Attention(nn.Module):
+
+    def __init__(self, query_dim, value_dim, hidden_dim, out_dim, dropout = 0.) -> None:
+        super().__init__()
+        self.hidden_dim = hidden_dim
+        self.query_mlp = nn.Sequential(nn.Linear(query_dim, hidden_dim),
+                                        nn.Dropout(dropout),
+                                        nn.ReLU())
+        self.value_mlp = nn.Sequential(nn.Linear(value_dim, hidden_dim),
+                                        nn.Dropout(dropout),
+                                        nn.ReLU())
+        self.out_mlp = nn.Sequential(nn.Linear(hidden_dim, out_dim),
+                                        nn.Dropout(dropout),
+                                        nn.ReLU())
+
+    def forward(self, queries, values, value_mask):
+        queries = self.query_mlp(queries) # bs x 1 x hidden_dim
+        values = self.value_mlp(values) # bs x seq_len
+        att_scores = torch.bmm(queries, values.transpose(1, 2).contiguous()) / np.sqrt(self.hidden_dim)
+        att_scores.transpose(1, 2)[value_mask == 0] = float('-inf') # bs x 1 x seq_len
+        att_weights = torch.softmax(att_scores, dim = 2)
+        att_output = torch.bmm(att_weights, values)
+        output = self.out_mlp(att_output)
+        return output
+
+class IDSFAttention(nn.Module):
     
     def __init__(self, in_dim, hidden_dim):
         super().__init__()
@@ -24,17 +50,17 @@ class Attention(nn.Module):
                                  nn.ReLU())
                                    
     
-    def forward(self, queries, values, mask):
+    def forward(self, queries, values, query_mask):
         """
             queries: bs x seq_len x slot_hidden_dim
-            values: bs x seq_len x 1 x num_intent
+            values: bs  x 1 x num_intent
             Returns:
                 output: bs x seq_len x slot_hidden_dim
             
         """
-        values = self.mlp_in(values)
+        values = self.value_mlp_in(values)
         att_scores = torch.bmm(queries, values.transpose(1, 2).contiguous()) / np.sqrt(self.hidden_dim)
-        att_scores[mask == 0] = float('-inf') # bs x seq_len x 1
+        att_scores[query_mask == 0] = float('-inf') # bs x seq_len x 1
         att_weights = torch.softmax(att_scores, dim = 1)
         att_output = torch.bmm(att_weights, values)
         mix = torch.cat((queries, att_output), dim = 2)
@@ -49,7 +75,7 @@ class SlotClassifier(nn.Module):
         self.use_attention = use_attention
         if use_attention and num_intent is not None:
             self.slot_linear_in = nn.Linear(input_dim, hidden_dim)
-            self.attention = Attention(num_intent, hidden_dim)
+            self.attention = IDSFAttention(num_intent, hidden_dim)
             self.slot_linear_out = nn.Linear(hidden_dim, num_slot_labels)
 
     def forward(self, x, intent_context = None, mask = None):
