@@ -1,5 +1,11 @@
 import torch
 from seqeval.metrics import precision_score, recall_score, f1_score
+from dataloader import DataManager
+
+def get_dataset(args):
+    pretrained = args.pretrained_model if args.pretrained else None
+    dataset = DataManager(args.data_dir, args.train_folder, args.dev_folder, args.test_folder, max_len=args.max_len, pretrained=pretrained)
+    return dataset
 
 def create_mask(len_list, max_len = None):
     max_len = len_list[0] if max_len is None else max_len
@@ -27,4 +33,5 @@ def get_sent_acc(intent_labels, intent_pred, slot_labels, slot_pred):
     assert len(intent_correct) == len(slot_correct)
     sent_acc = (intent_correct * slot_correct.to(intent_correct)).float().mean()
     # print(intent_correct * slot_correct.cuda())
-    return sent_acc
+    slot_acc = slot_correct.float().mean()
+    return sent_acc, slot_acc
